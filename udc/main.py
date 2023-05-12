@@ -1,9 +1,15 @@
-import typer
-main = typer.Typer()
+import anyio
+import asyncclick as click
 
-@main.command()
-def list(uri: str, verbose: bool = False):
-    typer.echo(f"Listing {uri}!")
+@click.command()
+@click.argument("name")
+@click.argument("count", type=int)
+async def app(name, count, **kwargs):
+    """Simple program that greets NAME for a total of COUNT times."""
+    for x in range(count):
+        if x:
+            await anyio.sleep(0.1)
+        click.echo(f"Hello, {name}!")
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    app(_anyio_backend="trio")  # or asyncio
