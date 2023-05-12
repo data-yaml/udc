@@ -1,5 +1,9 @@
-.PHONY: install test watch coverage
+.PHONY: install test watch coverage all clean
 
+all: install test
+
+clean:
+	rm *coverage*
 
 install:
 	poetry install
