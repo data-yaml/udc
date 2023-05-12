@@ -1,7 +1,7 @@
 import pytest
 from asyncclick.testing import CliRunner
 
-from udc import app
+from udc import list
 
 pytestmark = pytest.mark.anyio
 
@@ -13,7 +13,7 @@ runner = CliRunner()
 TEST_URI = "quilt+s3://quilt-example"
 
 async def test_list():
-    result = await runner.invoke(app, [TEST_URI])
+    result = await runner.invoke(list, [TEST_URI])
     print(result)
     assert result.exit_code == 0
     assert TEST_URI in result.stdout
