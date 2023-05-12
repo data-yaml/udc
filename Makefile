@@ -1,3 +1,6 @@
+.PHONY: install test watch coverage
+
+
 install:
 	poetry install
 
