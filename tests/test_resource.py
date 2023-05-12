@@ -9,7 +9,9 @@ def anyio_backend():
     return 'trio'
 
 runner = CliRunner()
-TEST_URI = "quilt+s3://quilt-example"
+REG_URI = "quilt+s3://quilt-example"
+PKG_URI = "quilt+s3://quilt-example#package=example/iris"
 
 async def test_uri():
-    pass
+    resource = QuiltResource(REG_URI)
+    assert resource

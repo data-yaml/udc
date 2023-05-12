@@ -16,3 +16,14 @@ class QuiltResource:
     def __eq__(self, other):
         return self.uri == other.uri
     
+    async def list(self):
+        """List contents of URI."""
+        return []
+    
+    async def get(self, path: str):
+        """Get contents of URI into path"""
+        return self.parsed.get(path)
+    
+    async def put(self, path: str):
+        """Put contents of path into URI."""
+        return self.parsed.put(path)
