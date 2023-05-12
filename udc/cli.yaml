@@ -54,36 +54,36 @@ commands:
       - $ref: '#/variables/verbose'
 variables:
   all:
-    name: --add-all
-    short: -a
-    description: automatically add all changes
+    name: '--add-all'
+    short: '-a'
+    description: Automatically add all changes
     type: string
     format: path
   dir:
     name: dir
-    description: local directory
+    description: Local directory
     type: string
     format: path
   local:
     name: local
-    description: local file
+    description: Local file
     type: string
     format: path
   msg:
-    name: --msg
-    short: -m
-    description: remote [relative, logical] path to store results
+    name: '--msg'
+    short: '-m'
+    description: Commit message explaining changes
     type: string
     format: path
   nocopy:
-    name: --no-copy
-    short: -n
+    name: '--no-copy'
+    short: '-n'
     description: Do not copy S3 objects (use references where possible)
     type: flag
   path:
-    name: --path
-    short: -p
-    description: remote [relative, logical] path to store results
+    name: '--path'
+    short: '-p'
+    description: 'Remote relative, logical path to store objects in'
     type: string
     format: path
   uri:
@@ -92,13 +92,13 @@ variables:
     type: string
     format: uri
   verbose:
-    name: --verbose
-    short: -v
+    name: '--verbose'
+    short: '-v'
     description: Display verbose version of output
     type: flag
   version:
-    name: --version
-    short: -V
+    name: '--version'
+    short: '-V'
     description: Display version information
     type: flag
     scope: global
