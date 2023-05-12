@@ -1,1 +1,1 @@
-from .main import main # noqa: E402
+from .main import app # noqa: E402
