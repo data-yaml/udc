@@ -7,10 +7,9 @@ def cli() -> None:
     pass
 
 @cli.command()
-@click.pass_context
 @click.argument("uri")
-async def list(ctx, uri, **kwargs):
-    """Simple program that echos URI."""
+async def list(uri: str):
+    """Simple program that lists contents URI."""
     click.echo(f"URI: {uri}")
 
 
