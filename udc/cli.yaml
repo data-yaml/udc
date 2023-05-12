@@ -1,0 +1,104 @@
+_cli: 0.1
+_info:
+  name: udc
+  version: 0.1
+commands:
+  list:
+    arguments:
+      - $ref: '#/variables/uri'
+    description: List members of a resource
+  get:
+    arguments:
+      - $ref: '#/variables/dir'
+      - $ref: '#/variables/uri'
+    description: Get contents of remote URI into directory (and gitignore it)
+    options:
+      - $ref: '#/variables/nocopy'
+  put:
+    arguments:
+      - $ref: '#/variables/dir'
+      - $ref: '#/variables/uri'
+    description: Put commited contents from directory to remote URI (replace)
+    options:
+      - $ref: '#/variables/nocopy'
+  patch:
+    arguments:
+      - $ref: '#/variables/dir'
+      - $ref: '#/variables/uri'
+    description: Patch commited contents from directory into latest remote URI (update)
+    options:
+      - $ref: '#/variables/nocopy'
+  add:
+    arguments:
+      - $ref: '#/variables/local'
+    description: Add local file to staging
+    options:
+      - $ref: '#/variables/path'
+  rm:
+    arguments:
+      - $ref: '#/variables/local'
+    description: Remove local file from staging
+    options:
+      - $ref: '#/variables/path'
+  commit:
+    arguments:
+      - $ref: '#/variables/msg'
+    description: Commit staged changes
+    options:
+      - $ref: '#/variables/all'
+  status:
+    description: Show status of staging area
+  diff:
+    description: Show diff of contents versus last commit
+    options:
+      - $ref: '#/variables/verbose'
+variables:
+  all:
+    name: '--add-all'
+    short: '-a'
+    description: Automatically add all changes
+    type: string
+    format: path
+  dir:
+    name: dir
+    description: Local directory
+    type: string
+    format: path
+  local:
+    name: local
+    description: Local file
+    type: string
+    format: path
+  msg:
+    name: '--msg'
+    short: '-m'
+    description: Commit message explaining changes
+    type: string
+    format: path
+  nocopy:
+    name: '--no-copy'
+    short: '-n'
+    description: Do not copy S3 objects (use references where possible)
+    type: flag
+  path:
+    name: '--path'
+    short: '-p'
+    description: 'Remote relative, logical path to store objects in'
+    type: string
+    format: path
+  uri:
+    name: uri
+    description: URI of resource to list
+    type: string
+    format: uri
+  verbose:
+    name: '--verbose'
+    short: '-v'
+    description: Display verbose version of output
+    type: flag
+  version:
+    name: '--version'
+    short: '-V'
+    description: Display version information
+    type: flag
+    scope: global
