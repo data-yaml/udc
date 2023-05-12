@@ -1,14 +1,13 @@
-from asyncclick.testing import CliRunner
 import pytest
+from asyncclick.testing import CliRunner
+
+from udc import app
+
 pytestmark = pytest.mark.anyio
 
 @pytest.fixture
 def anyio_backend():
     return 'trio'
-
-
-
-from udc import app
 
 runner = CliRunner()
 TEST_URI = "quilt+s3://quilt-example"
