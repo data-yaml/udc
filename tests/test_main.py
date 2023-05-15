@@ -11,7 +11,6 @@ runner = CliRunner()
 @pytest.mark.skipif(SKIP_LONG_TESTS, reason="Skip long tests")
 async def test_list():
     result = await runner.invoke(list, [PKG_URI])
-    print(result)
     assert result.exit_code == 0
     assert PKG_URI in result.stdout
 
@@ -19,6 +18,5 @@ async def test_list():
 @pytest.mark.skipif(SKIP_LONG_TESTS, reason="Skip long tests")
 async def test_sub_list():
     result = await runner.invoke(cli, ["list", PKG_URI])
-    print(result)
     assert result.exit_code == 0
     assert PKG_URI in result.stdout

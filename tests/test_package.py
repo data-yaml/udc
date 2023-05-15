@@ -93,12 +93,19 @@ async def test_pkg_diff(pkg: QuiltPackage):
     assert TEST_FILE in adds
 
 
-async def test_pkg_list(pkg: QuiltPackage):
-    files = await pkg.list()
+async def test_pkg_child(pkg: QuiltPackage):
+    files = await pkg.child()
     assert files
     assert len(files) > 3
     assert "README.md" in files
     assert "render.html" not in files
+    
+
+async def test_pkg_list(pkg: QuiltPackage):
+    files = await pkg.list()
+    assert files
+    assert len(files) > 3
+    assert pkg.name in files[0]
 
 
 @pytest.mark.skipif(SKIP_LONG_TESTS, reason="Skip long tests")

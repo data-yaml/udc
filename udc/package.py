@@ -99,12 +99,15 @@ class QuiltPackage:
     async def remote(self):
         return await self.browse()
 
-    async def list(self, changed_only=False):
+    async def child(self, changed_only=False):
         if changed_only:
             diffs = await self.diff()
             return [x for sub in diffs.values() for x in sub]
         q = await self.remote()
         return list(q.keys())
+
+    async def list(self, changed_only=False):
+        return [self.id.path_uri(k) for k in await self.child(changed_only)]
 
     async def diff(self):
         logging.debug(f"\ndiff.local_files\n{self.local_files()}")

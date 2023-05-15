@@ -13,7 +13,6 @@ def cli() -> None:
 @click.argument("uri")
 async def list(uri: str):
     """Simple program that lists contents URI."""
-    click.echo(f"URI: {uri}")
     qr: Listable = QuiltResource(uri)
     for item in await qr.list():
         click.echo(item)

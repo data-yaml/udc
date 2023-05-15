@@ -36,6 +36,11 @@ def test_id_sub_path(qid: QuiltID):
     assert qid.source_uri() == TEST_URI
 
 
+def test_id_path(qid: QuiltID):
+    newpath = "WRITEME.md"
+    assert f"path={newpath}" in qid.path_uri(newpath) 
+
+
 def test_id_index(qid: QuiltID):
     n = QuiltID.INDEX
     assert n + 1 == QuiltID(TEST_URI).index

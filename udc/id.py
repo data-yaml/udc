@@ -9,6 +9,7 @@ from .parse import (
     K_CAT,
     K_HSH,
     K_PKG,
+    K_PTH,
     K_STR,
     K_STR_DEFAULT,
     PREFIX,
@@ -92,6 +93,11 @@ class QuiltID(QuiltParse):
 
     def quilt_uri(self):
         uri_string = QuiltUnparse(self.attrs).unparse()
+        return uri_string
+
+    def path_uri(self, path: str):
+        attrs = {**self.attrs, K_PTH: path}
+        uri_string = QuiltUnparse(attrs).unparse()
         return uri_string
 
     def catalog_uri(self):
