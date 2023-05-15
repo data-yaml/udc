@@ -1,6 +1,7 @@
 from .id import QuiltID
 from .package import QuiltPackage
-from .parse import K_PKG, K_PTH, K_BKT
+from .parse import K_BKT, K_PKG, K_PTH
+
 
 def QuiltResource(uri: str):
     id = QuiltID(uri)

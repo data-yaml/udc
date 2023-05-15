@@ -4,7 +4,17 @@ from pathlib import Path
 from socket import gethostname
 from tempfile import TemporaryDirectory
 
-from .parse import K_BKT, K_CAT, K_HSH, K_PKG, K_STR, K_STR_DEFAULT, PREFIX, TYPES, QuiltParse
+from .parse import (
+    K_BKT,
+    K_CAT,
+    K_HSH,
+    K_PKG,
+    K_STR,
+    K_STR_DEFAULT,
+    PREFIX,
+    TYPES,
+    QuiltParse,
+)
 from .unparse import QuiltUnparse
 
 

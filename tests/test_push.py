@@ -3,6 +3,7 @@ from tempfile import TemporaryDirectory
 
 from quilt3 import Package
 
+from .conftest import pytestmark  # NOQA F401
 from .conftest import (
     SKIP_LONG_TESTS,
     TEST_URI,
@@ -11,7 +12,6 @@ from .conftest import (
     logging,
     os,
     pytest,
-    pytestmark,  # NOQA F401
 )
 
 TIMESTAMP = QuiltConfig.Now()

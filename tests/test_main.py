@@ -1,15 +1,16 @@
 import pytest
 from asyncclick.testing import CliRunner
-
 from udc import cli, list
 
 from .conftest import PKG_URI, SKIP_LONG_TESTS, pytest
 
 pytestmark = pytest.mark.anyio
 
+
 @pytest.fixture
 def anyio_backend():
-    return 'trio'
+    return "trio"
+
 
 runner = CliRunner()
 

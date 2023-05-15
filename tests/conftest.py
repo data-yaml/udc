@@ -1,7 +1,7 @@
 import logging
 import os
-import pytest
 
+import pytest
 from udc import (  # NOQA F401
     K_BKT,
     K_HSH,
@@ -17,6 +17,7 @@ from udc import (  # NOQA F401
 
 logging.basicConfig(level=logging.DEBUG)
 pytestmark = pytest.mark.anyio
+
 
 @pytest.fixture
 def anyio_backend():

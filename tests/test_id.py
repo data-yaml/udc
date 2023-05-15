@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from .conftest import pytestmark  # NOQA F401
 from .conftest import (
     CATALOG_URL,
     K_BKT,
@@ -14,7 +15,6 @@ from .conftest import (
     TEST_URI,
     QuiltID,
     pytest,
-    pytestmark,  # NOQA F401
 )
 
 
