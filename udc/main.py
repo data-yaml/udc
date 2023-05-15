@@ -1,6 +1,6 @@
 import anyio
 import asyncclick as click
-from .wrapper import QuiltWrapper
+from .resource import QuiltResource
 
 
 @click.group()
@@ -12,8 +12,8 @@ def cli() -> None:
 async def list(uri: str):
     """Simple program that lists contents URI."""
     click.echo(f"URI: {uri}")
-    wrapper = QuiltWrapper(uri)
-    for item in await wrapper.list():
+    qr = QuiltResource(uri)
+    for item in await qr.list():
         click.echo(item)
 
 

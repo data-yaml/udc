@@ -1,7 +1,9 @@
 import pytest
 from asyncclick.testing import CliRunner
 
-from udc import list, cli
+from udc import cli, list
+
+from .conftest import PKG_URI, SKIP_LONG_TESTS, pytest
 
 pytestmark = pytest.mark.anyio
 
@@ -10,17 +12,19 @@ def anyio_backend():
     return 'trio'
 
 runner = CliRunner()
-TEST_URI = "quilt+s3://quilt-example"
 
+
+@pytest.mark.skipif(SKIP_LONG_TESTS, reason="Skip long tests")
 async def test_list():
-    result = await runner.invoke(list, [TEST_URI])
+    result = await runner.invoke(list, [PKG_URI])
     print(result)
     assert result.exit_code == 0
-    assert TEST_URI in result.stdout
+    assert PKG_URI in result.stdout
 
 
+@pytest.mark.skipif(SKIP_LONG_TESTS, reason="Skip long tests")
 async def test_sub_list():
-    result = await runner.invoke(cli, ["list", TEST_URI])
+    result = await runner.invoke(cli, ["list", PKG_URI])
     print(result)
     assert result.exit_code == 0
-    assert TEST_URI in result.stdout
+    assert PKG_URI in result.stdout
