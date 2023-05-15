@@ -19,11 +19,6 @@ logging.basicConfig(level=logging.DEBUG)
 pytestmark = pytest.mark.anyio
 
 
-@pytest.fixture
-def anyio_backend():
-    return "trio"
-
-
 CATALOG_URL = (
     "https://open.quiltdata.com/b/quilt-example/" + "packages/examples/wellplates"
 )

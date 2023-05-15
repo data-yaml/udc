@@ -6,11 +6,6 @@ from udc import (Getable, Listable, Putable, QuiltPackage, QuiltResource,
 from .conftest import PKG_URI, pytest, pytestmark
 
 
-@pytest.fixture
-def anyio_backend():
-    return "trio"
-
-
 runner = CliRunner()
 
 

@@ -1,21 +1,7 @@
 from pathlib import Path
 
-from .conftest import pytestmark  # NOQA F401
-from .conftest import (
-    CATALOG_URL,
-    K_BKT,
-    K_HSH,
-    K_PKG,
-    K_PTH,
-    K_STR,
-    PKG_URI,
-    REG_URI,
-    TEST_BKT,
-    TEST_PKG,
-    TEST_URI,
-    QuiltID,
-    pytest,
-)
+from .conftest import (CATALOG_URL, K_BKT, K_HSH, K_PKG, K_PTH, K_STR, PKG_URI,
+                       REG_URI, TEST_BKT, TEST_PKG, TEST_URI, QuiltID, pytest)
 
 
 @pytest.fixture
@@ -90,7 +76,6 @@ def test_id_local():
         assert qid.get(key) == check[key]
 
 
-async def test_id_catalog(qid: QuiltID):
-    url = qid.catalog_uri()
-    assert url
-    assert url == CATALOG_URL
+def test_id_catalog(qid: QuiltID):
+    print("catalog_uri", qid.catalog_uri())
+    assert qid.catalog_uri() == CATALOG_URL

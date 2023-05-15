@@ -1,12 +1,9 @@
 from asyncclick.testing import CliRunner
+
 from udc import cli, list
 
+from .conftest import pytestmark  # NOQA F401
 from .conftest import PKG_URI, SKIP_LONG_TESTS, pytest
-
-@pytest.fixture
-def anyio_backend():
-    return "trio"
-
 
 runner = CliRunner()
 
