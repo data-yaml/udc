@@ -376,17 +376,6 @@ tomli = {version = "*", optional = true, markers = "python_full_version <= \"3.1
 toml = ["tomli"]
 
 [[package]]
-name = "docopt"
-version = "0.6.2"
-description = "Pythonic argument parser, that will make you smile"
-category = "dev"
-optional = false
-python-versions = "*"
-files = [
-    {file = "docopt-0.6.2.tar.gz", hash = "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"},
-]
-
-[[package]]
 name = "exceptiongroup"
 version = "1.1.1"
 description = "Backport of PEP 654 (exception groups)"
@@ -653,21 +642,19 @@ files = [
 pytest-cover = "*"
 
 [[package]]
-name = "pytest-watch"
-version = "4.2.0"
-description = "Local continuous test runner with pytest and watchdog."
-category = "dev"
+name = "pytest-watcher"
+version = "0.2.6"
+description = "Continiously runs pytest on changes in *.py files"
+category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7.0,<4.0.0"
 files = [
-    {file = "pytest-watch-4.2.0.tar.gz", hash = "sha256:06136f03d5b361718b8d0d234042f7b2f203910d8568f63df2f866b547b3d4b9"},
+    {file = "pytest-watcher-0.2.6.tar.gz", hash = "sha256:351dfb3477366030ff275bfbfc9f29bee35cd07f16a3355b38bf92766886bae4"},
+    {file = "pytest_watcher-0.2.6-py3-none-any.whl", hash = "sha256:0a507159d051c9461790363e0f9b2827c1d82ad2ae8966319598695e485b1dd5"},
 ]
 
 [package.dependencies]
-colorama = ">=0.3.3"
-docopt = ">=0.4.0"
-pytest = ">=2.6.4"
-watchdog = ">=0.6.0"
+watchdog = ">=2.0.0"
 
 [[package]]
 name = "python-dateutil"
@@ -946,7 +933,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 name = "watchdog"
 version = "3.0.0"
 description = "Filesystem events monitoring"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -985,4 +972,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c5628d316f76d91052212586d4b68cac587990dcb8e24959e97d14da16c3a067"
+content-hash = "4a8a212cb141798cad39fa29e71995194d08b9f214d85b58bc4ef27282832479"
