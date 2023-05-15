@@ -7,6 +7,7 @@ from .conftest import (
     K_PKG,
     K_PTH,
     K_STR,
+    PKG_URI,
     REG_URI,
     TEST_BKT,
     TEST_PKG,
@@ -56,7 +57,9 @@ def test_id_index(qid: QuiltID):
 
 
 def test_id_type(qid: QuiltID):
-    assert qid.type() == K_PTH
+    assert QuiltID(TEST_URI).type() == K_PTH
+    assert QuiltID(REG_URI).type() == K_BKT
+    assert QuiltID(PKG_URI).type() == K_PKG
 
 
 def test_id_from_attrs(qid: QuiltID):

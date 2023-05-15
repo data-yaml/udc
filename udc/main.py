@@ -1,6 +1,7 @@
 import anyio
 import asyncclick as click
 from .resource import QuiltResource
+from .types import Listable
 
 
 @click.group()
@@ -12,7 +13,7 @@ def cli() -> None:
 async def list(uri: str):
     """Simple program that lists contents URI."""
     click.echo(f"URI: {uri}")
-    qr = QuiltResource(uri)
+    qr: Listable = QuiltResource(uri)
     for item in await qr.list():
         click.echo(item)
 
