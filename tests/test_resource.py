@@ -1,10 +1,9 @@
-import pytest
 from asyncclick.testing import CliRunner
-from udc import Getable, Listable, Putable, QuiltPackage, QuiltResource, QuiltWrapper
 
-from .conftest import PKG_URI
+from udc import (Getable, Listable, Putable, QuiltPackage, QuiltResource,
+                 QuiltWrapper)
 
-pytestmark = pytest.mark.anyio
+from .conftest import PKG_URI, pytest, pytestmark
 
 
 @pytest.fixture
