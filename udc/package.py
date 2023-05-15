@@ -1,5 +1,4 @@
 # Resource-oriented version of a Quilt Package
-# (must already exist, at least for now)
 
 import logging
 import os
@@ -8,6 +7,7 @@ import shutil
 import subprocess
 
 from quilt3 import Package
+from typing_extensions import Self
 
 from .config import QuiltConfig
 from .id import QuiltID
@@ -42,6 +42,9 @@ class QuiltPackage:
 
     def __repr__(self):
         return f"QuiltPackage[{self.id}]@{self.local_path()})"
+
+    def __eq__(self, other: Self):
+        return self.registry == other.registry
 
     def __str__(self):
         return self.__repr__()
