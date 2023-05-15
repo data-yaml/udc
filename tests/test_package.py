@@ -1,7 +1,7 @@
 from .conftest import pytestmark  # NOQA F402
 from .conftest import (
     SKIP_LONG_TESTS,
-    TEST_URL,
+    TEST_URI,
     QuiltConfig,
     QuiltPackage,
     logging,
@@ -19,7 +19,7 @@ def assert_diffs(diffs, a, m, d):
 
 @pytest.fixture
 def pkg():
-    return QuiltPackage.FromURI(TEST_URL)
+    return QuiltPackage.FromURI(TEST_URI)
 
 
 def test_pkg_fixture(pkg: QuiltPackage):

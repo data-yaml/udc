@@ -28,16 +28,16 @@ CATALOG_URL = (
 )
 TEST_BKT = "quilt-example"
 TEST_PKG = "examples/wellplates"
-TEST_URL = (
+TEST_URI = (
     f"quilt+s3://{TEST_BKT}#package={TEST_PKG}"
     + "@e1f83ce3dc7b9487e5732d58effabad64065d2e7401996fa5afccd0ceb92645c"
     + "&path=README.md&catalog=open.quiltdata.com"
 )
-REG_URL = f"quilt+s3://{TEST_BKT}"
-PKG_URL = f"quilt+s3://{TEST_BKT}#package={TEST_PKG}"
-PKG2_URL = f"quilt+s3://{TEST_BKT}#package=examples/echarts"
+REG_URI = f"quilt+s3://{TEST_BKT}"
+PKG_URI = f"quilt+s3://{TEST_BKT}#package={TEST_PKG}"
+PKG2_URI = f"quilt+s3://{TEST_BKT}#package=examples/echarts"
 
-TEST_URLS = [TEST_URL, REG_URL, PKG_URL, PKG2_URL]
+TEST_URIS = [TEST_URI, REG_URI, PKG_URI, PKG2_URI]
 
 SKIP_LONG_TESTS = os.environ.get("SKIP_LONG_TESTS")
 print("SKIP_LONG_TESTS {SKIP_LONG_TESTS}")

@@ -1,6 +1,7 @@
 import pytest
 from asyncclick.testing import CliRunner
-from udc import QuiltWrapper
+from udc import QuiltWrapper, QuiltResource
+from .conftest import PKG_URI
 
 pytestmark = pytest.mark.anyio
 
@@ -9,9 +10,12 @@ def anyio_backend():
     return 'trio'
 
 runner = CliRunner()
-REG_URI = "quilt+s3://quilt-example"
-PKG_URI = "quilt+s3://quilt-example#package=example/iris"
 
-async def test_uri():
-    wrapper = QuiltWrapper(REG_URI)
+async def test_wrapper():
+    wrapper = QuiltWrapper(PKG_URI)
     assert wrapper
+
+
+async def test_resource():
+    qr = QuiltResource(PKG_URI)
+    assert qr
