@@ -1,5 +1,6 @@
 from .id import QuiltID
 from .package import QuiltPackage
+from .registry import QuiltRegistry
 from .parse import K_BKT, K_PKG, K_PTH
 
 
@@ -11,6 +12,6 @@ def QuiltResource(uri: str):
     elif t == K_PTH:
         return QuiltPackage(id)
     elif t == K_BKT:
-        return QuiltPackage(id)
+        return QuiltRegistry(id)
     else:
         raise ValueError(f"Unknown resource type: {t}")

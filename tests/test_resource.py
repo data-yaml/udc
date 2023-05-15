@@ -1,22 +1,22 @@
 from asyncclick.testing import CliRunner
 
 from udc import (Getable, Listable, Putable, QuiltPackage, QuiltResource,
-                 QuiltWrapper)
+                 QuiltRegistry)
 
-from .conftest import PKG_URI, pytest, pytestmark
+from .conftest import PKG_URI, REG_URI, pytest, pytestmark
 
 
 runner = CliRunner()
 
 
-async def test_wrapper():
-    wrapper = QuiltWrapper(PKG_URI)
-    assert wrapper
+async def test_registry():
+    qreg = QuiltResource(REG_URI)
+    assert isinstance(qreg, QuiltRegistry)
 
 
 async def test_resource():
-    qr = QuiltResource(PKG_URI)
-    assert qr
+    qpkg = QuiltResource(PKG_URI)
+    assert isinstance(qpkg, QuiltPackage)
 
 
 async def test_types():
