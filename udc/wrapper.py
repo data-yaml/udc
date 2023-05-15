@@ -1,6 +1,6 @@
 from .parse import QuiltParse
 
-class QuiltResource:
+class QuiltWrapper:
     """Converts string URI to Quilt Resource."""
 
     def __init__(self, uri: str):
@@ -8,7 +8,7 @@ class QuiltResource:
         self.parsed = QuiltParse(uri)
 
     def __repr__(self):
-        return f"QuiltResource(uri={self.uri})"
+        return f"QuiltWrapper(uri={self.uri})"
     
     def __str__(self):
         return self.uri

@@ -1,7 +1,7 @@
 from .main import list, cli # noqa: E402
 from .parse import QuiltParse  # noqa: E402
 from .unparse import QuiltUnparse # noqa: E402
-from .resource import QuiltResource # noqa: E402
+from .wrapper import QuiltWrapper # noqa: E402
 
 from .config import QuiltConfig  # NOQA F401
 from .id import QuiltID  # NOQA F401
