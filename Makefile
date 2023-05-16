@@ -9,10 +9,7 @@ install:
 	poetry install
 
 test:
-	poetry run pytest --codeblocks
+	poetry run pytest --codeblocks --cov --cov-report xml:coverage.xml
 
 watch:
 	poetry run ptw --now .
-
-coverage:
-    poetry run pytest --cov --cov-report xml:coverage.xml
