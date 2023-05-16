@@ -8,14 +8,31 @@ Universal Data is an open source initiative to build a decentralized, cryptograp
 
 ## Installation
 
-When installing from GitHub:
+From PyPi (when published):
+
+<!--pytest-codeblocks:skip-->
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip install udc
+```
+
+When cloned from [GitHub](https://github.com/data-yaml/udc):
 
 ```bash
 poetry install
 ```
 
+<--
+
 ```bash
-poetry run udc
+alias udc="poetry run udc"
+```
+-->
+
+## Usage
+
+```bash
+udc
 ```
 
 <!--pytest-codeblocks:expected-output-->
@@ -29,22 +46,50 @@ Commands:
   list  Simple program that lists contents URI.
 ```
 
-## Usage
-
 ### List contents of individual packages
 
 ```bash
-poetry run udc list "quilt+s3://quilt-example#package=examples/wellplates:latest"
+udc list "quilt+s3://quilt-example#package=examples/wellplates:latest"
 ```
 
 ### List all versions of a package
 
 ```bash
-poetry run udc list "quilt+s3://quilt-example#package=examples/wellplates"
+udc list "quilt+s3://quilt-example#package=examples/wellplates"
 ```
 
 ### List all packages in a registry
 
 ```bash
-poetry run udc list quilt+s3://quilt-example
+udc list quilt+s3://quilt-example
+```
+
+## Development
+
+### Testing
+
+<!--pytest-codeblocks:skip-->
+```bash
+make test
+```
+
+### Continuous Monitoring
+
+<!--pytest-codeblocks:skip-->
+```bash
+make watch
+```
+
+### Code Coverage
+
+<!--pytest-codeblocks:skip-->
+```bash
+make coverage
+```
+
+### Create Package
+
+<!--pytest-codeblocks:skip-->
+```bash
+make package
 ```
