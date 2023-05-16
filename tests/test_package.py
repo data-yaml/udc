@@ -99,7 +99,7 @@ async def test_pkg_child(pkg: QuiltPackage):
     assert len(files) > 3
     assert "README.md" in files
     assert "render.html" not in files
-    
+
 
 async def test_pkg_list(pkg: QuiltPackage):
     files = await pkg.list()
@@ -114,7 +114,7 @@ async def test_pkg_get(pkg: QuiltPackage):
     assert rc
 
 
-@pytest.mark.skipif(SKIP_LONG_TESTS, reason="Skip long tests")
+@pytest.mark.skip(reason="Used for desktop app")
 async def test_pkg_open(pkg: QuiltPackage):
     rc = await pkg.get()
     assert rc
@@ -122,7 +122,7 @@ async def test_pkg_open(pkg: QuiltPackage):
     pkg.open()
 
 
-@pytest.mark.skipif(SKIP_LONG_TESTS, reason="Skip long tests")
+@pytest.mark.skip(reason="Used for desktop app")
 async def test_pkg_getAll(pkg: QuiltPackage):
     rc = await pkg.getAll()
     assert rc

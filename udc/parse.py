@@ -12,11 +12,12 @@ K_PTH = "path"
 K_PRP = "property"
 K_QRY = "query"
 K_TAG = "tag"
+K_VER = "versions"
 K_CAT = "catalog"
 
 K_PKG_FULL = "__package__"
 K_STR_DEFAULT = "s3"
-TYPES = [K_STR, K_BKT, K_PKG, K_CAT, K_PTH, K_PRP, K_QRY, None]
+TYPES = [K_STR, K_BKT, K_PKG, K_VER, K_PTH, K_PRP, K_QRY, K_CAT, None]
 FRAG_KEYS = [K_PKG_FULL, K_PTH, K_PRP, K_CAT]
 
 
@@ -57,4 +58,7 @@ class QuiltParse:
             s = pkg.split(":")
             self.attrs[K_TAG] = s[1]
             self.attrs[K_PKG] = s[0]
+            if self.attrs[K_TAG] == K_VER:
+                self.attrs[K_VER] = K_TAG
+
         return True

@@ -1,5 +1,6 @@
 from .id import QuiltID
 from typing_extensions import Self
+from quilt3 import list_packages
 
 
 class QuiltRegistry:
@@ -17,4 +18,4 @@ class QuiltRegistry:
 
     async def list(self):
         """List packages in registry."""
-        return []
+        return list(list_packages(self.registry))
