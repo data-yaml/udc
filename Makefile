@@ -9,7 +9,7 @@ install:
 	poetry install
 
 test:
-	poetry run pytest
+	poetry run pytest --codeblocks
 
 watch:
 	poetry run ptw --now .
