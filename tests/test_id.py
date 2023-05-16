@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from .conftest import (CATALOG_URL, K_BKT, K_HSH, K_PKG, K_PTH, K_STR, PKG_URI,
-                       REG_URI, TEST_BKT, TEST_PKG, TEST_URI, QuiltID, pytest)
+from .conftest import (CATALOG_URL, K_BKT, K_HSH, K_PKG, K_PTH, K_PRP, K_STR, K_VER, PKG_URI, PKG2_URI, PTH_URI, PRP_URI,
+                       REG_URI, VER_URI, TEST_BKT, TEST_PKG, TEST_URI, QuiltID, pytest)
 
 
 @pytest.fixture
@@ -51,6 +51,10 @@ def test_id_type(qid: QuiltID):
     assert QuiltID(TEST_URI).type() == K_PTH
     assert QuiltID(REG_URI).type() == K_BKT
     assert QuiltID(PKG_URI).type() == K_PKG
+    assert QuiltID(PKG2_URI).type() == K_PKG
+    assert QuiltID(PTH_URI).type() == K_PTH
+    assert QuiltID(PRP_URI).type() == K_PRP
+    assert QuiltID(VER_URI).type() == K_VER
 
 
 def test_id_from_attrs(qid: QuiltID):

@@ -9,15 +9,15 @@ from .parse import (
     K_CAT,
     K_HSH,
     K_PKG,
+    K_PRP,
     K_PTH,
     K_STR,
     K_STR_DEFAULT,
+    K_VER,
     PREFIX,
-    TYPES,
     QuiltParse,
 )
 from .unparse import QuiltUnparse
-
 
 class QuiltID(QuiltParse):
     DEFAULT_CATALOG = "open.quiltdata.com"
@@ -115,11 +115,7 @@ class QuiltID(QuiltParse):
         }
 
     def type(self):
-        for index, key in enumerate(TYPES):
-            next_key = TYPES[index + 1]
-            if next_key not in self.attrs:
-                return key
-        return False
+        return self._type
 
     def __del__(self):
         if self._cleanup:

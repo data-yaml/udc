@@ -17,7 +17,6 @@ K_CAT = "catalog"
 
 K_PKG_FULL = "__package__"
 K_STR_DEFAULT = "s3"
-TYPES = [K_STR, K_BKT, K_PKG, K_VER, K_PTH, K_PRP, K_QRY, K_CAT, None]
 FRAG_KEYS = [K_PKG_FULL, K_PTH, K_PRP, K_CAT]
 
 
@@ -44,21 +43,26 @@ class QuiltParse:
             raise ValueError(f"Error: invalid URI scheme {self.uri.scheme}: {self.uri}")
         self.attrs[K_STR] = self.uri.scheme.replace(PREFIX, "")
         self.attrs[K_BKT] = host
+        self._type = K_BKT
         self.has_package = self.parse_package()
+        if K_PRP in self.attrs:
+            self._type = K_PRP
+        elif K_PTH in self.attrs:
+            self._type = K_PTH
 
     def parse_package(self):
         if K_PKG not in self.attrs:
             return False
         pkg = self.attrs[K_PKG]
+        self._type = K_VER
         if "@" in pkg:
+            self._type = K_PKG
             s = pkg.split("@")
             self.attrs[K_HSH] = s[1]
             self.attrs[K_PKG] = s[0]
         if ":" in pkg:
+            self._type = K_PKG
             s = pkg.split(":")
             self.attrs[K_TAG] = s[1]
             self.attrs[K_PKG] = s[0]
-            if self.attrs[K_TAG] == K_VER:
-                self.attrs[K_VER] = K_TAG
-
         return True
