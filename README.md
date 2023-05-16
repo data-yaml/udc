@@ -4,13 +4,14 @@
 
 ### What is UDC?
 
-Universal Data is an open source initiative to build a decentralized, cryptographically-secure ecosystem containerizing both structured and unstructured data.  UDC is the first client for that system.
+Universal Data is an open source initiative to build a decentralized, cryptographically-secure ecosystem containerizing both structured and unstructured data.
+UDC is the initial (alpha) client for that system.
 
 ## Installation
 
 From PyPi (when published):
 
-<!--pytest-codeblocks:skip-->
+<!--pytest.mark.skip-->
 ```bash
 python3 -m pip install --upgrade pip
 python3 -m pip install udc
@@ -43,13 +44,25 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  list  Simple program that lists contents URI.
+  list  Show contents of a Quilt+ URI.
 ```
 
-### List contents of individual packages
+### List contents of a specific package instance
 
 ```bash
-udc list "quilt+s3://quilt-example#package=examples/wellplates:latest"
+udc list "quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2"
+```
+
+e.g.,
+<!--pytest-codeblocks:expected-output-->
+```bash
+quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=README.md
+quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=autoplate_H1N1.csv
+quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=data_products.ipynb
+quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=neutralisation-altair.json
+quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=neutralisation.json
+quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=quilt_summarize.json
+quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=render.html
 ```
 
 ### List all versions of a package
@@ -68,28 +81,28 @@ udc list quilt+s3://quilt-example
 
 ### Testing
 
-<!--pytest-codeblocks:skip-->
+<!--pytest.mark.skip-->
 ```bash
 make test
 ```
 
 ### Continuous Monitoring
 
-<!--pytest-codeblocks:skip-->
+<!--pytest.mark.skip-->
 ```bash
 make watch
 ```
 
-### Code Coverage
-
-<!--pytest-codeblocks:skip-->
-```bash
-make coverage
-```
-
 ### Create Package
 
-<!--pytest-codeblocks:skip-->
+Be sure you to first set your [~/.pypirc](https://pypi.org/manage/account/) using `poetry config pypi-token.pypi <pypi-api-token>`
+
+<!--pytest.mark.skip-->
 ```bash
-make package
+# merge PR
+poetry version patch # minor major
+poetry build
+poetry publish
+# create new branch
+poetry version prepatch # preminor premajor
 ```
