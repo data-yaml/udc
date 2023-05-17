@@ -22,7 +22,7 @@ pytest-asyncio = "^0.21.0"
 pytest-trio = "^0.8.0"
 
 [tool.poetry.scripts]
-udc = "udc.main:cli"
+udc = "udc.main:main"
 
 [build-system]
 requires = ["poetry-core"]
