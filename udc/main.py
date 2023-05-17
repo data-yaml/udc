@@ -1,5 +1,6 @@
 import asyncclick as click
-
+from argparse import ArgumentParser
+from sys import stdout
 from .resource import QuiltResource
 from .types import Listable
 
@@ -18,9 +19,20 @@ async def list(uri: str):
         click.echo(item)
 
 
-def main():
+def main(argv=None):
     cli(_anyio_backend="trio")  # or asyncio
 
 
+def app(argv=None, out=stdout):
+    parser = ArgumentParser('udc')
+    subparsers = parser.add_subparsers(dest='command')
+    lister = subparsers.add_parser('list', help='list uri')
+    lister.add_argument('uri', help='uri to list')
+
+    args = parser.parse_args(argv)
+    print(f'Hello {args}', file=out)
+    return out
+
 if __name__ == "__main__":
+    app()
     main()
