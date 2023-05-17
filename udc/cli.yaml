@@ -1,51 +1,52 @@
-_cli: 0.1
-_info:
-  name: udc
-  version: 0.1
+_yaml:
+  _version: 0.1.0
+  app: UnCli
+  app_version: 0.1.0
+  doc: udc
+  doc_version: 0.1.0
+argsets:
+  remote:
+    arguments:
+      - $ref: "#/variables/dir"
+      - $ref: "#/variables/uri"
+    options:
+      - $ref: "#/variables/nocopy"
+    handler:
+      class: udc.cli.Remote
+      method: run
+  stage:
+    arguments:
+      - $ref: "#/variables/local"
+    options:
+      - $ref: "#/variables/path"
+    handler:
+      class: udc.cli.Stage
+      method: run
 commands:
   list:
     arguments:
       - $ref: "#/variables/uri"
     description: List members of a resource
   get:
-    arguments:
-      - $ref: "#/variables/dir"
-      - $ref: "#/variables/uri"
+    $ref: "#/argsets/remote"
     description: Get contents of remote URI into directory (and gitignore it)
-    options:
-      - $ref: "#/variables/nocopy"
   put:
-    arguments:
-      - $ref: "#/variables/dir"
-      - $ref: "#/variables/uri"
+    $ref: "#/argsets/remote"
     description: Put commited contents from directory to remote URI (replace)
-    options:
-      - $ref: "#/variables/nocopy"
   patch:
-    arguments:
-      - $ref: "#/variables/dir"
-      - $ref: "#/variables/uri"
+    $ref: "#/argsets/remote"
     description: Patch commited contents from directory into latest remote URI (update)
-    options:
-      - $ref: "#/variables/nocopy"
   add:
-    arguments:
-      - $ref: "#/variables/local"
+    $ref: "#/argsets/stage"
     description: Add local file to staging
-    options:
-      - $ref: "#/variables/path"
   rm:
-    arguments:
-      - $ref: "#/variables/local"
+    $ref: "#/argsets/stage"
     description: Remove local file from staging
-    options:
-      - $ref: "#/variables/path"
   commit:
-    arguments:
-      - $ref: "#/variables/msg"
     description: Commit staged changes
     options:
       - $ref: "#/variables/all"
+      - $ref: "#/variables/msg"
   status:
     description: Show status of staging area
   diff:
@@ -91,6 +92,7 @@ variables:
     description: URI of resource to list
     type: string
     format: uri
+    handler: QuiltResource
   verbose:
     name: "--verbose"
     short: "-v"
