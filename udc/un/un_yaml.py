@@ -1,0 +1,3 @@
+class UnYaml:
+    pass
+
