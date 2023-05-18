@@ -15,18 +15,19 @@ async def list(uri: str, out=stdout):
         print(item, file=out)
 
 
-async def app(argv: Sequence[str] | None = None, out=stdout):
+async def app(argv: Sequence[str] = None, out=stdout):
     parser = ArgumentParser("udc")
     subparsers = parser.add_subparsers(dest="command")
     lister = subparsers.add_parser("list", help="list uri")
     lister.add_argument("uri", help="uri to list")
 
     args = parser.parse_args(argv)
-    await list(args.uri, out)
+    if args.command == "list":
+        await list(args.uri, out)
     return out
 
 
-def main(argv: Sequence[str] | None = None):
+def main(argv: Sequence[str] = None):
     run(app, argv)
 
 

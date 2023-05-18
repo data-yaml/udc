@@ -44,18 +44,19 @@ alias udc="poetry run udc"
 ## Usage
 
 ```bash
-udc
+udc --help
 ```
 
 <!--pytest-codeblocks:expected-output-->
 ```bash
-Usage: udc [OPTIONS] COMMAND [ARGS]...
+usage: udc [-h] {list} ...
 
-Options:
-  --help  Show this message and exit.
+positional arguments:
+  {list}
+    list      list uri
 
-Commands:
-  list  Show contents of a Quilt+ URI.
+options:
+  -h, --help  show this help message and exit
 ```
 
 ### List contents of a specific package instance
