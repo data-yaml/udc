@@ -1,6 +1,6 @@
 .PHONY: install test watch all clean
 
-TEST_README='--codeblocks'
+TEST_README=--codeblocks
 ifeq ($(TEST_OS),windows-latest)
 	TEST_README=''
 endif

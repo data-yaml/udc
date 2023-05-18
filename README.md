@@ -9,6 +9,8 @@ UDC is the initial (alpha) client for that system.
 
 ## Installation
 
+### Production Package
+
 From PyPi (when published):
 
 <!--pytest.mark.skip-->
@@ -16,6 +18,15 @@ From PyPi (when published):
 python3 -m pip install --upgrade pip
 python3 -m pip install udc
 ```
+
+## Development Branch
+
+<!--pytest.mark.skip-->
+```bash
+python3 -m pip install https://github.com/data-yaml/udc@main
+```
+
+## Cloned
 
 When cloned from [GitHub](https://github.com/data-yaml/udc):
 
@@ -68,13 +79,25 @@ quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=render.html
 ### List all versions of a package
 
 ```bash
-udc list "quilt+s3://quilt-example#package=examples/wellplates"
+udc list "quilt+s3://quilt-example#package=examples/wellplates" | head -n 1
+```
+
+e.g.,
+<!--pytest-codeblocks:expected-output-->
+```bash
+quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2c600f4c519efd5de868d5ef1e05ac92fcb0fa56044bb8c925c5f02
 ```
 
 ### List all packages in a registry
 
 ```bash
-udc list quilt+s3://quilt-example
+udc list quilt+s3://quilt-example | head -n 1
+```
+
+e.g.,
+<!--pytest-codeblocks:expected-output-->
+```bash
+quilt+s3://quilt-example#package=akarve/amazon-reviews:latest
 ```
 
 ## Development
