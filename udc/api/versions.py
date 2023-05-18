@@ -1,6 +1,7 @@
-from .id import QuiltID
-from typing_extensions import Self
 from quilt3 import list_package_versions
+from typing_extensions import Self
+
+from .id import QuiltID
 
 
 class QuiltVersions:
@@ -13,7 +14,7 @@ class QuiltVersions:
 
     def __repr__(self):
         return f"QuiltVersions({self.registry})"
-    
+
     def __eq__(self, other: Self):
         return self.registry == other.registry
 
@@ -23,4 +24,7 @@ class QuiltVersions:
 
     async def list(self):
         """List version URIs in package."""
-        return [self.url(hash) for pkg, hash in list_package_versions(self.pkg, self.registry)]
+        return [
+            self.url(hash)
+            for pkg, hash in list_package_versions(self.pkg, self.registry)
+        ]

@@ -1,7 +1,26 @@
 from pathlib import Path
 
-from .conftest import (CATALOG_URL, K_BKT, K_HSH, K_PKG, K_PTH, K_PRP, K_STR, K_VER, PKG_URI, PKG2_URI, PTH_URI, PRP_URI,
-                       REG_URI, VER_URI, TEST_BKT, TEST_PKG, TEST_URI, QuiltID, pytest)
+from .conftest import (
+    CATALOG_URL,
+    K_BKT,
+    K_HSH,
+    K_PKG,
+    K_PRP,
+    K_PTH,
+    K_STR,
+    K_VER,
+    PKG2_URI,
+    PKG_URI,
+    PRP_URI,
+    PTH_URI,
+    REG_URI,
+    TEST_BKT,
+    TEST_PKG,
+    TEST_URI,
+    VER_URI,
+    QuiltID,
+    pytest,
+)
 
 
 @pytest.fixture
@@ -38,7 +57,7 @@ def test_id_sub_path(qid: QuiltID):
 
 def test_id_path(qid: QuiltID):
     newpath = "WRITEME.md"
-    assert f"path={newpath}" in qid.path_uri(newpath) 
+    assert f"path={newpath}" in qid.path_uri(newpath)
 
 
 def test_id_index(qid: QuiltID):

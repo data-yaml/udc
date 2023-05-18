@@ -1,5 +1,4 @@
-from udc import (Getable, Listable, Putable, QuiltPackage, QuiltRegistry,
-                 QuiltResource)
+from udc import Getable, Listable, Putable, QuiltPackage, QuiltRegistry, QuiltResource
 
 from .conftest import pytestmark  # NOQA F401
 from .conftest import PKG_URI, REG_URI, SKIP_LONG_TESTS, VER_URI, pytest
@@ -32,7 +31,7 @@ async def test_res_reg_list():
     result = await qreg.list()
     assert len(result) > 0
     first = result[0]
-    assert ':latest' in first
+    assert ":latest" in first
     assert "package=" in first
 
 
@@ -41,4 +40,4 @@ async def test_res_ver_list():
     qreg = QuiltResource(VER_URI)
     result = await qreg.list()
     assert len(result) > 0
-    assert '@' in result[0]
+    assert "@" in result[0]

@@ -9,15 +9,14 @@ from .parse import (
     K_CAT,
     K_HSH,
     K_PKG,
-    K_PRP,
     K_PTH,
     K_STR,
     K_STR_DEFAULT,
-    K_VER,
     PREFIX,
     QuiltParse,
 )
 from .unparse import QuiltUnparse
+
 
 class QuiltID(QuiltParse):
     DEFAULT_CATALOG = "open.quiltdata.com"
