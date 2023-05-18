@@ -44,7 +44,7 @@ alias udc="poetry run udc"
 ## Usage
 
 ```bash
-udc --help
+udc
 ```
 
 <!--pytest-codeblocks:expected-output-->

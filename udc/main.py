@@ -24,6 +24,8 @@ async def app(argv: Sequence[str] = None, out=stdout):
     args = parser.parse_args(argv)
     if args.command == "list":
         await list(args.uri, out)
+    else:
+        parser.print_help(out)
     return out
 
 
