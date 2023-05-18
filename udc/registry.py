@@ -16,6 +16,10 @@ class QuiltRegistry:
     def __eq__(self, other: Self):
         return self.registry == other.registry
 
+    def url(self, pkg: str):
+        """Convert package name to URL."""
+        return self.id.quilt_uri() + f"#package={pkg}:latest"
+    
     async def list(self):
-        """List packages in registry."""
-        return list(list_packages(self.registry))
+        """List package URIs in registry."""
+        return [self.url(pkg) for pkg in list_packages(self.registry)]

@@ -17,6 +17,10 @@ class QuiltVersions:
     def __eq__(self, other: Self):
         return self.registry == other.registry
 
+    def url(self, hash: str):
+        """Convert package name to URL."""
+        return self.id.quilt_uri() + f"@{hash}"
+
     async def list(self):
-        """List versions in package."""
-        return list(list_package_versions(self.pkg, self.registry))
+        """List version URIs in package."""
+        return [self.url(hash) for pkg, hash in list_package_versions(self.pkg, self.registry)]
