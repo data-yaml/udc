@@ -9,6 +9,8 @@ UDC is the initial (alpha) client for that system.
 
 ## Installation
 
+### Production Package
+
 From PyPi (when published):
 
 <!--pytest.mark.skip-->
@@ -16,6 +18,15 @@ From PyPi (when published):
 python3 -m pip install --upgrade pip
 python3 -m pip install udc
 ```
+
+## Development Branch
+
+<!--pytest.mark.skip-->
+```bash
+python3 -m pip install https://github.com/data-yaml/udc@main
+```
+
+## Cloned
 
 When cloned from [GitHub](https://github.com/data-yaml/udc):
 
