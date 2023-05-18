@@ -1,15 +1,15 @@
+import importlib
 import logging
 import os
 import re
 from datetime import datetime
-from importlib import metadata
 from pathlib import Path
 
 import yaml
 
-from .id import QuiltID
+from .api.id import QuiltID
 
-__version__ = metadata.version(__package__)
+__version__ = importlib.metadata.version(__package__)
 
 
 class QuiltConfig:
