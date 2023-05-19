@@ -1,13 +1,13 @@
-from .conftest import pytest, CLI_YAML
+from .conftest import pytest
 from udc import UnYaml, UnCli
 
 @pytest.fixture
 def un():
-    return UnCli(CLI_YAML)
+    return UnCli()
 
 
 def test_un_load():
-    yaml_data = UnYaml.load_yaml(CLI_YAML, 'cli')
+    yaml_data = UnYaml.load_yaml(UnCli.CLI_YAML, 'cli')
     assert yaml_data
     assert UnYaml.KEY in yaml_data
     un = UnYaml(yaml_data)

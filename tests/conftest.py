@@ -2,8 +2,7 @@ import logging
 import os
 
 import pytest
-from .api import (  # NOQA F401
-    CLI_YAML,
+from quiltplus import (  # NOQA F401
     K_BKT,
     K_HSH,
     K_PKG,

@@ -4,8 +4,8 @@ from sys import stdout
 
 from anyio import run
 
-from .api.resource import QuiltResource
-from .api.types import Listable
+from quiltplus import QuiltResource
+from .types import Listable
 from .un.un_cli import UnCli
 
 

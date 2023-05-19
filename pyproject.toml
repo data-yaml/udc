@@ -14,6 +14,7 @@ quilt3 = "^5.3.1"
 urllib3 = "<2"
 typing-extensions = "^4.5.0"
 pytest-codeblocks = "^0.16.1"
+quiltplus = {git = "https://github.com/quiltdata/quiltplus.git", rev = "main"}
 
 [tool.poetry.group.dev.dependencies]
 pytest-coverage = "^0.0"

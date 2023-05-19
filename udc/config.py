@@ -7,7 +7,7 @@ from pathlib import Path
 
 import yaml
 
-from .api.id import QuiltID
+from quiltplus import QuiltID
 
 __version__ = importlib.metadata.version(__package__)
 
