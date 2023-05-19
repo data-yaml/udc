@@ -43,7 +43,7 @@ def test_un_get(un: UnYaml):
 
 def test_un_re_expand(un: UnYaml):
     getref = un.get('commands/get')
-    assert 'description' in getref
+    assert 'help' in getref
     assert 'arguments' in getref
     args = getref['arguments']
     dir = args[0]

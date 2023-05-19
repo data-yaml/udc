@@ -18,9 +18,11 @@ async def list(uri: str, out=stdout):
 
 async def app(argv: Sequence[str] = None, out=stdout):
     config = UnCli()
-    parser = ArgumentParser("udc")
+    parser = ArgumentParser(config.get('doc'))
     subparsers = parser.add_subparsers(dest="command")
-    lister = subparsers.add_parser("list", help="list uri")
+    commands = config.get('commands')
+    cfl = config.command('list')
+    lister = subparsers.add_parser(cfl['name'], help=cfl['help'])
     lister.add_argument("uri", help="uri to list")
 
     args = parser.parse_args(argv)

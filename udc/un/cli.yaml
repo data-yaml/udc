@@ -26,81 +26,81 @@ commands:
   list:
     arguments:
       - $ref: "#/variables/uri"
-    description: List members of a resource
+    help: List members of a resource
   get:
     $ref: "#/argsets/remote"
-    description: Get contents of remote URI into directory (and gitignore it)
+    help: Get contents of remote URI into directory (and gitignore it)
   put:
     $ref: "#/argsets/remote"
-    description: Put commited contents from directory to remote URI (replace)
+    help: Put commited contents from directory to remote URI (replace)
   patch:
     $ref: "#/argsets/remote"
-    description: Patch commited contents from directory into latest remote URI (update)
+    help: Patch commited contents from directory into latest remote URI (update)
   add:
     $ref: "#/argsets/stage"
-    description: Add local file to staging
+    help: Add local file to staging
   rm:
     $ref: "#/argsets/stage"
-    description: Remove local file from staging
+    help: Remove local file from staging
   commit:
-    description: Commit staged changes
+    help: Commit staged changes
     options:
       - $ref: "#/variables/all"
       - $ref: "#/variables/msg"
   status:
-    description: Show status of staging area
+    help: Show status of staging area
   diff:
-    description: Show diff of contents versus last commit
+    help: Show diff of contents versus last commit
     options:
       - $ref: "#/variables/verbose"
 variables:
   all:
     name: "--add-all"
     short: "-a"
-    description: Automatically add all changes
+    help: Automatically add all changes
     type: string
     format: path
   dir:
     name: dir
-    description: Local directory
+    help: Local directory
     type: string
     format: path
   local:
     name: local
-    description: Local file
+    help: Local file
     type: string
     format: path
   msg:
     name: "--msg"
     short: "-m"
-    description: Commit message explaining changes
+    help: Commit message explaining changes
     type: string
     format: path
   nocopy:
     name: "--no-copy"
     short: "-n"
-    description: Do not copy S3 objects (use references where possible)
+    help: Do not copy S3 objects (use references where possible)
     type: flag
   path:
     name: "--path"
     short: "-p"
-    description: "Remote relative, logical path to store objects in"
+    help: "Remote relative, logical path to store objects in"
     type: string
     format: path
   uri:
     name: uri
-    description: URI of resource to list
+    help: URI of resource to list
     type: string
     format: uri
     handler: QuiltResource
   verbose:
     name: "--verbose"
     short: "-v"
-    description: Display verbose version of output
+    help: Display verbose version of output
     type: flag
   version:
     name: "--version"
     short: "-V"
-    description: Display version information
+    help: Display version information
     type: flag
     scope: global

@@ -53,7 +53,7 @@ usage: udc [-h] {list} ...
 
 positional arguments:
   {list}
-    list      list uri
+    list      List members of a resource
 
 optional arguments:
   -h, --help  show this help message and exit
