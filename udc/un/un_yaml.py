@@ -1,4 +1,4 @@
-import importlib.resources as pkg
+import importlib.resources as pkg_resources
 from yaml import safe_load
 class UnYaml:
 
@@ -10,7 +10,7 @@ class UnYaml:
 
     @staticmethod
     def load_yaml(filename: str, pkg: str, sub: str = None):
-        yaml_dir = pkg.files(pkg)
+        yaml_dir = pkg_resources.files(pkg)
         if sub:
             yaml_dir = yaml_dir / sub
         yaml_file = yaml_dir / filename
