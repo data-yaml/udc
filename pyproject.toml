@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "udc"
-version = "0.1.0-rc2"
+version = "0.2.0-edge"
 description = ""
 authors = ["Ernest Prabhakar <ernest@quiltdata.io>"]
 readme = "README.md"
