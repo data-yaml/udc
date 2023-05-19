@@ -13,14 +13,15 @@ asyncclick = "^8.1.3.4"
 quilt3 = "^5.3.1"
 urllib3 = "<2"
 typing-extensions = "^4.5.0"
-pytest-codeblocks = "^0.16.1"
-quiltplus = {git = "https://github.com/quiltdata/quiltplus.git", rev = "main"}
+quiltplus = "^0.8.1"
+#  quiltplus = {git = "https://github.com/quiltdata/quiltplus.git", rev = "main"}
 
 [tool.poetry.group.dev.dependencies]
 pytest-coverage = "^0.0"
 pytest-watcher = "^0.2.6"
 pytest-asyncio = "^0.21.0"
 pytest-trio = "^0.8.0"
+pytest-codeblocks = "^0.16.1"
 
 [tool.poetry.scripts]
 udc = "udc.main:main"

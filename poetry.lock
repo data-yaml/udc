@@ -633,7 +633,7 @@ testing = ["coverage (>=6.2)", "flaky (>=3.5.0)", "hypothesis (>=5.7.1)", "mypy 
 name = "pytest-codeblocks"
 version = "0.16.1"
 description = "Test code blocks in your READMEs"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
@@ -826,24 +826,20 @@ version = "0.8.1"
 description = "Resource-oriented Python API/CLI for Quilt's decentralized social knowledge platform"
 category = "main"
 optional = false
-python-versions = "^3.9"
-files = []
-develop = false
+python-versions = ">=3.9,<4.0"
+files = [
+    {file = "quiltplus-0.8.1-py3-none-any.whl", hash = "sha256:b4f6fe1c5db9db0cb4dda173489a33ad23b4ec8092247da52f9761b3ed08daeb"},
+    {file = "quiltplus-0.8.1.tar.gz", hash = "sha256:44ec98e8fdb3ee2041d8b694b8847b6b1c39ef4d0bf63d7b31b42282cdf6a94f"},
+]
 
 [package.dependencies]
-anyio = "^3.6.2"
-asyncclick = "^8.1.3.4"
-isort = "^5.12.0"
-pytest-cov = "^4.0.0"
-quilt3 = "^5.1.0"
-trio = "^0.22.0"
-typing-extensions = "^4.5.0"
-
-[package.source]
-type = "git"
-url = "https://github.com/quiltdata/quiltplus.git"
-reference = "main"
-resolved_reference = "235ce434c667c23e8e371b60a558b958eaf8d118"
+anyio = ">=3.6.2,<4.0.0"
+asyncclick = ">=8.1.3.4,<9.0.0.0"
+isort = ">=5.12.0,<6.0.0"
+pytest-cov = ">=4.0.0,<5.0.0"
+quilt3 = ">=5.1.0,<6.0.0"
+trio = ">=0.22.0,<0.23.0"
+typing-extensions = ">=4.5.0,<5.0.0"
 
 [[package]]
 name = "requests"
@@ -1078,4 +1074,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "b39696081e6e64d07c8ff4cdd8a73c647cb9053acfb0bf8918a555aca40b54e6"
+content-hash = "9a6cd6d13847f1e333fc75244a11e183c02cae5e83dc0224d83175ee50128c7c"
