@@ -6,11 +6,6 @@ def un():
     return UnYaml(CLI_YAML)
 
 
-def test_un():
-    assert UnYaml
-    return
-
-
 def test_un_load():
     yaml_data = UnYaml.load_yaml(CLI_YAML)
     assert yaml_data
@@ -44,3 +39,13 @@ def test_un_get(un: UnYaml):
     arg0 = un.get('commands/list/arguments/0')
     assert isinstance(arg0, dict)
     assert 'uri' == arg0.get('name')
+
+
+def test_un_re_expand(un: UnYaml):
+    getref = un.get('commands/get')
+    assert 'description' in getref
+    assert 'arguments' in getref
+    args = getref['arguments']
+    dir = args[0]
+    assert 'name' in dir
+    assert dir['format'] == 'path'

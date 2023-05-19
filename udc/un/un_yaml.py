@@ -23,13 +23,23 @@ class UnYaml:
         return self._info.get(key)
     
     def expand(self, item):
-        if not isinstance(item, dict) or UnYaml.REF not in item:
-            return item
+        if isinstance(item, dict):
+            if UnYaml.REF in item:
+                return self._expand(item)
+            return {k: self.expand(v) for (k,v) in item.items()}
+        if isinstance(item, list):
+            return [self.expand(v) for v in item]
+        return item
+
+    def _expand(self, item):
         ref = item[UnYaml.REF]
         if not ref.startswith(UnYaml.PREFIX):
             raise ValueError(f'cannot expand {ref}: {UnYaml.REF_ERROR}')
         value = self.get(ref[2:])
-        return value
+        for key in item:
+            if key != UnYaml.REF:
+                value[key] = item[key]
+        return self.expand(value)
     
     def _get(self, result, key: str):
         if not result:
