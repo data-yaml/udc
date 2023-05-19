@@ -8,7 +8,8 @@ endif
 all: install update test
 
 clean:
-	rm *coverage*
+	rm -rf coverage_html
+	rm -f *coverage*
 
 install:
 	poetry install
@@ -18,6 +19,10 @@ update:
 
 test:
 	poetry run pytest $(TEST_README) --cov --cov-report xml:coverage.xml
+
+coverage:
+	poetry run pytest --cov --cov-report html:coverage_html
+	open coverage_html/index.html
 
 watch:
 	poetry run ptw --now .
