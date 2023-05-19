@@ -1,4 +1,9 @@
-.PHONY: install test watch coverage all clean
+.PHONY: install test watch all clean
+
+TEST_README=--codeblocks
+ifeq ($(TEST_OS),windows-latest)
+	TEST_README=''
+endif
 
 all: install test
 
@@ -9,10 +14,7 @@ install:
 	poetry install
 
 test:
-	poetry run pytest
+	poetry run pytest $(TEST_README) --cov --cov-report xml:coverage.xml
 
 watch:
-	poetry run ptw --onpass "say passed" --onfail "say failed"
-
-coverage:
-    poetry run pytest --cov --cov-report xml:coverage.xml
+	poetry run ptw --now .
