@@ -6,6 +6,7 @@ from anyio import run
 
 from .api.resource import QuiltResource
 from .api.types import Listable
+from .un.un_cli import UnCli
 
 
 async def list(uri: str, out=stdout):
@@ -16,6 +17,7 @@ async def list(uri: str, out=stdout):
 
 
 async def app(argv: Sequence[str] = None, out=stdout):
+    config = UnCli()
     parser = ArgumentParser("udc")
     subparsers = parser.add_subparsers(dest="command")
     lister = subparsers.add_parser("list", help="list uri")
