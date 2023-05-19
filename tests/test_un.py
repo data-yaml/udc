@@ -27,14 +27,20 @@ def test_un_info(un: UnYaml):
     assert 'udc' == un.info('doc')
 
 
-def test_un_get(un: UnYaml):
-    pass
+def test_un_expand(un: UnYaml):
+    obj = {}
+    assert obj == un.expand(obj)
+    literal = {'key': 'value'}
+    assert literal == un.expand(literal)
+    ref = {UnYaml.REF: '#/variables/uri'}
+    assert un.cfg['variables']['uri'] == un.expand(ref)
+
 
 def test_un_get(un: UnYaml):
     assert un.get(UnYaml.KEY)
-    assert not un.get('cmd.list')
-    assert un.get('commands.list')
-    assert un.get('commands.list.arguments')
-    arg0 = un.get('commands.list.arguments.0')
+    assert not un.get('cmd/list')
+    assert un.get('commands/list')
+    assert un.get('commands/list/arguments')
+    arg0 = un.get('commands/list/arguments/0')
     assert isinstance(arg0, dict)
-    # assert 'uri' == arg0.get('name')
+    assert 'uri' == arg0.get('name')
