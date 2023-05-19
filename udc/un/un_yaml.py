@@ -9,14 +9,17 @@ class UnYaml:
     REF_ERROR = f'Value for Key {REF} does not start with {PREFIX}'
 
     @staticmethod
-    def load_yaml(filename: str):
-        yaml_file = pkg.files('udc') / 'un' / filename
+    def load_yaml(filename: str, pkg: str, sub: str = None):
+        yaml_dir = pkg.files(pkg)
+        if sub:
+            yaml_dir = yaml_dir / sub
+        yaml_file = yaml_dir / filename
         yaml_string = yaml_file.read_text()
         yaml_data = safe_load(yaml_string)
         return yaml_data
 
-    def __init__(self, file) -> None:
-        self.cfg = UnYaml.load_yaml(file)
+    def __init__(self, yaml_data: object) -> None:
+        self.cfg = yaml_data
         self._info = self.cfg[UnYaml.KEY]
         
     def info(self, key: str) -> str:

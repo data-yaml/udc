@@ -2,7 +2,7 @@ import logging
 import os
 
 import pytest
-from udc import (  # NOQA F401
+from .api import (  # NOQA F401
     CLI_YAML,
     K_BKT,
     K_HSH,
