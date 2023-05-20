@@ -15,6 +15,7 @@ urllib3 = "<2"
 typing-extensions = "^4.5.0"
 quiltplus = "^0.8.1"
 #  quiltplus = {git = "https://github.com/quiltdata/quiltplus.git", rev = "main"}
+benchling-sdk = "^1.6.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest-coverage = "^0.0"
