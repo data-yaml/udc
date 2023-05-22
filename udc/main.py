@@ -8,8 +8,6 @@ from quiltplus import QuiltResource
 from .types import Listable
 from .un.un_cli import UnCli
 
-import benchling_sdk
-
 async def list(uri: str, out=stdout):
     """Show contents of a Quilt+ URI."""
     qr: Listable = QuiltResource(uri)

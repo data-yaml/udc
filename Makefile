@@ -1,3 +1,4 @@
+sinclude .env # create from example.env
 .PHONY: install test watch all clean
 
 TEST_README=--codeblocks

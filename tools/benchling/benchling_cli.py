@@ -1,9 +1,9 @@
 import os
-from benchling import exceptions as benchling_exceptions
-from benchling import models as benchling_models
-from benchling import Benchling
-from benchling.api import serialization_helpers
-from benchling.auth import ClientCredentialsOAuth2
+
+from benchling_sdk import models as benchling_models
+from benchling_sdk.benchling import Benchling
+from benchling_sdk.auth.client_credentials_oauth2 import ClientCredentialsOAuth2
+from benchling_sdk.helpers import serialization_helpers
 
 BENCHLING_TENANT = os.environ["BENCHLING_TENANT"]
 BENCHLING_CLIENT_ID = os.environ["BENCHLING_CLIENT_ID"]
