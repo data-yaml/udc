@@ -4,4 +4,4 @@ from .main import app, list  # NOQA F401
 from .types import Getable, Listable, Putable  # NOQA F401
 from .un.un_cli import UnCli  # NOQA F401
 from .un.un_yaml import UnYaml  # NOQA F401
-
+from .uri import UdcUri, K_TOOL, K_PROT, K_QRY  # NOQA F401
