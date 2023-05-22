@@ -18,13 +18,14 @@ async def test_app():
     assert BENCH_TENANT
     assert BENCH_URI
 
-async def test_app_quilt_list(buf):
+async def test_app_quilt_list(buf: StringIO):
     await app(["list", PKG_URI], buf)
-    assert PKG_URI in buf.getvalue()
+    result = buf.getvalue()
+    print(result)
+    assert result
+    assert PKG_URI in result
 
-@pytest.mark.filterwarningsskip("not yet implemented")
-async def test_app_bench_list():
-    result = StringIO()
-    await app(["list", BENCH_URI], result)
-    assert PKG_URI in result.getvalue()
-    result.close()
+@pytest.mark.skip("not yet implemented")
+async def test_app_bench_list(buf: StringIO):
+    await app(["list", BENCH_URI], buf)
+    assert PKG_URI in buf.getvalue()
