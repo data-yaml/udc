@@ -4,6 +4,8 @@ _yaml:
   app_version: 0.1.0
   doc: udc
   doc_version: 0.1.0
+  handler:
+    quilt: QuiltResource
 argsets:
   remote:
     arguments:

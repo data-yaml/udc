@@ -7,7 +7,7 @@ def un():
 
 
 def test_un_load():
-    yaml_data = UnYaml.load_yaml(UnCli.CLI_YAML, 'cli')
+    yaml_data = UnYaml.load_yaml(UnCli.CLI_YAML, 'tools')
     assert yaml_data
     assert UnYaml.KEY in yaml_data
     un = UnYaml(yaml_data)
