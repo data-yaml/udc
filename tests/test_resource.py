@@ -24,3 +24,6 @@ async def test_res_reg():
     assert isinstance(qreg, QuiltRegistry)
     assert isinstance(qreg, Listable)
     assert not isinstance(qreg, Getable)
+
+async def test_res_bench():
+    pass

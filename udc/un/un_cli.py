@@ -1,9 +1,8 @@
 import logging
 from argparse import ArgumentParser, Namespace
 from collections.abc import Sequence
+from importlib import import_module
 from sys import stdout
-
-from quiltplus import QuiltResource
 
 from ..types import Listable
 from ..uri import UdcUri
@@ -74,7 +73,9 @@ class UnCli(UnYaml):
     def get_resource(self, uri: str) -> Listable:
         parsed = UdcUri(uri)
         if parsed.tool() == "quilt":
-            res: Listable = QuiltResource(uri)
+            qp = import_module("quiltplus")
+            qr = qp.QuiltResource
+            res = qr(uri)
         else:
             raise ValueError(f"Unknown tool: {parsed.tool()}")
         return res
