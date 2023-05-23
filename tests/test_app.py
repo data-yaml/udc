@@ -32,4 +32,4 @@ async def test_app_quilt_list(buf: StringIO):
 @pytest.mark.skip("not yet implemented")
 async def test_app_bench_list(buf: StringIO):
     await app(["list", BENCH_URI], buf)
-    assert PKG_URI in buf.getvalue()
+    assert BENCH_URI in buf.getvalue()

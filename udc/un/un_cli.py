@@ -6,6 +6,7 @@ from sys import stdout
 from quiltplus import QuiltResource
 
 from ..types import Listable
+from ..uri import UdcUri
 from .un_yaml import UnYaml
 
 
@@ -20,7 +21,7 @@ class UnCli(UnYaml):
             raise ValueError(f"'{UnCli.CMD}' not in file '{file}':\n{self.cfg}")
         self.cmds = self.get(UnCli.CMD)
 
-    def command(self, cmd: str) -> dict:
+    def cmd_opts(self, cmd: str) -> dict:
         result = self.cmds[cmd]
         result["name"] = cmd
         return result
@@ -48,14 +49,34 @@ class UnCli(UnYaml):
         return args
 
     async def execute(self, args: Namespace, out=stdout):
-        if args.command == "list":
-            await self.list(args.uri, out)
+        """Invoke Appropriate Command."""
+        cmd = args.command
+        opts = self.cmd_opts(cmd)
+        if not opts:
+            logging.error(f"Unknown command: {cmd}\n{args}")
+            exit(1)
+
+        if cmd in "get,put,patch".split(','):
+            results = await self.remote(cmd, args.path, args.uri, args.nocopy)
+        elif cmd in "add,rm".split(','):
+            results = await self.stage(cmd, args.local, args.path)
         else:
-            logging.error(f"Unknown command: {args.command}\n{args}")
+            # lookup method by name
+            method = getattr(self, cmd)
+            results = await method(args)
+        return self.echo(results, out)
+
+    def echo(self, results: list, out=stdout):
+        """Print result of calling a method."""
+        [print(item, file=out) for item in results]
         return out
 
-    async def list(self, uri: str, out=stdout):
-        """Show contents of a Quilt+ URI."""
-        qr: Listable = QuiltResource(uri)
-        for item in await qr.list():
-            print(item, file=out)
+    async def list(self, args: Namespace):
+        """Return contents of a Quilt+ URI."""
+        uri = args.uri
+        parsed = UdcUri(uri)
+        if parsed.tool() == "quilt":
+            res: Listable = QuiltResource(uri)
+        else:
+            raise ValueError(f"Unknown tool: {parsed.tool()}")
+        return await res.list()
