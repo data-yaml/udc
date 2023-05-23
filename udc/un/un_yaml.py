@@ -1,4 +1,4 @@
-import importlib.resources as pkg_resources
+import importlib
 
 from yaml import safe_load
 
@@ -12,7 +12,7 @@ class UnYaml:
 
     @staticmethod
     def load_yaml(filename: str, pkg: str, sub: str = None):
-        yaml_dir = pkg_resources.files(pkg)
+        yaml_dir = importlib.resources.files(pkg)
         if sub:
             yaml_dir = yaml_dir / sub
         yaml_file = yaml_dir / filename
@@ -60,3 +60,12 @@ class UnYaml:
             result = self.expand(item)
 
         return result
+
+    def get_handler(self, key: str) -> object:
+        handlers = self.info('handlers')
+        handler = handlers.get(key)
+        if not handler:
+            raise ValueError(f"UnYaml.get_handler: no handler for {key}")
+
+        module = importlib.import_module(handler["module"])
+        return getattr(module, handler["method"])

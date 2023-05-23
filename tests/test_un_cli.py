@@ -22,5 +22,10 @@ def test_un_cli_commands(config: UnCli):
 
 def test_un_cli_resource(config: UnCli):
     qres = config.get_resource(PKG_URI)
-    # qbench = config.get_resource(BENCH_URI)
+    qbench = config.get_resource(BENCH_URI)
    
+def test_un_get_resource(config: UnCli):
+    assert config.get_resource(PKG_URI)
+    assert config.get_resource(BENCH_URI)
+
+

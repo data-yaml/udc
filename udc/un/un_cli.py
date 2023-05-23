@@ -72,13 +72,8 @@ class UnCli(UnYaml):
     
     def get_resource(self, uri: str) -> Listable:
         parsed = UdcUri(uri)
-        if parsed.tool() == "quilt":
-            qp = import_module("quiltplus")
-            qr = qp.QuiltResource
-            res = qr(uri)
-        else:
-            raise ValueError(f"Unknown tool: {parsed.tool()}")
-        return res
+        handler = self.get_handler(parsed.tool())
+        return handler(parsed)
 
     async def list(self, args: Namespace):
         """Return contents of a URI."""

@@ -10,13 +10,14 @@ K_QRY = "_query"
 
 class UdcUri:
     def __init__(self, uri_string: str):
+        self.uri_string = uri_string
         self.uri = urlparse(uri_string)
         self.attrs = self.parse_fragments(self.uri.fragment)
         self.parse_scheme(self.uri.scheme)
         self.attrs[K_QRY] = self.uri.query
 
     def __str__(self):
-        return self.__repr__()
+        return self.uri_string
 
     def get(self, key):
         return self.attrs.get(key)
