@@ -22,8 +22,9 @@ pytestmark = pytest.mark.anyio
 BENCH_TENANT = os.environ.get("BENCHLING_TENANT_DNS")
 BENCH_ENTRY = os.environ.get("BENCHLING_ENTRY_ID")
 BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID")
+BENCH_KEY = os.environ.get("BENCHLING_API_KEY")
 BENCH_URI = (
-    f"benchling+https://{BENCH_TENANT}#entry={BENCH_ENTRY}&author={BENCH_AUTHOR}"
+    f"benchling+https://{BENCH_TENANT}#type=entry&id={BENCH_ENTRY}&author={BENCH_AUTHOR}"
 )
 
 TEST_BKT = "quilt-example"
