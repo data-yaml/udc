@@ -1,3 +1,4 @@
+import logging
 from argparse import ArgumentParser
 from collections.abc import Sequence
 from sys import stdout
@@ -19,20 +20,24 @@ class UnCli(UnYaml):
         if not UnCli.CMD in self.cfg:
             raise ValueError(f"'{UnCli.CMD}' not in file '{file}':\n{self.cfg}")
         self.cmds = self.get(UnCli.CMD)
-
-    def command(self, cmd: str):
+        
+    def command(self, cmd: str) -> dict:
         result = self.cmds[cmd]
         result['name'] = cmd
         return result
     
-    async def run(self, argv: Sequence[str] = None, out=stdout):
+    def make_parser(self) -> ArgumentParser:
         parser = ArgumentParser(self.get('doc'))
         subparsers = parser.add_subparsers(dest="command")
-        commands = self.get('commands')
-        cfl = self.command('list')
-        lister = subparsers.add_parser(cfl['name'], help=cfl['help'])
-        lister.add_argument("uri", help="uri to list")
-
+        for cmd, opts in self.cmds.items():
+            subparser = subparsers.add_parser(cmd, help=opts['help'])
+            args = opts.get('arguments')
+            for arg in args or []:
+                subparser.add_argument(arg['name'], help=arg['help'])
+        return parser
+    
+    async def run(self, argv: Sequence[str] = None, out=stdout):
+        parser = self.make_parser()
         args = parser.parse_args(argv)
         if args.command == "list":
             await self.list(args.uri, out)
