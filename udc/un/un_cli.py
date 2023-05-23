@@ -70,13 +70,21 @@ class UnCli(UnYaml):
         """Print result of calling a method."""
         [print(item, file=out) for item in results]
         return out
-
-    async def list(self, args: Namespace):
-        """Return contents of a Quilt+ URI."""
-        uri = args.uri
+    
+    def get_resource(self, uri: str) -> Listable:
         parsed = UdcUri(uri)
         if parsed.tool() == "quilt":
             res: Listable = QuiltResource(uri)
         else:
             raise ValueError(f"Unknown tool: {parsed.tool()}")
+        return res
+
+    async def list(self, args: Namespace):
+        """Return contents of a URI."""
+        res = self.get_resource(args.uri)
+        return await res.list()
+
+    async def remote(self, path: str, uri: str, nocopy: bool = False):
+        """Perform Remote action on a URI."""
+        res = self.get_resource(uri)
         return await res.list()
