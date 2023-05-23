@@ -7,6 +7,7 @@ from quiltplus import QuiltResource
 
 from ..types import Listable
 from .un_yaml import UnYaml
+from ..uri import UdcUri
 
 
 class UnCli(UnYaml):
@@ -55,8 +56,13 @@ class UnCli(UnYaml):
 
     async def list(self, uri: str, out=stdout):
         """Show contents of a Quilt+ URI."""
-        qr: Listable = QuiltResource(uri)
-        for item in await qr.list():
-            print(item, file=out)
+        parsed = UdcUri(uri)
+        print(f"list {parsed.tool()}: {parsed}")
+        result = []
+        if parsed.tool() == 'quilt':
+            res: Listable = QuiltResource(uri)
+            result = await res.list()
+        [print(item, file=out) for item in result]
+        return result
 
 
