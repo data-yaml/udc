@@ -1,8 +1,8 @@
-from udc import Getable, Listable, Putable
 from quiltplus import QuiltPackage, QuiltRegistry, QuiltResource
+from udc import Getable, Listable, Putable
 
 from .conftest import pytestmark  # NOQA F401
-from .conftest import PKG_URI, REG_URI, SKIP_LONG_TESTS, VER_URI, pytest
+from .conftest import PKG_URI, REG_URI
 
 
 async def test_res_types():

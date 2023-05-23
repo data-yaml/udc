@@ -1,7 +1,7 @@
 from udc import UdcUri
 
 from .conftest import pytestmark  # NOQA F401
-from .conftest import pytest, PKG_URI
+from .conftest import PKG_URI
 
 
 async def test_uri():

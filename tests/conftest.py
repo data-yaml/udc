@@ -23,7 +23,9 @@ BENCH_TENANT = os.environ.get("BENCHLING_TENANT_DNS")
 if BENCH_TENANT:
     BENCH_ENTRY = os.environ["BENCHLING_ENTRY_ID"]
     BENCH_AUTHOR = os.environ["BENCHLING_AUTHOR_ID"]
-    BENCH_URI=f"benchling+https://{BENCH_TENANT}#entry={BENCH_ENTRY}&author={BENCH_AUTHOR}"
+    BENCH_URI = (
+        f"benchling+https://{BENCH_TENANT}#entry={BENCH_ENTRY}&author={BENCH_AUTHOR}"
+    )
 
 TEST_BKT = "quilt-example"
 TEST_PKG = "examples/wellplates"

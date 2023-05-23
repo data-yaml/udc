@@ -29,7 +29,9 @@ class UdcUri:
     def parse_scheme(self, scheme: str):
         schemes = scheme.split(SEP)
         if len(schemes) != 2:
-            raise ValueError(f"Error: URI scheme `{self.uri.scheme}` does not contain '{SEP}' : {self.uri}")
+            raise ValueError(
+                f"Error: URI scheme `{self.uri.scheme}` does not contain '{SEP}'"
+            )
         self.attrs[K_TOOL] = schemes[0]
         self.attrs[K_PROT] = schemes[1]
 

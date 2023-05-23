@@ -6,7 +6,6 @@ from datetime import datetime
 from pathlib import Path
 
 import yaml
-
 from quiltplus import QuiltID
 
 __version__ = importlib.metadata.version(__package__)
