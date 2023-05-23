@@ -5,13 +5,3 @@ def BenchlingResource(uri: UdcUri):
         return True
 
 
-## Tenant
-# - List entries by default
-
-## Entry
-#- List fields by entry
-#- Get entry.json
-#- Patch/Put same
-
-## Schema
-
