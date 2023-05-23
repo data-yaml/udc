@@ -42,6 +42,9 @@ class UnCli(UnYaml):
     def parse(self, argv: Sequence[str] = None) -> dict:
         parser = self.make_parser()
         args = parser.parse_args(argv)
+        if args.command is None:
+            parser.print_help()
+            exit(0)
         return args
 
     async def execute(self, args: Namespace, out=stdout):

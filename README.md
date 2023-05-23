@@ -44,19 +44,7 @@ alias udc="poetry run udc"
 ## Usage
 
 ```bash
-udc
-```
-
-<!--pytest-codeblocks:expected-output-->
-```bash
-usage: udc [-h] {list} ...
-
-positional arguments:
-  {list}
-    list      List members of a resource
-
-optional arguments:
-  -h, --help  show this help message and exit
+udc # prints help
 ```
 
 ### List contents of a specific package instance

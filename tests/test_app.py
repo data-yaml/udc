@@ -13,7 +13,7 @@ def buf():
     result.close()
 
 
-@pytest.mark.skipif(SKIP_LONG_TESTS, reason="Skip long tests")
+@pytest.mark.skipif(not BENCH_TENANT, reason="Benchling environment variables not set")
 async def test_app():
     assert app
     assert PKG_URI
