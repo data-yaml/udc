@@ -1,5 +1,5 @@
 import logging
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from collections.abc import Sequence
 from sys import stdout
 
@@ -37,12 +37,20 @@ class UnCli(UnYaml):
         return parser
     
     async def run(self, argv: Sequence[str] = None, out=stdout):
+        args = self.parse(argv)
+        return await self.execute(args, out)
+
+    
+    def parse(self, argv: Sequence[str] = None) -> dict:
         parser = self.make_parser()
         args = parser.parse_args(argv)
+        return args
+    
+    async def execute(self, args: Namespace, out=stdout):
         if args.command == "list":
             await self.list(args.uri, out)
         else:
-            parser.print_help(out)
+            logging.error(f"Unknown command: {args.command}\n{args}")
         return out
 
     async def list(self, uri: str, out=stdout):
