@@ -60,3 +60,23 @@ async def test_benchling_list():
     for type, klasses in RESOURCE_MAP.items():
         list_klass = klasses[0]
         await check_list(list_klass, type)
+
+    result = await BenchlingEntryList(uri_type("entries")).list()
+    assert "id=etr" in result[0]
+
+@pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
+async def test_benchling_entry_fetch(uri: UdcUri):
+    entry = BenchlingEntry(uri)
+    entry.fetch()
+    assert entry.entry
+    assert entry.schema
+    assert entry.children
+    authors = entry.children["authors"]
+    assert len(authors) > 0
+    author = authors[0]
+    assert author == BENCH_AUTHOR
+    item_uri = entry.wrap(author, "authors")
+    assert BENCH_AUTHOR in item_uri
+    assert "entries.authors" in item_uri
+
+

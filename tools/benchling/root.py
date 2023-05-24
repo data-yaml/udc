@@ -35,11 +35,12 @@ class BenchlingRoot:
     def base_uri(self, sub_type=None) -> str:
         type = f"{self.type}.{sub_type}" if sub_type else self.type
         base = f"benchling+https://{BenchlingRoot.BENCH_TENANT}#type={type}"
-        base += f"&id={self.id}" if hasattr(self, "id") else ""
+        base += f"&id={self.id}" if self.id else ""
         return base
 
     def item_uri(self, item, sub_type=None) -> str:
         base = self.base_uri(sub_type)
+        logging.debug(f'item_uri.base: {base}')
         if hasattr(item, 'id'):
             if "&id=" not in base:
                 base += f"&id={item.id}"

@@ -29,7 +29,7 @@ class BenchlingEntry(BenchlingRoot):
         item = type(f"wrap_{sub_type}", (object,), item_dict)
         return self.item_uri(item, sub_type)
 
-    def pages(self) -> list[list[str]]:
+    async def list(self) -> list[str]:
         self.fetch()
         kids = self.children
         return [self.wrap(id, sub_type) for sub_type in kids for id in kids[sub_type]]           
