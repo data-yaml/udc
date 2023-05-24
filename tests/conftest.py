@@ -2,8 +2,7 @@ import logging
 import os
 
 import pytest
-from udc import (  # NOQA F401
-    CLI_YAML,
+from quiltplus import (  # NOQA F401
     K_BKT,
     K_HSH,
     K_PKG,
@@ -20,10 +19,15 @@ from udc import (  # NOQA F401
 logging.basicConfig(level=logging.DEBUG)
 pytestmark = pytest.mark.anyio
 
+BENCH_TENANT = os.environ.get("BENCHLING_TENANT_DNS")
+BENCH_ENTRY = os.environ.get("BENCHLING_ENTRY_ID")
+BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID")
+BENCH_KEY = os.environ.get("BENCHLING_API_KEY")
+BENCH_BASE = f"benchling+https://{BENCH_TENANT}"
+BENCH_URI = f"{BENCH_BASE}#type=entries&id={BENCH_ENTRY}&authors={BENCH_AUTHOR}"
 
 TEST_BKT = "quilt-example"
 TEST_PKG = "examples/wellplates"
-
 CATALOG_URL = f"https://open.quiltdata.com/b/{TEST_BKT}/packages/{TEST_PKG}"
 TEST_URI = (
     f"quilt+s3://{TEST_BKT}#package={TEST_PKG}"
@@ -38,6 +42,3 @@ PRP_URI = f"quilt+s3://{TEST_BKT}#{K_PKG}={TEST_PKG}&{K_PTH}=README.md&{K_PRP}=*
 VER_URI = f"quilt+s3://{TEST_BKT}#{K_PKG}={TEST_PKG}"
 
 TEST_URIS = [TEST_URI, REG_URI, PKG_URI, PKG2_URI, PTH_URI, PRP_URI, VER_URI]
-
-SKIP_LONG_TESTS = os.environ.get("SKIP_LONG_TESTS")
-print("SKIP_LONG_TESTS {SKIP_LONG_TESTS}")

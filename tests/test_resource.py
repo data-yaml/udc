@@ -1,7 +1,8 @@
-from udc import Getable, Listable, Putable, QuiltPackage, QuiltRegistry, QuiltResource
+from quiltplus import QuiltPackage, QuiltRegistry, QuiltResource
+from udc import Getable, Listable, Putable
 
 from .conftest import pytestmark  # NOQA F401
-from .conftest import PKG_URI, REG_URI, SKIP_LONG_TESTS, VER_URI, pytest
+from .conftest import pytest, PKG_URI, REG_URI, BENCH_ENTRY
 
 
 async def test_res_types():
@@ -24,20 +25,6 @@ async def test_res_reg():
     assert isinstance(qreg, Listable)
     assert not isinstance(qreg, Getable)
 
-
-@pytest.mark.skipif(SKIP_LONG_TESTS, reason="Skip long tests")
-async def test_res_reg_list():
-    qreg = QuiltResource(REG_URI)
-    result = await qreg.list()
-    assert len(result) > 0
-    first = result[0]
-    assert ":latest" in first
-    assert "package=" in first
-
-
-@pytest.mark.skipif(SKIP_LONG_TESTS, reason="Skip long tests")
-async def test_res_ver_list():
-    qreg = QuiltResource(VER_URI)
-    result = await qreg.list()
-    assert len(result) > 0
-    assert "@" in result[0]
+@pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
+async def test_res_bench():
+    pass

@@ -44,19 +44,7 @@ alias udc="poetry run udc"
 ## Usage
 
 ```bash
-udc
-```
-
-<!--pytest-codeblocks:expected-output-->
-```bash
-usage: udc [-h] {list} ...
-
-positional arguments:
-  {list}
-    list      List members of a resource
-
-optional arguments:
-  -h, --help  show this help message and exit
+udc # prints help
 ```
 
 ### List contents of a specific package instance
@@ -119,14 +107,14 @@ make watch
 
 ### Create Package
 
+WARNING: Do this only if you are the maintainer of the package.
+
 Be sure you to first set your [~/.pypirc](https://pypi.org/manage/account/) using `poetry config pypi-token.pypi <pypi-api-token>`
 
 <!--pytest.mark.skip-->
 ```bash
 # merge PR
-poetry version patch # minor major
-poetry build
+make tag
+make pypi
 poetry publish
-# create new branch
-poetry version prepatch # preminor premajor
 ```

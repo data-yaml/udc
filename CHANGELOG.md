@@ -1,6 +1,14 @@
 # CHANGELOG.md
 
-## 0.1.0 (unreleased)
+## 0.2.0
+
+Features:
+
+- add plugins via the `tools` folder
+- `udc list` now supports `benchling+https` URIs
+- Quilt+ API refactored into its own `quiltplus` package
+
+## 0.1.0
 
 Features:
 

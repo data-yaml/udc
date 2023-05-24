@@ -1,3 +1,4 @@
+sinclude .env # create from example.env
 .PHONY: install test watch all clean
 
 TEST_README=--codeblocks
@@ -5,16 +6,36 @@ ifeq ($(TEST_OS),windows-latest)
 	TEST_README=''
 endif
 
-all: install test
+all: install update test
 
 clean:
-	rm *coverage*
+	rm -rf coverage_html
+	rm -f coverage*
+	rm -f .coverage*
 
 install:
 	poetry install
 
+update:
+	poetry update
+
 test:
 	poetry run pytest $(TEST_README) --cov --cov-report xml:coverage.xml
 
+coverage:
+	poetry run pytest --cov --cov-report html:coverage_html
+	open coverage_html/index.html
+
 watch:
 	poetry run ptw --now .
+
+tag:
+	git tag `poetry version | awk '{print $$2}'`
+	git push --tags
+
+pypi: clean
+	poetry version
+	poetry build
+	poetry publish --dry-run
+	echo "poetry version prepatch" # major minor
+
