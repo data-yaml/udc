@@ -107,14 +107,14 @@ make watch
 
 ### Create Package
 
+WARNING: Do this only if you are the maintainer of the package.
+
 Be sure you to first set your [~/.pypirc](https://pypi.org/manage/account/) using `poetry config pypi-token.pypi <pypi-api-token>`
 
 <!--pytest.mark.skip-->
 ```bash
 # merge PR
-poetry version patch # minor major
-poetry build
+make tag
+make pypi
 poetry publish
-# create new branch
-poetry version prepatch # preminor premajor
 ```

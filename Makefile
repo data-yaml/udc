@@ -10,7 +10,8 @@ all: install update test
 
 clean:
 	rm -rf coverage_html
-	rm -f *coverage*
+	rm -f coverage*
+	rm -f .coverage*
 
 install:
 	poetry install
@@ -27,3 +28,14 @@ coverage:
 
 watch:
 	poetry run ptw --now .
+
+tag:
+	git tag `poetry version | awk '{print $$2}'`
+	git push --tags
+
+pypi: clean
+	poetry version
+	poetry build
+	poetry publish --dry-run
+	echo "poetry version prepatch" # major minor
+
