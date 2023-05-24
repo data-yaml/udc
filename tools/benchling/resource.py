@@ -4,10 +4,12 @@ from udc import UdcUri
 from .entry import BenchlingEntry, BenchlingEntryList
 from .root import BenchlingRoot
 from .sequence import BenchlingSequence, BenchlingSequenceList
+from .schema import BenchlingSchema, BenchlingSchemaList
 
 RESOURCE_MAP = {
     "entry": [BenchlingEntry, BenchlingEntryList],
     "sequence": [BenchlingSequence, BenchlingSequenceList],
+    "schema": [BenchlingSchema, BenchlingSchemaList],
 }
 
 
