@@ -11,3 +11,6 @@ class BenchlingSequence(BenchlingRoot):
 class BenchlingSequenceList(BenchlingRoot):
     def __init__(self, uri: UdcUri) -> None:
         super().__init__(uri)
+
+    def pages(self):
+        return BenchlingRoot.CLIENT.dna_sequences.list()

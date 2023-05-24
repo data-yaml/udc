@@ -11,3 +11,6 @@ class BenchlingSchema(BenchlingRoot):
 class BenchlingSchemaList(BenchlingRoot):
     def __init__(self, uri: UdcUri) -> None:
         super().__init__(uri)
+
+    def pages(self):
+        return BenchlingRoot.CLIENT.schemas.list_entry_schemas()
