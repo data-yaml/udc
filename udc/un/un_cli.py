@@ -1,7 +1,6 @@
 import logging
 from argparse import ArgumentParser, Namespace
 from collections.abc import Sequence
-from importlib import import_module
 from sys import stdout
 
 from ..types import Listable
@@ -55,9 +54,9 @@ class UnCli(UnYaml):
             logging.error(f"Unknown command: {cmd}\n{args}")
             exit(1)
 
-        if cmd in "get,put,patch".split(','):
+        if cmd in "get,put,patch".split(","):
             results = await self.remote(cmd, args.path, args.uri, args.nocopy)
-        elif cmd in "add,rm".split(','):
+        elif cmd in "add,rm".split(","):
             results = await self.stage(cmd, args.local, args.path)
         else:
             # lookup method by name
@@ -69,7 +68,7 @@ class UnCli(UnYaml):
         """Print result of calling a method."""
         [print(item, file=out) for item in results]
         return out
-    
+
     def get_resource(self, uri: str) -> Listable:
         parsed = UdcUri(uri)
         handler = self.get_handler(parsed.tool())

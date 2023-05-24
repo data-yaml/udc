@@ -62,7 +62,7 @@ class UnYaml:
         return result
 
     def get_handler(self, key: str) -> object:
-        handlers = self.info('handlers')
+        handlers = self.info("handlers")
         handler = handlers.get(key)
         if not handler:
             raise ValueError(f"UnYaml.get_handler: no handler for {key}")

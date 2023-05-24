@@ -54,8 +54,9 @@ def test_un_re_expand(un: UnYaml):
     assert "name" in dir
     assert dir["format"] == "path"
 
+
 def test_un_get_handler(un: UnYaml):
-    for key in ['quilt', 'benchling']:
+    for key in ["quilt", "benchling"]:
         assert un.get_handler(key)
     with pytest.raises(ValueError):
         un.get_handler("unknown")

@@ -3,7 +3,7 @@ from io import StringIO
 from udc import app
 
 from .conftest import pytestmark  # NOQA F401
-from .conftest import BENCH_TENANT, BENCH_URI, PKG_URI, SKIP_LONG_TESTS, pytest
+from .conftest import BENCH_TENANT, BENCH_URI, PKG_URI, pytest
 
 
 @pytest.fixture

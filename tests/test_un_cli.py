@@ -1,6 +1,6 @@
 from udc import UnCli
 
-from .conftest import pytest, PKG_URI, BENCH_URI
+from .conftest import BENCH_URI, PKG_URI, pytest
 
 
 @pytest.fixture
@@ -20,12 +20,12 @@ def test_un_cli_commands(config: UnCli):
     assert "name" in cf_list
     assert cf_list["name"] == "list"
 
+
 def test_un_cli_resource(config: UnCli):
-    qres = config.get_resource(PKG_URI)
-    qbench = config.get_resource(BENCH_URI)
-   
+    config.get_resource(PKG_URI)
+    config.get_resource(BENCH_URI)
+
+
 def test_un_get_resource(config: UnCli):
     assert config.get_resource(PKG_URI)
     assert config.get_resource(BENCH_URI)
-
-
