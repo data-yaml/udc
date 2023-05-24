@@ -28,6 +28,7 @@ class UnCli(UnYaml):
         parser = ArgumentParser(self.get("doc"))
         subparsers = parser.add_subparsers(dest="command")
         for cmd, opts in self.cmds.items():
+            if cmd != "list": continue
             subparser = subparsers.add_parser(cmd, help=opts["help"])
             args = opts.get("arguments")
             for arg in args or []:
