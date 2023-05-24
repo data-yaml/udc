@@ -1,4 +1,4 @@
-# URI: benchling+https://DNS#resource=entry&id=entry_id&author=author_id
+# URI: benchling+https://DNS#resource=entry&id=entry_id&authors=author_id
 from udc import UdcUri
 
 from .entry import BenchlingEntry, BenchlingEntryList
@@ -7,9 +7,9 @@ from .sequence import BenchlingSequence, BenchlingSequenceList
 from .schema import BenchlingSchema, BenchlingSchemaList
 
 RESOURCE_MAP = {
-    "entries": [BenchlingEntry, BenchlingEntryList],
-    "dna_sequences": [BenchlingSequence, BenchlingSequenceList],
-    "schemas": [BenchlingSchema, BenchlingSchemaList],
+    "entries": [BenchlingEntryList, BenchlingEntry],
+    "dna_sequences": [BenchlingSequenceList, BenchlingSequence],
+    "schemas": [BenchlingSchemaList, BenchlingSchema],
 }
 
 RESOURCES=['aa_sequences', 'api', 'apps', 'assay_results', 'assay_runs', 'blobs',
@@ -24,11 +24,10 @@ RESOURCES=['aa_sequences', 'api', 'apps', 'assay_results', 'assay_runs', 'blobs'
 
 def BenchlingResource(uri: UdcUri):
     root = BenchlingRoot(uri)
-    if not root.id:
-        return root
-    if root.type == "entries":
-        return BenchlingEntry(uri)
-    elif root.type == "sequence":
-        return BenchlingSequence(uri)
-    else:
-        raise ValueError(f"Unknown resource type: {root.type}")
+    types = root.type.split('.')
+    type = types[0]
+    klasses = RESOURCE_MAP.get(type)
+    if not klasses:
+        raise ValueError(f"Unknown resource type[{type}]: {uri}")
+    klass = klasses[0] if not root.id else klasses[1]
+    return klass(uri)

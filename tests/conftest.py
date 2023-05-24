@@ -24,7 +24,7 @@ BENCH_ENTRY = os.environ.get("BENCHLING_ENTRY_ID")
 BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID")
 BENCH_KEY = os.environ.get("BENCHLING_API_KEY")
 BENCH_BASE = f"benchling+https://{BENCH_TENANT}"
-BENCH_URI = f"{BENCH_BASE}#type=entries&id={BENCH_ENTRY}&author={BENCH_AUTHOR}"
+BENCH_URI = f"{BENCH_BASE}#type=entries&id={BENCH_ENTRY}&authors={BENCH_AUTHOR}"
 
 TEST_BKT = "quilt-example"
 TEST_PKG = "examples/wellplates"

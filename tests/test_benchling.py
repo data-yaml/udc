@@ -1,13 +1,15 @@
 import re
 
-from tools.benchling import (BenchlingEntry, BenchlingEntryList, BenchlingRoot,
-                             BenchlingSchema, BenchlingSchemaList,
-                             BenchlingSequence, BenchlingSequenceList, RESOURCE_MAP)
+from tools.benchling import (RESOURCE_MAP, BenchlingEntry, BenchlingEntryList,
+                             BenchlingRoot, BenchlingSchema,
+                             BenchlingSchemaList, BenchlingSequence,
+                             BenchlingSequenceList)
 from udc import Listable, UdcUri
 
-from .conftest import BENCH_AUTHOR, BENCH_ENTRY, BENCH_URI, pytest, pytestmark
+from .conftest import (BENCH_AUTHOR, BENCH_BASE, BENCH_ENTRY, BENCH_URI,
+                       pytest, pytestmark)
 
-TEST_URI = re.sub("&author=.*", "", BENCH_URI)
+TEST_URI = re.sub("&authors=.*", "", BENCH_URI)
 
 
 @pytest.fixture
@@ -25,13 +27,15 @@ def test_benchling_root(uri: UdcUri):
     assert root.type == "entries"
     assert root.id == BENCH_ENTRY
     assert root.pages() == []
-
     assert root.base_uri() == TEST_URI
 
-    entry_dict = {"entry_id": "my_id", "author": BENCH_AUTHOR}
+@pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
+def test_benchling_root_uri(uri: UdcUri):
+    root = BenchlingRoot(uri)
+    entry_dict = {"authors": BENCH_AUTHOR}
     entry = type("entries", (object,), entry_dict)
-    result = root.item_uri(entry)
-    assert result == BENCH_URI
+    result = root.item_uri(entry, "authors")
+    assert result == f"{BENCH_BASE}#type=entries.authors&id={BENCH_ENTRY}&authors={BENCH_AUTHOR}"
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
 def test_benchling_pages(uri: UdcUri):
@@ -54,5 +58,5 @@ async def check_list(klass, type: str):
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
 async def test_benchling_list():
     for type, klasses in RESOURCE_MAP.items():
-        list_klass = klasses[-1]
+        list_klass = klasses[0]
         await check_list(list_klass, type)
