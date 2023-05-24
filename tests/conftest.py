@@ -23,7 +23,8 @@ BENCH_TENANT = os.environ.get("BENCHLING_TENANT_DNS")
 BENCH_ENTRY = os.environ.get("BENCHLING_ENTRY_ID")
 BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID")
 BENCH_KEY = os.environ.get("BENCHLING_API_KEY")
-BENCH_URI = f"benchling+https://{BENCH_TENANT}#type=entry&id={BENCH_ENTRY}&author={BENCH_AUTHOR}"
+BENCH_BASE = f"benchling+https://{BENCH_TENANT}"
+BENCH_URI = f"{BENCH_BASE}#type=entry&id={BENCH_ENTRY}&author={BENCH_AUTHOR}"
 
 TEST_BKT = "quilt-example"
 TEST_PKG = "examples/wellplates"
@@ -41,6 +42,3 @@ PRP_URI = f"quilt+s3://{TEST_BKT}#{K_PKG}={TEST_PKG}&{K_PTH}=README.md&{K_PRP}=*
 VER_URI = f"quilt+s3://{TEST_BKT}#{K_PKG}={TEST_PKG}"
 
 TEST_URIS = [TEST_URI, REG_URI, PKG_URI, PKG2_URI, PTH_URI, PRP_URI, VER_URI]
-
-SKIP_LONG_TESTS = os.environ.get("SKIP_LONG_TESTS")
-print("SKIP_LONG_TESTS {SKIP_LONG_TESTS}")
