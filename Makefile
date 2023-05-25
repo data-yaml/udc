@@ -39,3 +39,6 @@ pypi: clean
 	poetry publish --dry-run
 	echo "poetry version prepatch" # major minor
 
+clean-git:
+	git branch | grep -v '*' | grep -v 'main' | xargs git branch -D
+
