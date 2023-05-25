@@ -29,8 +29,12 @@ def test_un_cli_commands(cli: UnCli):
     assert cf_list["name"] == "list"
 
 async def test_un_cli_parser(cli: UnCli, buf: StringIO):
+    argv = ["--version"]
     parser = cli.make_parser()
     assert parser
+    assert cli.parse(argv)
+    await cli.run(argv, buf)
+    assert 'udc' in buf.getvalue()
 
 @pytest.mark.skipif(not BENCH_TENANT, reason="Benchling environment variables not set")
 def test_un_cli_get_resource(cli: UnCli):

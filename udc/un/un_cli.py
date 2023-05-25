@@ -31,8 +31,8 @@ class UnCli(UnYaml):
         __version__ = version('udc')
         parser.add_argument(
             "--version",
-            action="version",
-            version=f"udc {__version__}",
+            action='store_const',
+            const=f"{self.info('doc')} {__version__}",
             help="Show version and exit.",
         )
     def make_parser(self) -> ArgumentParser:
@@ -49,14 +49,19 @@ class UnCli(UnYaml):
 
     async def run(self, argv: Sequence[str] = None, out=stdout):
         args = self.parse(argv)
+        if not args:
+            return False
+        if args.version:
+            print(args.version, file=out)
+            return False
         return await self.execute(args, out)
 
     def parse(self, argv: Sequence[str] = None) -> dict:
         parser = self.make_parser()
         args = parser.parse_args(argv)
-        if args.command is None:
+        if args.command is None and not args.version:
             parser.print_help()
-            exit(0)
+            return False
         return args
 
     async def execute(self, args: Namespace, out=stdout):
