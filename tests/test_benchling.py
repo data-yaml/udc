@@ -25,7 +25,7 @@ def attrs_type(type: str):
     return attrs
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
-def test_benchling_root(attrs: dict[str, str]):
+def test_benchling_root(attrs: dict):
     root = BenchlingRoot(attrs)
     assert root
     assert root.type == "entries"
@@ -34,7 +34,7 @@ def test_benchling_root(attrs: dict[str, str]):
     assert root.base_uri() == TEST_URI
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
-def test_benchling_root_uri(attrs: dict[str, str]):
+def test_benchling_root_uri(attrs: dict):
     root = BenchlingRoot(attrs)
     entry_dict = {"authors": BENCH_AUTHOR}
     entry = type("entries", (object,), entry_dict)
@@ -42,7 +42,7 @@ def test_benchling_root_uri(attrs: dict[str, str]):
     assert result == f"{BENCH_BASE}#type=entries.authors&id={BENCH_ENTRY}&authors={BENCH_AUTHOR}"
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
-def test_benchling_pages(attrs: dict[str, str]):
+def test_benchling_pages(attrs: dict):
     plist = BenchlingEntryList(attrs).items()
     assert len(plist) > 1
     
@@ -63,7 +63,7 @@ async def check_list(klass, type: str):
     assert plist[0].startswith(uri)
     
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
-async def test_benchling_list(attrs: dict[str, str]):
+async def test_benchling_list(attrs: dict):
     for type, klasses in RESOURCE_MAP.items():
         list_klass = klasses[0]
         await check_list(list_klass, type)
@@ -72,7 +72,7 @@ async def test_benchling_list(attrs: dict[str, str]):
     assert "id=etr" in result[0]
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
-async def test_benchling_entry_fetch(attrs: dict[str, str]):
+async def test_benchling_entry_fetch(attrs: dict):
     entry = BenchlingEntry(attrs)
     entry.fetch()
     assert entry.entry

@@ -1,14 +1,14 @@
 from .root import BenchlingRoot, BenchlingById
 
 class BenchlingEntryList(BenchlingById):
-    def __init__(self, attrs: dict[str, str]) -> None:
+    def __init__(self, attrs: dict) -> None:
         super().__init__(attrs)
 
     def pages(self):
         return BenchlingRoot.CLIENT.entries.list_entries()
     
 class BenchlingEntry(BenchlingRoot):
-    def __init__(self, attrs: dict[str, str]) -> None:
+    def __init__(self, attrs: dict) -> None:
         super().__init__(attrs)
 
     def fetch(self):

@@ -2,12 +2,12 @@ from .root import BenchlingRoot
 
 
 class BenchlingSchema(BenchlingRoot):
-    def __init__(self, attrs: dict[str, str]) -> None:
+    def __init__(self, attrs: dict) -> None:
         super().__init__(attrs)
 
 
 class BenchlingSchemaList(BenchlingRoot):
-    def __init__(self, attrs: dict[str, str]) -> None:
+    def __init__(self, attrs: dict) -> None:
         super().__init__(attrs)
 
     def pages(self):

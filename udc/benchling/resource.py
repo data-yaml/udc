@@ -19,7 +19,7 @@ RESOURCES=['aa_sequences', 'api', 'apps', 'assay_results', 'assay_runs', 'blobs'
             'schemas', 'tasks', 'teams', 'users', 'v2', 'warehouse', 'workflow_outputs',
             'workflow_task_groups', 'workflow_tasks']
 
-def BenchlingResource(attrs: dict[str, str]):
+def BenchlingResource(attrs: dict):
     root = BenchlingRoot(attrs)
     type = root.type
     klasses = RESOURCE_MAP.get(type)
