@@ -7,7 +7,7 @@ from sys import stdout
 __version__ = version('udc')
 
 from ..types import Listable
-from ..uri import UdcUri
+from .un_uri import UnUri
 from .un_yaml import UnYaml
 
 
@@ -88,7 +88,7 @@ class UnCli(UnYaml):
         return out
 
     def get_resource(self, uri: str) -> Listable:
-        parsed = UdcUri(uri)
+        parsed = UnUri(uri)
         handler = self.get_handler(parsed.tool())
         return handler(parsed)
 

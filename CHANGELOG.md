@@ -1,8 +1,14 @@
 # CHANGELOG.md
 
+## 0.2.3
+
+- BUG: support BenchlingEntry fields properly
+- REFACTOR: use attrs (vs URI) to create resources
+- Quote field names with '+' character
+
 ## 0.2.2
 
-- move tools contents under udc
+- REFACTOR: move tools contents under udc
 
 ## 0.2.1
 

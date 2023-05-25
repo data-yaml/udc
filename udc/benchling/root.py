@@ -1,9 +1,9 @@
 import os
 import logging
+import urllib.parse
 
 from benchling_sdk.auth.api_key_auth import ApiKeyAuth
 from benchling_sdk.benchling import Benchling
-from udc import UdcUri
 
 BENCH_ID = "id"
 BENCH_TYPE = "type"
@@ -18,19 +18,23 @@ class BenchlingRoot:
     CLIENT = Benchling(url=f"https://{BENCH_TENANT}", auth_method=ApiKeyAuth(BENCH_KEY))
     DEFAULT_URI = f"benchling+https://{BENCH_TENANT}#type=entries"
 
-    def __init__(self, uri: UdcUri):
-        self.uri = uri
-        self.id = uri.get(BENCH_ID)
-        self.set_type(uri)
+    def __init__(self, attrs: dict):
+        self.attrs = attrs
+        self.uri = attrs.get("_uri")
+        self.id = attrs.get(BENCH_ID)
+        self.set_type(attrs.get(BENCH_TYPE))
 
     def __repr__(self) -> str:
         return f"<{self.__class__}({self.uri})>"
     
-    def set_type(self, uri: UdcUri):
-        type = uri.get(BENCH_TYPE) or BENCH_TYPE_DEFAULT
+    def set_type(self, btype: str):
+        type = btype or BENCH_TYPE_DEFAULT
         types = type.split('.')
         self.type = types[0]
         self.sub_type = types[1] if len(types) > 1 else None
+
+    def quote(self, value: str) -> str:
+        return urllib.parse.quote_plus(value)
 
     def pages(self) -> list:
         return []
@@ -60,13 +64,6 @@ class BenchlingRoot:
 
 class BenchlingById(BenchlingRoot):
 
-    @classmethod
-    def ForType(cls, type: str, id: str):
-        uri = f"benchling+https://{BenchlingRoot.BENCH_TENANT}#type={type}&id={id}"
-        udc = UdcUri(uri)
-        return cls(udc)
-    
-
-    def __init__(self, uri: UdcUri) -> None:
-        super().__init__(uri)
-        self.id = uri.get(BENCH_ID)
+    def __init__(self, attrs: dict) -> None:
+        super().__init__(attrs)
+        self.id = attrs.get(BENCH_ID)
