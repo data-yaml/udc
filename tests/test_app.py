@@ -24,11 +24,11 @@ async def test_app():
 
 async def test_app_version(buf: StringIO):
     await app(["--version"], buf)
-    assert f"udc {__version__}" == buf.getvalue()
+    assert f"udc {__version__}\n" == buf.getvalue()
 
 async def test_app_vflag(buf: StringIO):
     await app(["-v"], buf)
-    assert f"udc {__version__}" == buf.getvalue()
+    assert f"udc {__version__}\n" == buf.getvalue()
 
 
 async def test_app_quilt_list(buf: StringIO):
