@@ -1,17 +1,15 @@
-from udc import UdcUri
-
 from .root import BenchlingRoot, BenchlingById
 
 class BenchlingEntryList(BenchlingById):
-    def __init__(self, uri: UdcUri) -> None:
-        super().__init__(uri)
+    def __init__(self, attrs: dict[str, str]) -> None:
+        super().__init__(attrs)
 
     def pages(self):
         return BenchlingRoot.CLIENT.entries.list_entries()
     
 class BenchlingEntry(BenchlingRoot):
-    def __init__(self, uri: UdcUri) -> None:
-        super().__init__(uri)
+    def __init__(self, attrs: dict[str, str]) -> None:
+        super().__init__(attrs)
 
     def fetch(self):
         self.entry = BenchlingRoot.CLIENT.entries.get_entry_by_id(self.id)
