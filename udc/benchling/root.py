@@ -1,5 +1,6 @@
 import os
 import logging
+import urllib.parse
 
 from benchling_sdk.auth.api_key_auth import ApiKeyAuth
 from benchling_sdk.benchling import Benchling
@@ -31,6 +32,9 @@ class BenchlingRoot:
         types = type.split('.')
         self.type = types[0]
         self.sub_type = types[1] if len(types) > 1 else None
+
+    def quote(self, value: str) -> str:
+        return urllib.parse.quote_plus(value)
 
     def pages(self) -> list:
         return []

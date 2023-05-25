@@ -4,6 +4,7 @@
 
 - BUG: support BenchlingEntry fields properly
 - REFACTOR: use attrs (vs URI) to create resources
+- Quote field names with '+' character
 
 ## 0.2.2
 

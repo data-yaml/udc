@@ -90,7 +90,7 @@ async def test_benchling_entry_fetch(attrs: dict):
     fields = entry.children["fields"]
     assert len(fields) > 0
     field = fields[0]
-    
+    assert "Quilt+" in field
 
 
 
