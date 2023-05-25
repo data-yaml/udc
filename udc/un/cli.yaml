@@ -6,10 +6,10 @@ _yaml:
   doc_version: 0.1.0
   handlers:
     quilt:
-      module: tools.quilt.resource
+      module: udc.quilt.resource
       method: QuiltResource
     benchling:
-      module: tools.benchling.resource
+      module: udc.benchling.resource
       method: BenchlingResource
 argsets:
   remote:

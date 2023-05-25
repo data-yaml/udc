@@ -16,7 +16,7 @@ class UnCli(UnYaml):
     CMD = "commands"
 
     def __init__(self, file=CLI_YAML) -> None:
-        yaml_data = UnYaml.load_yaml(file, "tools")
+        yaml_data = UnYaml.load_yaml(file, "udc", "un")
         super().__init__(yaml_data)
         if UnCli.CMD not in self.cfg:
             raise ValueError(f"'{UnCli.CMD}' not in file '{file}':\n{self.cfg}")
@@ -30,7 +30,7 @@ class UnCli(UnYaml):
     def parse_version(self, parser: ArgumentParser) -> None:
         __version__ = version('udc')
         parser.add_argument(
-            "--version",
+            "-v", "--version",
             action='store_const',
             const=f"{self.info('doc')} {__version__}",
             help="Show version and exit.",

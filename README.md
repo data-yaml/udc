@@ -11,12 +11,13 @@ UDC is the initial (alpha) client for that system.
 
 ### Production Package
 
-From PyPi (when published):
+From PyPi:
 
 <!--pytest.mark.skip-->
 ```bash
-python3 -m pip install --upgrade pip
-python3 -m pip install udc
+python3 -m pip install udc # OR
+python3 -m pip install --upgrade udc
+which udc
 ```
 
 ## Development Branch
