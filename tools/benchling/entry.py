@@ -10,7 +10,6 @@ class BenchlingEntryList(BenchlingById):
         return BenchlingRoot.CLIENT.entries.list_entries()
     
 class BenchlingEntry(BenchlingRoot):
-
     def __init__(self, uri: UdcUri) -> None:
         super().__init__(uri)
 

@@ -20,11 +20,17 @@ class BenchlingRoot:
 
     def __init__(self, uri: UdcUri):
         self.uri = uri
-        self.type = uri.get(BENCH_TYPE) or BENCH_TYPE_DEFAULT
         self.id = uri.get(BENCH_ID)
+        self.set_type(uri)
 
     def __repr__(self) -> str:
         return f"<{self.__class__}({self.uri})>"
+    
+    def set_type(self, uri: UdcUri):
+        type = uri.get(BENCH_TYPE) or BENCH_TYPE_DEFAULT
+        types = type.split('.')
+        self.type = types[0]
+        self.sub_type = types[1] if len(types) > 1 else None
 
     def pages(self) -> list:
         return []

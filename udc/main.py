@@ -7,8 +7,8 @@ from .un.un_cli import UnCli
 
 
 async def app(argv: Sequence[str] = None, out=stdout):
-    config = UnCli()
-    await config.run(argv, out)
+    cli = UnCli()
+    await cli.run(argv, out)
     return out
 
 
