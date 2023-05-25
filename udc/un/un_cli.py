@@ -1,7 +1,10 @@
 import logging
 from argparse import ArgumentParser, Namespace
 from collections.abc import Sequence
+from importlib.metadata import version
 from sys import stdout
+
+__version__ = version('udc')
 
 from ..types import Listable
 from ..uri import UdcUri
@@ -24,8 +27,17 @@ class UnCli(UnYaml):
         result["name"] = cmd
         return result
 
+    def parse_version(self, parser: ArgumentParser) -> None:
+        __version__ = version('udc')
+        parser.add_argument(
+            "--version",
+            action='store_const',
+            const=f"{self.info('doc')} {__version__}",
+            help="Show version and exit.",
+        )
     def make_parser(self) -> ArgumentParser:
         parser = ArgumentParser(self.get("doc"))
+        self.parse_version(parser)
         subparsers = parser.add_subparsers(dest="command")
         for cmd, opts in self.cmds.items():
             if cmd != "list": continue
@@ -37,14 +49,19 @@ class UnCli(UnYaml):
 
     async def run(self, argv: Sequence[str] = None, out=stdout):
         args = self.parse(argv)
+        if not args:
+            return False
+        if args.version:
+            print(args.version, file=out)
+            return False
         return await self.execute(args, out)
 
     def parse(self, argv: Sequence[str] = None) -> dict:
         parser = self.make_parser()
         args = parser.parse_args(argv)
-        if args.command is None:
+        if args.command is None and not args.version:
             parser.print_help()
-            exit(0)
+            return False
         return args
 
     async def execute(self, args: Namespace, out=stdout):

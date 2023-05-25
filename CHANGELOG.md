@@ -1,5 +1,12 @@
 # CHANGELOG.md
 
+## 0.2.1
+
+Features:
+
+- version number in `--version` output
+- version-locked quiltplus dependency to avoid breaking changes
+
 ## 0.2.0
 
 Features:

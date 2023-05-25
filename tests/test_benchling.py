@@ -9,7 +9,7 @@ from udc import Listable, UdcUri
 from .conftest import (BENCH_AUTHOR, BENCH_BASE, BENCH_ENTRY, BENCH_URI,
                        pytest, pytestmark)
 
-TEST_URI = re.sub("&authors=.*", "", BENCH_URI)
+TEST_URI = re.sub("&authors=.*", "", BENCH_URI).replace('entries.authors', 'entries')
 
 
 @pytest.fixture
