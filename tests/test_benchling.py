@@ -1,6 +1,6 @@
 import re
 
-from tools.benchling import (RESOURCE_MAP, BenchlingEntry, BenchlingEntryList,
+from udc.benchling import (RESOURCE_MAP, BenchlingEntry, BenchlingEntryList,
                              BenchlingRoot, BenchlingSchema,
                              BenchlingSchemaList, BenchlingSequence,
                              BenchlingSequenceList)
