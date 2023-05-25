@@ -18,7 +18,7 @@ class BenchlingEntry(BenchlingRoot):
             "authors": [author.id for author in self.entry.authors],
             "custom_fields": [key for key in self.entry.custom_fields.additional_keys],
             "days": [day.date for day in self.entry.days],
-            "fields": [key for key in self.entry.custom_fields.additional_keys],
+            "fields": [key for key in self.entry.fields.additional_keys],
         }
 
     def wrap(self, id, sub_type):

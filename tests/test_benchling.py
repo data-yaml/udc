@@ -78,6 +78,7 @@ async def test_benchling_entry_fetch(attrs: dict):
     assert entry.entry
     assert entry.schema
     assert entry.children
+
     authors = entry.children["authors"]
     assert len(authors) > 0
     author = authors[0]
@@ -85,5 +86,11 @@ async def test_benchling_entry_fetch(attrs: dict):
     item_uri = entry.wrap(author, "authors")
     assert BENCH_AUTHOR in item_uri
     assert "entries.authors" in item_uri
+
+    fields = entry.children["fields"]
+    assert len(fields) > 0
+    field = fields[0]
+    
+
 
 
