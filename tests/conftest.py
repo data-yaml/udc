@@ -11,8 +11,6 @@ from quiltplus import (  # NOQA F401
     K_STR,
     K_VER,
     GitIgnore,
-    QuiltConfig,
-    QuiltID,
     QuiltPackage,
 )
 
