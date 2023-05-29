@@ -1,5 +1,5 @@
-import os
 import logging
+import os
 import urllib.parse
 
 from benchling_sdk.auth.api_key_auth import ApiKeyAuth
@@ -26,10 +26,10 @@ class BenchlingRoot:
 
     def __repr__(self) -> str:
         return f"<{self.__class__}({self.uri})>"
-    
+
     def set_type(self, btype: str):
         type = btype or BENCH_TYPE_DEFAULT
-        types = type.split('.')
+        types = type.split(".")
         self.type = types[0]
         self.sub_type = types[1] if len(types) > 1 else None
 
@@ -50,20 +50,20 @@ class BenchlingRoot:
 
     def item_uri(self, item, sub_type=None) -> str:
         base = self.base_uri(sub_type)
-        logging.debug(f'item_uri.base: {base}')
-        if hasattr(item, 'id'):
+        logging.debug(f"item_uri.base: {base}")
+        if hasattr(item, "id"):
             if "&id=" not in base:
                 base += f"&id={item.id}"
         if sub_type and hasattr(item, sub_type):
             base += f"&{sub_type}={getattr(item, sub_type)}"
-        logging.debug(f'item_uri.uri: {base}')
+        logging.debug(f"item_uri.uri: {base}")
         return base
 
     async def list(self) -> list[str]:
         return [self.item_uri(item) for item in self.items()]
 
-class BenchlingById(BenchlingRoot):
 
+class BenchlingById(BenchlingRoot):
     def __init__(self, attrs: dict) -> None:
         super().__init__(attrs)
         self.id = attrs.get(BENCH_ID)

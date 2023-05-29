@@ -5,7 +5,7 @@ def QuiltResource(attrs: dict):
     resource = None
     try:
         resource = Resource(attrs)
-    except Exception as e:
+    except Exception:
         pass
     if resource:
         return resource

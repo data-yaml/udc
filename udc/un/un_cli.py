@@ -4,7 +4,7 @@ from collections.abc import Sequence
 from importlib.metadata import version
 from sys import stdout
 
-__version__ = version('udc')
+__version__ = version("udc")
 
 from ..types import Listable
 from .un_uri import UnUri
@@ -28,19 +28,22 @@ class UnCli(UnYaml):
         return result
 
     def parse_version(self, parser: ArgumentParser) -> None:
-        __version__ = version('udc')
+        __version__ = version("udc")
         parser.add_argument(
-            "-v", "--version",
-            action='store_const',
+            "-v",
+            "--version",
+            action="store_const",
             const=f"{self.info('doc')} {__version__}",
             help="Show version and exit.",
         )
+
     def make_parser(self) -> ArgumentParser:
         parser = ArgumentParser(self.get("doc"))
         self.parse_version(parser)
         subparsers = parser.add_subparsers(dest="command")
         for cmd, opts in self.cmds.items():
-            if cmd != "list": continue
+            if cmd != "list":
+                continue
             subparser = subparsers.add_parser(cmd, help=opts["help"])
             args = opts.get("arguments")
             for arg in args or []:
