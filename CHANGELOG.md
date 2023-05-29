@@ -1,5 +1,13 @@
 # CHANGELOG.md
 
+## 0.2.4
+
+Patch release to support QuiltPlus 0.9
+
+- Remove QuiltID, QuiltConfig dependency
+- Remove QuiltConfig, GitIgnore
+- Make QuiltResource forward-compatible
+
 ## 0.2.3
 
 - BUG: support BenchlingEntry fields properly

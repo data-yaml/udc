@@ -10,11 +10,13 @@ from .conftest import BENCH_TENANT, BENCH_URI, PKG_URI, pytest
 def cli():
     return UnCli()
 
+
 @pytest.fixture
 def buf():
     result = StringIO()
     yield result
     result.close()
+
 
 def test_un_cli(cli: UnCli):
     assert cli
@@ -28,13 +30,15 @@ def test_un_cli_commands(cli: UnCli):
     assert "name" in cf_list
     assert cf_list["name"] == "list"
 
+
 async def test_un_cli_parser(cli: UnCli, buf: StringIO):
     argv = ["--version"]
     parser = cli.make_parser()
     assert parser
     assert cli.parse(argv)
     await cli.run(argv, buf)
-    assert 'udc' in buf.getvalue()
+    assert "udc" in buf.getvalue()
+
 
 @pytest.mark.skipif(not BENCH_TENANT, reason="Benchling environment variables not set")
 def test_un_cli_get_resource(cli: UnCli):

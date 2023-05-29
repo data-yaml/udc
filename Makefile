@@ -42,3 +42,16 @@ pypi: clean
 clean-git:
 	git branch | grep -v '*' | grep -v 'main' | xargs git branch -D
 
+which:
+	which udc
+	udc --version
+
+pip-install:
+	python3 -m pip install udc
+	make which
+
+pip-upgrade:
+	python3 -m pip install --upgrade udc
+	make which
+
+
