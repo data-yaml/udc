@@ -6,7 +6,6 @@ from datetime import datetime
 from pathlib import Path
 
 import yaml
-from quiltplus import QuiltID
 
 __version__ = importlib.metadata.version(__package__)
 
@@ -124,7 +123,7 @@ class UnConf:
         path = self.write_file(file, UnConf.AsWebloc(uri))
         return path
 
-    def save_uri(self, id: QuiltID):
+    def save_uri(self, id):
         pkg_uri = id.quilt_uri()
         cat_uri = id.catalog_uri()
         rev_uri = f"{cat_uri}?action=revisePackage"
