@@ -93,6 +93,7 @@ class UnCli(UnYaml):
     def get_resource(self, uri: str) -> Listable:
         parsed = UnUri(uri)
         handler = self.get_handler(parsed.tool())
+        logging.debug(f"handler: {handler}")
         return handler(parsed)
 
     async def list(self, args: Namespace):
