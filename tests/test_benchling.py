@@ -10,13 +10,7 @@ from udc.benchling import (
     BenchlingSequenceList,
 )
 
-from .conftest import (
-    BENCH_AUTHOR,
-    BENCH_BASE,
-    BENCH_ENTRY,
-    BENCH_URI,
-    pytest,
-)
+from .conftest import BENCH_AUTHOR, BENCH_BASE, BENCH_ENTRY, BENCH_URI, pytest
 
 TEST_URI = re.sub("&authors=.*", "", BENCH_URI).replace("entries.authors", "entries")
 

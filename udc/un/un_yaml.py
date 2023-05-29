@@ -1,4 +1,4 @@
-from importlib import resources, import_module
+from importlib import import_module, resources
 
 from yaml import safe_load
 
