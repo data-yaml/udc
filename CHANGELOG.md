@@ -1,5 +1,11 @@
 # CHANGELOG.md
 
+## 0.2.5 (2023-05-29)
+
+- Peg to Python 3.10+ so TempDirectory works on Windows
+- Work with QuiltPlus 0.9
+- Require anyio v3.7+
+
 ## 0.2.4
 
 Patch release to support QuiltPlus 0.9

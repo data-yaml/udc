@@ -1,15 +1,12 @@
 import re
 
-from udc import K_URI, Listable, UnUri
-from udc.benchling import (
-    RESOURCE_MAP,
-    BenchlingEntry,
-    BenchlingEntryList,
-    BenchlingRoot,
-    BenchlingSchemaList,
-    BenchlingSequenceList,
-)
 
+from udc import K_URI, Listable, UnUri
+from udc.benchling import (RESOURCE_MAP, BenchlingEntry, BenchlingEntryList,
+                           BenchlingRoot, BenchlingSchemaList,
+                           BenchlingSequenceList)
+
+from .conftest import pytestmark  # noqa: F401
 from .conftest import BENCH_AUTHOR, BENCH_BASE, BENCH_ENTRY, BENCH_URI, pytest
 
 TEST_URI = re.sub("&authors=.*", "", BENCH_URI).replace("entries.authors", "entries")
