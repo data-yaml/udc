@@ -1561,20 +1561,24 @@ name = "quiltplus"
 version = "0.8.1"
 description = "Resource-oriented Python API/CLI for Quilt's decentralized social knowledge platform"
 optional = false
-python-versions = ">=3.9,<4.0"
-files = [
-    {file = "quiltplus-0.8.1-py3-none-any.whl", hash = "sha256:b4f6fe1c5db9db0cb4dda173489a33ad23b4ec8092247da52f9761b3ed08daeb"},
-    {file = "quiltplus-0.8.1.tar.gz", hash = "sha256:44ec98e8fdb3ee2041d8b694b8847b6b1c39ef4d0bf63d7b31b42282cdf6a94f"},
-]
+python-versions = "^3.9"
+files = []
+develop = false
 
 [package.dependencies]
-anyio = ">=3.6.2,<4.0.0"
-asyncclick = ">=8.1.3.4,<9.0.0.0"
-isort = ">=5.12.0,<6.0.0"
-pytest-cov = ">=4.0.0,<5.0.0"
-quilt3 = ">=5.1.0,<6.0.0"
-trio = ">=0.22.0,<0.23.0"
-typing-extensions = ">=4.5.0,<5.0.0"
+anyio = "^3.6.2"
+asyncclick = "^8.1.3.4"
+isort = "^5.12.0"
+pytest-cov = "^4.0.0"
+quilt3 = "^5.1.0"
+trio = "^0.22.0"
+typing-extensions = "^4.5.0"
+
+[package.source]
+type = "git"
+url = "https://github.com/quiltdata/quiltplus.git"
+reference = "main"
+resolved_reference = "c389930f5d87450b3a1ec49d9883b033e6b492fb"
 
 [[package]]
 name = "requests"
@@ -1960,4 +1964,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "030bd9657403a0bea9116b7c6ac2b88ddf450b345a4deeb217fa179be9efe041"
+content-hash = "f43de6fb06a933fdff003b022673601288848edfbbf6b60657e4177e65bc84f9"
