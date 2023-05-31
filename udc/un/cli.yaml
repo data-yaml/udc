@@ -4,6 +4,7 @@ _yaml:
   app_version: 0.2.0
   doc: udc
   doc_version: 0.1.0
+  doc_class: UnUdc
   handlers:
     quilt:
       module: udc.quilt.resource
@@ -15,8 +16,6 @@ _yaml:
       module: self
       method: get_resource
       key: _resource
-    doc:
-      module: udc.un.UnUdc
 argsets:
   remote:
     arguments:

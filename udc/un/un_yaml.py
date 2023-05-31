@@ -1,6 +1,7 @@
 from importlib import import_module, resources
 
 from yaml import safe_load
+from typing import Any, Callable
 
 
 class UnYaml:
@@ -11,20 +12,20 @@ class UnYaml:
     REF_ERROR = f"Value for Key {REF} does not start with {PREFIX}"
 
     @staticmethod
-    def load_yaml(filename: str, pkg: str, sub: str = None):
+    def load_yaml(filename: str, pkg: str, sub: str = '') -> dict:
         yaml_dir = resources.files(pkg)
-        if sub:
+        if len(sub) > 0:
             yaml_dir = yaml_dir / sub
         yaml_file = yaml_dir / filename
         yaml_string = yaml_file.read_text()
         yaml_data = safe_load(yaml_string)
         return yaml_data
 
-    def __init__(self, yaml_data: object) -> None:
+    def __init__(self, yaml_data: dict) -> None:
         self.cfg = yaml_data
         self._info = self.cfg[UnYaml.KEY]
 
-    def info(self, key: str) -> str:
+    def info(self, key: str) -> Any:
         return self._info.get(key)
 
     def expand(self, item):
@@ -53,7 +54,7 @@ class UnYaml:
             return result[int(key)]
         return result.get(key)
 
-    def get(self, keys: str) -> object:
+    def get(self, keys: str) -> Any:
         result = self.cfg
         for key in keys.split(UnYaml.SEP):
             item = self._get(result, key)
@@ -61,7 +62,7 @@ class UnYaml:
 
         return result
 
-    def get_handler(self, key: str) -> object:
+    def get_handler(self, key: str) -> Callable:
         handlers = self.info("handlers")
         handler = handlers.get(key)
         if not handler:

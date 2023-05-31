@@ -4,6 +4,7 @@ from collections.abc import Sequence
 from importlib.metadata import version
 from pathlib import Path  # NOQA F401
 from sys import stdout
+from typing import Any
 
 __version__ = version("udc")
 
@@ -12,15 +13,10 @@ from .un_uri import UnUri
 from .un_yaml import UnYaml
 
 class UnUdc():
-    async def list(self, args: Namespace):
-        """Return contents of a URI."""
-        res = self.get_resource(args.uri)
-        return await res.list(vars(args))
-
-    async def remote(self, args: Namespace):
-        """Perform Remote action on a URI."""
-        res = self.get_resource(args.uri)
-        return await res.list(vars(args))
+    async def execute(self, cmd: str, argv: dict):
+        callee = argv[UnUri.ARG_RESOURCE] if UnUri.ARG_URI in argv else self
+        method = getattr(callee, cmd)
+        return await method(argv)
 
 
 class UnCli(UnYaml):
@@ -35,13 +31,13 @@ class UnCli(UnYaml):
         kwargs['type'] = eval(kwargs['type']) if 'type' in kwargs else str
         return kwargs
 
-
     def __init__(self, file=CLI_YAML) -> None:
         yaml_data = UnYaml.load_yaml(file, "udc", "un")
         super().__init__(yaml_data)
         if UnCli.CMD not in self.cfg:
             raise ValueError(f"'{UnCli.CMD}' not in file '{file}':\n{self.cfg}")
         self.cmds = self.get(UnCli.CMD)
+        self.doc = eval(self.info('doc_class'))
 
     def parse_version(self, parser: ArgumentParser) -> None:
         __version__ = version("udc")
@@ -65,8 +61,8 @@ class UnCli(UnYaml):
                     subparser.add_argument(arg["name"], **UnCli.ARG_KWS(arg))
         return parser
 
-    async def run(self, argv: Sequence[str] = None, out=stdout):
-        args = self.parse(argv)
+    async def run(self, argv: Sequence[str] = [], out=stdout):
+        args: Any = self.parse(argv)
         if not args:
             return False
         if args.version:
@@ -74,12 +70,12 @@ class UnCli(UnYaml):
             return False
         return await self.execute(args, out)
 
-    def parse(self, argv: Sequence[str] = None) -> dict:
+    def parse(self, argv: Sequence[str] = []) -> Namespace:
         parser = self.make_parser()
         args = parser.parse_args(argv)
         if args.command is None and not args.version:
             parser.print_help()
-            return False
+            return Namespace()
         return args
 
     def get_resource(self, uri: UnUri) -> Listable:
@@ -103,16 +99,15 @@ class UnCli(UnYaml):
 
         argv = vars(args)
         self.resource(argv)
-        doc = UnUdc()
 
         if cmd in "get,put,patch".split(","):
-            results = await self.remote(args)
+            results = await self.remote(argv)
         elif cmd in "add,rm".split(","):
-            results = await self.stage(args)
+            results = await self.stage(argv)
         else:
             # lookup method by name
             method = getattr(self, cmd)
-            results = await method(args)
+            results = await method(argv)
         return self.echo(results, out)
 
     def echo(self, results: list, out=stdout):
@@ -120,12 +115,17 @@ class UnCli(UnYaml):
         [print(f'"{item}"', file=out) for item in results]
         return out
 
-    async def list(self, args: Namespace):
+    async def list(self, argv: dict):
         """Return contents of a URI."""
-        res = self.get_resource(args.uri)
-        return await res.list(vars(args))
+        res = argv[UnUri.ARG_RESOURCE]
+        return await res.list(argv)
 
-    async def remote(self, args: Namespace):
+    async def remote(self, argv: dict):
         """Perform Remote action on a URI."""
-        res = self.get_resource(args.uri)
-        return await res.list(vars(args))
+        res = argv[UnUri.ARG_RESOURCE]
+        return await res.list(argv)
+
+    async def stage(self, argv: dict):
+        """Perform Remote action on a URI."""
+        res = argv[UnUri.ARG_RESOURCE]
+        return await res.list(argv)
