@@ -50,4 +50,3 @@ RESOURCES = [
     "workflow_task_groups",
     "workflow_tasks",
 ]
-

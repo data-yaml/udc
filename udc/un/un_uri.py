@@ -2,6 +2,7 @@
 
 from urllib.parse import parse_qs, urlparse
 
+
 class UnUri:
     ARG_URI = "uri"
     ARG_RESOURCE = "resource"
@@ -11,12 +12,12 @@ class UnUri:
     K_QRY = "_query"
     K_TOOL = "_tool"
     K_URI = "_uri"
-    
+
     def __init__(self, uri_string: str):
         self.uri = urlparse(uri_string)
         self.attrs = self.parse_fragments(self.uri.fragment)
         self.parse_scheme(self.uri.scheme)
-        self.attrs[UnUri.K_HOST] = self.uri.hostname or 'localhost'
+        self.attrs[UnUri.K_HOST] = self.uri.hostname or "localhost"
         self.attrs[UnUri.K_QRY] = self.uri.query
         self.attrs[UnUri.K_URI] = uri_string
 

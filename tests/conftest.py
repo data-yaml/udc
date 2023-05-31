@@ -9,7 +9,7 @@ pytestmark = pytest.mark.anyio
 
 BENCH_TENANT = os.environ.get("BENCHLING_TENANT_DNS")
 BENCH_ENTRY = os.environ.get("BENCHLING_ENTRY_ID")
-BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID") or ''
+BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID") or ""
 BENCH_KEY = os.environ.get("BENCHLING_API_KEY")
 BENCH_BASE = f"benchling+https://{BENCH_TENANT}"
 BENCH_URI = f"{BENCH_BASE}#type=entries.authors&id={BENCH_ENTRY}&authors={BENCH_AUTHOR}"
@@ -23,10 +23,12 @@ TEST_URI = (
     + "&path=README.md&catalog=open.quiltdata.com"
 )
 REG_URI = f"quilt+s3://{TEST_BKT}"
-VER_URI = f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}={TEST_PKG}"
-PKG_URI = f"{VER_URI}@e1f83ce3dc7b"
+PKG_URI = f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}={TEST_PKG}@e1f83ce3dc7b"
 PKG2_URI = f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}=examples/echarts:latest"
-PTH_URI = f"{PKG_URI}&{QuiltUri.K_PTH}=README.md"
-PRP_URI = f"{PTH_URI}&{QuiltUri.K_PRP}=*"
+PTH_URI = (
+    f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}={TEST_PKG}&{QuiltUri.K_PTH}=README.md"
+)
+PRP_URI = f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}={TEST_PKG}&{QuiltUri.K_PTH}=README.md&{QuiltUri.K_PRP}=*"
+VER_URI = f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}={TEST_PKG}"
 
 TEST_URIS = [TEST_URI, REG_URI, PKG_URI, PKG2_URI, PTH_URI, PRP_URI, VER_URI]

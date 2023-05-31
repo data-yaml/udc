@@ -1,7 +1,7 @@
 from importlib import import_module, resources
+from typing import Any, Callable
 
 from yaml import safe_load
-from typing import Any, Callable
 
 
 class UnYaml:
@@ -12,7 +12,7 @@ class UnYaml:
     REF_ERROR = f"Value for Key {REF} does not start with {PREFIX}"
 
     @staticmethod
-    def load_yaml(filename: str, pkg: str, sub: str = '') -> dict:
+    def load_yaml(filename: str, pkg: str, sub: str = "") -> dict:
         yaml_dir = resources.files(pkg)
         if len(sub) > 0:
             yaml_dir = yaml_dir / sub

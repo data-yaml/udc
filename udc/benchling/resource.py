@@ -9,6 +9,7 @@ RESOURCE_MAP = {
     "schemas": [BenchlingSchemaList, BenchlingSchema],
 }
 
+
 def BenchlingResource(attrs: dict):
     root = BenchlingRoot(attrs)
     type = root.type

@@ -8,23 +8,26 @@ from typing import Any
 
 __version__ = version("udc")
 
-from ..types import Listable
 from .un_uri import UnUri
 from .un_yaml import UnYaml
 
 # Harcode most parameters for now
 # TODO: infer them from the YAML file
 
+
 class UnCli(UnYaml):
     """Use UnYaml to create a CLI from a YAML file."""
+
     CLI_YAML = "cli.yaml"
     CMD = "commands"
-    ARG_KEYS = "dest,metavar,type,default,required,choices,action,nargs,const,help".split(',')
+    ARG_KEYS = (
+        "dest,metavar,type,default,required,choices,action,nargs,const,help".split(",")
+    )
 
     @staticmethod
     def ARG_KWS(arg: dict):
         kwargs = {k: v for k, v in arg.items() if k in UnCli.ARG_KEYS}
-        kwargs['type'] = eval(kwargs['type']) if 'type' in kwargs else str
+        kwargs["type"] = eval(kwargs["type"]) if "type" in kwargs else str
         return kwargs
 
     def __init__(self, file=CLI_YAML) -> None:
@@ -57,7 +60,7 @@ class UnCli(UnYaml):
                     subparser.add_argument(arg["name"], **UnCli.ARG_KWS(arg))
         return parser
 
-    async def run(self, argv: Sequence[str]|None, out=stdout):
+    async def run(self, argv: Sequence[str] | None, out=stdout):
         args: Any = self.parse(argv)
         if not args:
             return False
@@ -69,7 +72,7 @@ class UnCli(UnYaml):
             return False
         return await self.execute(args, out)
 
-    def parse(self, argv: Sequence[str]|None) -> Namespace | None:
+    def parse(self, argv: Sequence[str] | None) -> Namespace | None:
         parser = self.make_parser()
         args = parser.parse_args(argv)
         if args.command is None and not args.version:
@@ -92,14 +95,14 @@ class UnCli(UnYaml):
     async def execute(self, args: Namespace, out=stdout):
         """Invoke Appropriate Command."""
         cmd = args.command
-        if not cmd in self.cmds:
+        if cmd not in self.cmds:
             logging.error(f"Unknown command: {cmd}\n{args}")
             exit(1)
 
         argv = vars(args)
         self.resource(argv)
 
-        results = await self.doc.execute(cmd, argv)  
+        results = await self.doc.execute(cmd, argv)
         return self.echo(results, out)
 
     def echo(self, results: list, out=stdout):

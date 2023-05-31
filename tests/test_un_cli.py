@@ -1,7 +1,7 @@
 from io import StringIO
+from pathlib import Path
 
 from udc import UnCli, UnUri
-from pathlib import Path
 
 from .conftest import pytestmark  # NOQA F401
 from .conftest import BENCH_TENANT, BENCH_URI, PKG_URI, pytest
@@ -27,14 +27,16 @@ def test_un_cli(cli: UnCli):
 
 
 def test_un_cli_eval():
-    assert eval('str') == str
-    assert eval('Path') == Path
-    assert eval('UnUri') == UnUri
+    assert eval("str") == str
+    assert eval("Path") == Path
+    assert eval("UnUri") == UnUri
+
 
 def test_un_cli_arg():
     d = {"type": "Path"}
     kw = UnCli.ARG_KWS(d)
     assert kw
+
 
 async def test_un_cli_parser(cli: UnCli, buf: StringIO):
     argv = ["--version"]
@@ -54,4 +56,3 @@ def test_un_cli_get_quilt(cli: UnCli):
 def test_un_cli_get_benchling(cli: UnCli):
     uri = UnUri(BENCH_URI)
     assert cli.get_resource(uri)
-

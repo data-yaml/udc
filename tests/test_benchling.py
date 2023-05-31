@@ -1,10 +1,14 @@
 import re
 
-
 from udc import Listable, UnUri
-from udc.benchling import (RESOURCE_MAP, BenchlingEntry, BenchlingEntryList,
-                           BenchlingRoot, BenchlingSchemaList,
-                           BenchlingSequenceList)
+from udc.benchling import (
+    RESOURCE_MAP,
+    BenchlingEntry,
+    BenchlingEntryList,
+    BenchlingRoot,
+    BenchlingSchemaList,
+    BenchlingSequenceList,
+)
 
 from .conftest import pytestmark  # noqa: F401
 from .conftest import BENCH_AUTHOR, BENCH_BASE, BENCH_ENTRY, BENCH_URI, pytest
@@ -62,10 +66,13 @@ def test_benchling_pages(attrs: dict):
 
 async def check_list(klass, type: str):
     attrs = attrs_type(type)
+    print("attrs", attrs)
     bench: Listable = klass(attrs)
     plist = await bench.list()
     assert len(plist) > 0
     uri = attrs.get(UnUri.K_URI)
+    print(plist[0])
+    print(uri)
     assert plist[0].startswith(uri)
 
 
