@@ -62,13 +62,10 @@ def test_benchling_pages(attrs: dict):
 
 async def check_list(klass, type: str):
     attrs = attrs_type(type)
-    print('attrs', attrs)
     bench: Listable = klass(attrs)
     plist = await bench.list()
     assert len(plist) > 0
     uri = attrs.get(UnUri.K_URI)
-    print(plist[0])
-    print(uri)
     assert plist[0].startswith(uri)
 
 

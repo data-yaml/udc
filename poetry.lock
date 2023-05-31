@@ -1581,7 +1581,7 @@ urllib3 = "<2"
 type = "git"
 url = "https://github.com/quiltdata/quiltplus.git"
 reference = "42-resourceattrs-to-align-with-udc"
-resolved_reference = "228d88ca1941dc3fde3477f7eedadd0350d815d1"
+resolved_reference = "1aaab7ceef671a7df54f5391f2a46ce51da52c4b"
 
 [[package]]
 name = "requests"
