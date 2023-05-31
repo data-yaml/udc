@@ -3,7 +3,7 @@ _yaml:
   app: UnCli
   app_version: 0.2.0
   doc: udc
-  doc_version: 0.1.0
+  doc_version: 0.2.0
   handlers:
     doc:
       module: udc.wrapper

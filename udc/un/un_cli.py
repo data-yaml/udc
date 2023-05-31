@@ -57,27 +57,32 @@ class UnCli(UnYaml):
                     subparser.add_argument(arg["name"], **UnCli.ARG_KWS(arg))
         return parser
 
-    async def run(self, argv: Sequence[str] = [], out=stdout):
+    async def run(self, argv: Sequence[str]|None, out=stdout):
         args: Any = self.parse(argv)
+        print(f"run.args: {args}\n{argv}")
         if not args:
             return False
-        if args.version:
+        if hasattr(args, "version") and args.version:
             print(args.version, file=out)
+            return False
+        if not hasattr(args, "command"):
+            logging.error(f"No command found in: {args}\n{argv}")
             return False
         return await self.execute(args, out)
 
-    def parse(self, argv: Sequence[str] = []) -> Namespace:
+    def parse(self, argv: Sequence[str]|None) -> Namespace | None:
         parser = self.make_parser()
         args = parser.parse_args(argv)
+        print(f"parse.args: {args}\n{argv}")
         if args.command is None and not args.version:
             parser.print_help()
-            return Namespace()
+            return None
         return args
 
-    def get_resource(self, uri: UnUri) -> Listable:
+    def get_resource(self, uri: UnUri) -> Any:
         handler = self.get_handler(uri.tool())
         logging.debug(f"handler: {handler}")
-        return handler(uri)
+        return handler(uri.attrs)
 
     def resource(self, argv: dict) -> dict:
         """Hardcode resource transformation, for now"""

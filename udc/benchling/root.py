@@ -14,15 +14,15 @@ class BenchlingRoot:
     BENCH_TENANT = os.environ.get("BENCHLING_TENANT_DNS")
     BENCH_ENTRY = os.environ.get("BENCHLING_ENTRY_ID")
     BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID")
-    BENCH_KEY = os.environ.get("BENCHLING_API_KEY")
+    BENCH_KEY = os.environ.get("BENCHLING_API_KEY") or ''
     CLIENT = Benchling(url=f"https://{BENCH_TENANT}", auth_method=ApiKeyAuth(BENCH_KEY))
     DEFAULT_URI = f"benchling+https://{BENCH_TENANT}#type=entries"
 
     def __init__(self, attrs: dict):
         self.attrs = attrs
         self.uri = attrs.get("_uri")
-        self.id = attrs.get(BENCH_ID)
-        self.set_type(attrs.get(BENCH_TYPE))
+        self.id = attrs.get(BENCH_ID) or ''
+        self.set_type(attrs[BENCH_TYPE])
 
     def __repr__(self) -> str:
         return f"<{self.__class__}({self.uri})>"
@@ -66,4 +66,3 @@ class BenchlingRoot:
 class BenchlingById(BenchlingRoot):
     def __init__(self, attrs: dict) -> None:
         super().__init__(attrs)
-        self.id = attrs.get(BENCH_ID)

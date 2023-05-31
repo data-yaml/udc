@@ -19,7 +19,7 @@ pytestmark = pytest.mark.anyio
 
 BENCH_TENANT = os.environ.get("BENCHLING_TENANT_DNS")
 BENCH_ENTRY = os.environ.get("BENCHLING_ENTRY_ID")
-BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID")
+BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID") or ''
 BENCH_KEY = os.environ.get("BENCHLING_API_KEY")
 BENCH_BASE = f"benchling+https://{BENCH_TENANT}"
 BENCH_URI = f"{BENCH_BASE}#type=entries.authors&id={BENCH_ENTRY}&authors={BENCH_AUTHOR}"

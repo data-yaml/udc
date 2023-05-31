@@ -2,28 +2,26 @@
 
 from urllib.parse import parse_qs, urlparse
 
-SEP = "+"
-K_HOST = "_hostname"
-K_PROT = "_protocol"
-K_QRY = "_query"
-K_TOOL = "_tool"
-K_URI = "_uri"
-
-
 class UnUri:
     ARG_URI = "uri"
     ARG_RESOURCE = "resource"
+    SEP = "+"
+    K_HOST = "_hostname"
+    K_PROT = "_protocol"
+    K_QRY = "_query"
+    K_TOOL = "_tool"
+    K_URI = "_uri"
     
     def __init__(self, uri_string: str):
         self.uri = urlparse(uri_string)
         self.attrs = self.parse_fragments(self.uri.fragment)
         self.parse_scheme(self.uri.scheme)
-        self.attrs[K_HOST] = self.uri.hostname
-        self.attrs[K_QRY] = self.uri.query
-        self.attrs[K_URI] = uri_string
+        self.attrs[UnUri.K_HOST] = self.uri.hostname or 'localhost'
+        self.attrs[UnUri.K_QRY] = self.uri.query
+        self.attrs[UnUri.K_URI] = uri_string
 
     def __repr__(self):
-        return f"UnUri({self.attrs[K_URI]})"
+        return f"UnUri({self.attrs[UnUri.K_URI]})"
 
     def get(self, key):
         return self.attrs.get(key)
@@ -34,16 +32,16 @@ class UnUri:
         return scalars
 
     def parse_scheme(self, scheme: str):
-        schemes = scheme.split(SEP)
+        schemes = scheme.split(UnUri.SEP)
         if len(schemes) != 2:
             raise ValueError(
-                f"Error: URI scheme `{self.uri.scheme}` does not contain '{SEP}'"
+                f"Error: URI scheme `{self.uri.scheme}` does not contain '{UnUri.SEP}'"
             )
-        self.attrs[K_TOOL] = schemes[0]
-        self.attrs[K_PROT] = schemes[1]
+        self.attrs[UnUri.K_TOOL] = schemes[0]
+        self.attrs[UnUri.K_PROT] = schemes[1]
 
     def tool(self):
-        return self.attrs[K_TOOL]
+        return self.attrs[UnUri.K_TOOL]
 
     def endpoint(self):
-        return f"{self.attrs[K_PROT]}://{self.attrs[K_HOST]}"
+        return f"{self.attrs[UnUri.K_PROT]}://{self.attrs[UnUri.K_HOST]}"

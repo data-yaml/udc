@@ -1,7 +1,7 @@
 import re
 
 
-from udc import K_URI, Listable, UnUri
+from udc import Listable, UnUri
 from udc.benchling import (RESOURCE_MAP, BenchlingEntry, BenchlingEntryList,
                            BenchlingRoot, BenchlingSchemaList,
                            BenchlingSequenceList)
@@ -22,7 +22,7 @@ def attrs_type(type: str):
     uri = UnUri(BenchlingRoot.DEFAULT_URI)
     attrs = uri.attrs
     attrs["type"] = type
-    attrs[K_URI] = attrs[K_URI].replace("type=entries", f"type={type}")
+    attrs[UnUri.K_URI] = attrs[UnUri.K_URI].replace("type=entries", f"type={type}")
     return attrs
 
 
@@ -62,10 +62,11 @@ def test_benchling_pages(attrs: dict):
 
 async def check_list(klass, type: str):
     attrs = attrs_type(type)
+    print('attrs', attrs)
     bench: Listable = klass(attrs)
     plist = await bench.list()
     assert len(plist) > 0
-    uri = attrs.get(K_URI)
+    uri = attrs.get(UnUri.K_URI)
     print(plist[0])
     print(uri)
     assert plist[0].startswith(uri)
@@ -73,9 +74,9 @@ async def check_list(klass, type: str):
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
 async def test_benchling_list(attrs: dict):
-    for type, klasses in RESOURCE_MAP.items():
+    for rtype, klasses in RESOURCE_MAP.items():
         list_klass = klasses[0]
-        await check_list(list_klass, type)
+        await check_list(list_klass, rtype)
 
     result = await BenchlingEntryList(attrs).list()
     assert "id=etr" in result[0]
