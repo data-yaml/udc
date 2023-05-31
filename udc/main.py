@@ -2,8 +2,7 @@ from collections.abc import Sequence
 from sys import stdout
 
 from anyio import run
-
-from .un.un_cli import UnCli
+from un_yaml import UnCli
 
 
 async def app(argv: Sequence[str] | None, out=stdout):

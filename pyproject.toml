@@ -13,9 +13,10 @@ asyncclick = "^8.1.3.4"
 quilt3 = "^5.3.1"
 urllib3 = "<2"
 typing-extensions = "^4.5.0"
-# quiltplus = ">0.8.0"
-quiltplus = {git = "https://github.com/quiltdata/quiltplus.git", rev = "42-resourceattrs-to-align-with-udc"}
+quiltplus = ">=0.9.0"
+# quiltplus = {git = "https://github.com/quiltdata/quiltplus.git", rev = "42-resourceattrs-to-align-with-udc"}
 benchling-sdk = "^1.6.1"
+un-yaml = "^0.1.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest-coverage = "^0.0"

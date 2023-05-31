@@ -1,4 +1,4 @@
-from .un.un_uri import UnUri
+from un_yaml import UnUri
 
 
 class Wrapper:

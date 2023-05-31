@@ -1,6 +1,7 @@
 import re
 
-from udc import Listable, UnUri
+from udc import Listable
+from un_yaml import UnUri
 from udc.benchling import (
     RESOURCE_MAP,
     BenchlingEntry,
