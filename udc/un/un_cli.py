@@ -59,7 +59,6 @@ class UnCli(UnYaml):
 
     async def run(self, argv: Sequence[str]|None, out=stdout):
         args: Any = self.parse(argv)
-        print(f"run.args: {args}\n{argv}")
         if not args:
             return False
         if hasattr(args, "version") and args.version:
@@ -73,7 +72,6 @@ class UnCli(UnYaml):
     def parse(self, argv: Sequence[str]|None) -> Namespace | None:
         parser = self.make_parser()
         args = parser.parse_args(argv)
-        print(f"parse.args: {args}\n{argv}")
         if args.command is None and not args.version:
             parser.print_help()
             return None

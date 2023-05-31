@@ -2,17 +2,7 @@ import logging
 import os
 
 import pytest
-from quiltplus import (  # NOQA F401
-    K_BKT,
-    K_HSH,
-    K_PKG,
-    K_PRP,
-    K_PTH,
-    K_STR,
-    K_VER,
-    GitIgnore,
-    QuiltPackage,
-)
+from quiltplus import QuiltUri
 
 logging.basicConfig(level=logging.DEBUG)
 pytestmark = pytest.mark.anyio
@@ -33,10 +23,10 @@ TEST_URI = (
     + "&path=README.md&catalog=open.quiltdata.com"
 )
 REG_URI = f"quilt+s3://{TEST_BKT}"
-PKG_URI = f"quilt+s3://{TEST_BKT}#{K_PKG}={TEST_PKG}@e1f83ce3dc7b"
-PKG2_URI = f"quilt+s3://{TEST_BKT}#{K_PKG}=examples/echarts:latest"
-PTH_URI = f"quilt+s3://{TEST_BKT}#{K_PKG}={TEST_PKG}&{K_PTH}=README.md"
-PRP_URI = f"quilt+s3://{TEST_BKT}#{K_PKG}={TEST_PKG}&{K_PTH}=README.md&{K_PRP}=*"
-VER_URI = f"quilt+s3://{TEST_BKT}#{K_PKG}={TEST_PKG}"
+PKG_URI = f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}={TEST_PKG}@e1f83ce3dc7b"
+PKG2_URI = f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}=examples/echarts:latest"
+PTH_URI = f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}={TEST_PKG}&{QuiltUri.K_PTH}=README.md"
+PRP_URI = f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}={TEST_PKG}&{QuiltUri.K_PTH}=README.md&{QuiltUri.K_PRP}=*"
+VER_URI = f"quilt+s3://{TEST_BKT}#{QuiltUri.K_PKG}={TEST_PKG}"
 
 TEST_URIS = [TEST_URI, REG_URI, PKG_URI, PKG2_URI, PTH_URI, PRP_URI, VER_URI]
