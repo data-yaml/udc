@@ -42,8 +42,6 @@ class UnCli(UnYaml):
         self.parse_version(parser)
         subparsers = parser.add_subparsers(dest="command")
         for cmd, opts in self.cmds.items():
-            if cmd != "list":
-                continue
             subparser = subparsers.add_parser(cmd, help=opts["help"])
             args = opts.get("arguments")
             for arg in args or []:
@@ -76,9 +74,9 @@ class UnCli(UnYaml):
             exit(1)
 
         if cmd in "get,put,patch".split(","):
-            results = await self.remote(cmd, args.path, args.uri, args.nocopy)
+            results = await self.remote(args)
         elif cmd in "add,rm".split(","):
-            results = await self.stage(cmd, args.local, args.path)
+            results = await self.stage(args)
         else:
             # lookup method by name
             method = getattr(self, cmd)
@@ -87,7 +85,7 @@ class UnCli(UnYaml):
 
     def echo(self, results: list, out=stdout):
         """Print result of calling a method."""
-        [print(item, file=out) for item in results]
+        [print(f'"{item}"', file=out) for item in results]
         return out
 
     def get_resource(self, uri: str) -> Listable:
@@ -99,9 +97,9 @@ class UnCli(UnYaml):
     async def list(self, args: Namespace):
         """Return contents of a URI."""
         res = self.get_resource(args.uri)
-        return await res.list()
+        return await res.list(vars(args))
 
-    async def remote(self, path: str, uri: str, nocopy: bool = False):
+    async def remote(self, args: Namespace):
         """Perform Remote action on a URI."""
-        res = self.get_resource(uri)
-        return await res.list()
+        res = self.get_resource(args.uri)
+        return await res.list(vars(args))

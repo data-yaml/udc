@@ -59,7 +59,7 @@ class BenchlingRoot:
         logging.debug(f"item_uri.uri: {base}")
         return base
 
-    async def list(self) -> list[str]:
+    async def list(self, argv: dict = {}) -> list[str]:
         return [self.item_uri(item) for item in self.items()]
 
 
