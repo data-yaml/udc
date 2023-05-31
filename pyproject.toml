@@ -16,7 +16,7 @@ typing-extensions = "^4.5.0"
 quiltplus = ">=0.9.0"
 # quiltplus = {git = "https://github.com/quiltdata/quiltplus.git", rev = "42-resourceattrs-to-align-with-udc"}
 benchling-sdk = "^1.6.1"
-un-yaml = "^0.1.1"
+un-yaml = "^0.1.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest-coverage = "^0.0"
