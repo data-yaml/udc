@@ -2,6 +2,7 @@ import logging
 from argparse import ArgumentParser, Namespace
 from collections.abc import Sequence
 from importlib.metadata import version
+from pathlib import Path  # NOQA F401
 from sys import stdout
 
 __version__ = version("udc")
@@ -10,10 +11,30 @@ from ..types import Listable
 from .un_uri import UnUri
 from .un_yaml import UnYaml
 
+class UnUdc():
+    async def list(self, args: Namespace):
+        """Return contents of a URI."""
+        res = self.get_resource(args.uri)
+        return await res.list(vars(args))
+
+    async def remote(self, args: Namespace):
+        """Perform Remote action on a URI."""
+        res = self.get_resource(args.uri)
+        return await res.list(vars(args))
+
 
 class UnCli(UnYaml):
+    """Use UnYaml to create a CLI from a YAML file."""
     CLI_YAML = "cli.yaml"
     CMD = "commands"
+    ARG_KEYS = "dest,metavar,type,default,required,choices,action,nargs,const,help".split(',')
+
+    @staticmethod
+    def ARG_KWS(arg: dict):
+        kwargs = {k: v for k, v in arg.items() if k in UnCli.ARG_KEYS}
+        kwargs['type'] = eval(kwargs['type']) if 'type' in kwargs else str
+        return kwargs
+
 
     def __init__(self, file=CLI_YAML) -> None:
         yaml_data = UnYaml.load_yaml(file, "udc", "un")
@@ -21,11 +42,6 @@ class UnCli(UnYaml):
         if UnCli.CMD not in self.cfg:
             raise ValueError(f"'{UnCli.CMD}' not in file '{file}':\n{self.cfg}")
         self.cmds = self.get(UnCli.CMD)
-
-    def cmd_opts(self, cmd: str) -> dict:
-        result = self.cmds[cmd]
-        result["name"] = cmd
-        return result
 
     def parse_version(self, parser: ArgumentParser) -> None:
         __version__ = version("udc")
@@ -42,10 +58,11 @@ class UnCli(UnYaml):
         self.parse_version(parser)
         subparsers = parser.add_subparsers(dest="command")
         for cmd, opts in self.cmds.items():
-            subparser = subparsers.add_parser(cmd, help=opts["help"])
-            args = opts.get("arguments")
-            for arg in args or []:
-                subparser.add_argument(arg["name"], help=arg["help"])
+            if cmd[0] != "_":
+                subparser = subparsers.add_parser(cmd, help=opts["help"])
+                args = opts.get("arguments")
+                for arg in args or []:
+                    subparser.add_argument(arg["name"], **UnCli.ARG_KWS(arg))
         return parser
 
     async def run(self, argv: Sequence[str] = None, out=stdout):
@@ -65,13 +82,28 @@ class UnCli(UnYaml):
             return False
         return args
 
+    def get_resource(self, uri: UnUri) -> Listable:
+        handler = self.get_handler(uri.tool())
+        logging.debug(f"handler: {handler}")
+        return handler(uri)
+
+    def resource(self, argv: dict) -> dict:
+        """Hardcode resource transformation, for now"""
+        if UnUri.ARG_URI in argv:
+            uri = argv[UnUri.ARG_URI]
+            argv[UnUri.ARG_RESOURCE] = self.get_resource(uri)
+        return argv
+
     async def execute(self, args: Namespace, out=stdout):
         """Invoke Appropriate Command."""
         cmd = args.command
-        opts = self.cmd_opts(cmd)
-        if not opts:
+        if not cmd in self.cmds:
             logging.error(f"Unknown command: {cmd}\n{args}")
             exit(1)
+
+        argv = vars(args)
+        self.resource(argv)
+        doc = UnUdc()
 
         if cmd in "get,put,patch".split(","):
             results = await self.remote(args)
@@ -87,12 +119,6 @@ class UnCli(UnYaml):
         """Print result of calling a method."""
         [print(f'"{item}"', file=out) for item in results]
         return out
-
-    def get_resource(self, uri: str) -> Listable:
-        parsed = UnUri(uri)
-        handler = self.get_handler(parsed.tool())
-        logging.debug(f"handler: {handler}")
-        return handler(parsed)
 
     async def list(self, args: Namespace):
         """Return contents of a URI."""

@@ -1,6 +1,7 @@
 from io import StringIO
 
-from udc import UnCli
+from udc import UnCli, UnUri
+from pathlib import Path
 
 from .conftest import pytestmark  # NOQA F401
 from .conftest import BENCH_TENANT, BENCH_URI, PKG_URI, pytest
@@ -22,14 +23,18 @@ def test_un_cli(cli: UnCli):
     assert cli
     commands = cli.get(UnCli.CMD)
     assert commands
+    assert "list" in commands
 
 
-def test_un_cli_commands(cli: UnCli):
-    cf_list = cli.cmd_opts("list")
-    assert cf_list
-    assert "name" in cf_list
-    assert cf_list["name"] == "list"
+def test_un_cli_eval():
+    assert eval('str') == str
+    assert eval('Path') == Path
+    assert eval('UnUri') == UnUri
 
+def test_un_cli_arg():
+    d = {"type": "Path"}
+    kw = UnCli.ARG_KWS(d)
+    assert kw
 
 async def test_un_cli_parser(cli: UnCli, buf: StringIO):
     argv = ["--version"]
@@ -40,7 +45,13 @@ async def test_un_cli_parser(cli: UnCli, buf: StringIO):
     assert "udc" in buf.getvalue()
 
 
+def test_un_cli_get_quilt(cli: UnCli):
+    uri = UnUri(PKG_URI)
+    assert cli.get_resource(uri)
+
+
 @pytest.mark.skipif(not BENCH_TENANT, reason="Benchling environment variables not set")
-def test_un_cli_get_resource(cli: UnCli):
-    assert cli.get_resource(PKG_URI)
-    assert cli.get_resource(BENCH_URI)
+def test_un_cli_get_benchling(cli: UnCli):
+    uri = UnUri(BENCH_URI)
+    assert cli.get_resource(uri)
+

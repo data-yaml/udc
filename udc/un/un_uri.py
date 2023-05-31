@@ -11,6 +11,9 @@ K_URI = "_uri"
 
 
 class UnUri:
+    ARG_URI = "uri"
+    ARG_RESOURCE = "resource"
+    
     def __init__(self, uri_string: str):
         self.uri = urlparse(uri_string)
         self.attrs = self.parse_fragments(self.uri.fragment)
