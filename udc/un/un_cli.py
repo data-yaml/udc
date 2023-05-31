@@ -12,12 +12,8 @@ from ..types import Listable
 from .un_uri import UnUri
 from .un_yaml import UnYaml
 
-class UnUdc():
-    async def execute(self, cmd: str, argv: dict):
-        callee = argv[UnUri.ARG_RESOURCE] if UnUri.ARG_URI in argv else self
-        method = getattr(callee, cmd)
-        return await method(argv)
-
+# Harcode most parameters for now
+# TODO: infer them from the YAML file
 
 class UnCli(UnYaml):
     """Use UnYaml to create a CLI from a YAML file."""
@@ -37,7 +33,7 @@ class UnCli(UnYaml):
         if UnCli.CMD not in self.cfg:
             raise ValueError(f"'{UnCli.CMD}' not in file '{file}':\n{self.cfg}")
         self.cmds = self.get(UnCli.CMD)
-        self.doc = eval(self.info('doc_class'))
+        self.doc = self.get_handler("doc")()
 
     def parse_version(self, parser: ArgumentParser) -> None:
         __version__ = version("udc")
@@ -100,32 +96,10 @@ class UnCli(UnYaml):
         argv = vars(args)
         self.resource(argv)
 
-        if cmd in "get,put,patch".split(","):
-            results = await self.remote(argv)
-        elif cmd in "add,rm".split(","):
-            results = await self.stage(argv)
-        else:
-            # lookup method by name
-            method = getattr(self, cmd)
-            results = await method(argv)
+        results = await self.doc.execute(cmd, argv)  
         return self.echo(results, out)
 
     def echo(self, results: list, out=stdout):
         """Print result of calling a method."""
         [print(f'"{item}"', file=out) for item in results]
         return out
-
-    async def list(self, argv: dict):
-        """Return contents of a URI."""
-        res = argv[UnUri.ARG_RESOURCE]
-        return await res.list(argv)
-
-    async def remote(self, argv: dict):
-        """Perform Remote action on a URI."""
-        res = argv[UnUri.ARG_RESOURCE]
-        return await res.list(argv)
-
-    async def stage(self, argv: dict):
-        """Perform Remote action on a URI."""
-        res = argv[UnUri.ARG_RESOURCE]
-        return await res.list(argv)

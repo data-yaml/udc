@@ -56,7 +56,7 @@ def test_un_re_expand(un: UnYaml):
 
 
 def test_un_get_handler(un: UnYaml):
-    for key in ["quilt", "benchling"]:
+    for key in ["quilt", "benchling", "doc"]:
         assert un.get_handler(key)
     with pytest.raises(ValueError):
         un.get_handler("unknown")

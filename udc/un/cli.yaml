@@ -4,8 +4,10 @@ _yaml:
   app_version: 0.2.0
   doc: udc
   doc_version: 0.1.0
-  doc_class: UnUdc
   handlers:
+    doc:
+      module: udc.wrapper
+      method: Wrapper
     quilt:
       module: udc.quilt.resource
       method: QuiltResource
