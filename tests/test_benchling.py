@@ -11,6 +11,8 @@ from udc.benchling import (
 )
 from un_yaml import UnUri
 from pathlib import Path
+from tempfile import TemporaryDirectory
+from os import chdir
 
 from .conftest import pytestmark  # noqa: F401
 from .conftest import BENCH_AUTHOR, BENCH_BASE, BENCH_ENTRY, BENCH_URI, pytest
@@ -112,6 +114,13 @@ async def test_benchling_entry_fetch(attrs: dict):
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
 async def test_benchling_entry_get(attrs: dict):
     entry = BenchlingEntry(attrs)
-    opts = {"dir": Path('.')}
-    await entry.get(opts)
+    filename = f"{entry.id}.json"
+    with TemporaryDirectory() as tmpdir:
+        dir_path = Path(tmpdir)
+        file_path = dir_path / filename
+        opts = {"dir": dir_path}
+        results = await entry.get(opts)
+        assert str(file_path) in results
+        assert filename in results[0]
+        assert file_path.exists()
 

@@ -9,9 +9,9 @@ endif
 all: install update test
 
 clean:
-	rm -rf coverage_html
-	rm -f coverage*
+	rm -rf coverage*
 	rm -f .coverage*
+	rm -f etr_*.json
 
 install:
 	poetry install

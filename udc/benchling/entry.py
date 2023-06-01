@@ -1,5 +1,9 @@
-from .root import BenchlingById, BenchlingRoot
+from json import dump
+from pathlib import Path
+
 from ..types import ResultList
+from .root import BenchlingById, BenchlingRoot
+
 
 class BenchlingEntryList(BenchlingById):
     def __init__(self, attrs: dict) -> None:
@@ -10,6 +14,10 @@ class BenchlingEntryList(BenchlingById):
 
 
 class BenchlingEntry(BenchlingRoot):
+    @staticmethod
+    def DIR_ARG(argv: dict) -> Path:
+        return argv.get("dir") or Path(".")
+
     def __init__(self, attrs: dict) -> None:
         super().__init__(attrs)
 
@@ -36,5 +44,12 @@ class BenchlingEntry(BenchlingRoot):
         return [self.wrap(id, sub_type) for sub_type in kids for id in kids[sub_type]]
 
     async def get(self, argv: dict = {}) -> ResultList:
-        return ['N/A']
+        self.fetch()
+        dir_path = BenchlingEntry.DIR_ARG(argv)
+        filename = f"{self.entry.id}.json"
+        file_path = dir_path / filename
+        with file_path.open("w", encoding="utf-8") as json_file:
+            dump(self.entry.to_dict(), json_file, indent=4, sort_keys=True)
+
+        return [str(file_path)]
 
