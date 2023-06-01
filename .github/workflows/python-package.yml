@@ -40,6 +40,11 @@ jobs:
         make test TEST_OS=${{ matrix.os }}
     - name: Get Coverage Report
       uses: orgoro/coverage@v3
+      env:
+          BENCHLING_API_KEY: ${{ secrets.BENCHLING_API_KEY }}
+          BENCHLING_AUTHOR_ID: ${{ secrets.BENCHLING_AUTHOR_ID }}
+          BENCHLING_ENTRY_ID: ${{ secrets.BENCHLING_ENTRY_ID }}
+          BENCHLING_TENANT_DNS: ${{ env.BENCHLING_TENANT_DNS }}
       with:
           coverageFile: coverage.xml
           token: ${{ secrets.GITHUB_TOKEN }}
