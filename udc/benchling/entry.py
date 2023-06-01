@@ -1,6 +1,6 @@
 import logging
 import urllib.parse
-from json import dump
+from json import dump, loads
 from pathlib import Path
 
 from benchling_api_client.v2.stable.models.entry_day import EntryDay
@@ -49,9 +49,14 @@ class BenchlingEntry(BenchlingRoot):
         }
 
     def push(self, id, changes: dict) -> Entry:
-        if isinstance(changes["name"], list):
-            changes["name"] = changes["name"][0]
-        update = EntryUpdate.from_dict(changes)  # type: ignore
+        for key, value in changes.items():
+            if isinstance(value, list): # non-parsed
+                result = value[0]
+                print(f"result: {result}")
+                changes[key] = loads(result) if result[0] == '{' else result
+        print(f"changes: {changes}")
+        update = EntryUpdate.from_dict(changes)
+        print(f"update: {update}")
         return BenchlingRoot.CLIENT.entries.update_entry(entry_id=id, entry=update)
 
     def wrap(self, id, sub_type):
