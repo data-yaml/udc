@@ -1,5 +1,15 @@
 # CHANGELOG.md
 
+## 0.3.1 (2023-05-31b)
+
+- Actually support `udc get`
+
+## 0.3.0 (2023-05-31)
+
+- Extract UnYaml to its own package
+- Ensure GitHub Actions testing Bechling (to improve coverage)
+- Fix type-hint errors
+
 ## 0.2.5 (2023-05-29)
 
 - Peg to Python 3.10+ so TempDirectory works on Windows
