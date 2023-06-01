@@ -10,6 +10,7 @@ from udc.benchling import (
     BenchlingSequenceList,
 )
 from un_yaml import UnUri
+from pathlib import Path
 
 from .conftest import pytestmark  # noqa: F401
 from .conftest import BENCH_AUTHOR, BENCH_BASE, BENCH_ENTRY, BENCH_URI, pytest
@@ -74,7 +75,7 @@ async def check_list(klass, type: str):
     uri = attrs.get(UnUri.K_URI)
     print(plist[0])
     print(uri)
-    assert plist[0].startswith(uri)
+    assert plist[0].startswith(str(uri))
 
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
@@ -107,3 +108,10 @@ async def test_benchling_entry_fetch(attrs: dict):
     assert len(fields) > 0
     field = fields[0]
     assert "Quilt+" in field
+
+@pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
+async def test_benchling_entry_get(attrs: dict):
+    entry = BenchlingEntry(attrs)
+    opts = {"dir": Path('.')}
+    await entry.get(opts)
+
