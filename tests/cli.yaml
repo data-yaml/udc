@@ -78,7 +78,7 @@ variables:
     name: path
     help: Local directory or file
     type: Path
-    nargs: '?'
+    nargs: "?"
   local:
     name: local
     help: Local file

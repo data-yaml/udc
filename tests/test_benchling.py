@@ -1,9 +1,9 @@
 import re
-
-from benchling_sdk.models import EntryUpdate, Fields
 from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
+
+from benchling_sdk.models import EntryUpdate, Fields
 from tzlocal import get_localzone
 from udc import Listable
 from udc.benchling import (
@@ -23,10 +23,11 @@ from .conftest import (
     BENCH_ENTRY,
     BENCH_URI,
     CATALOG_URL,
-    pytest
+    pytest,
 )
 
 TEST_URI = re.sub("&authors=.*", "", BENCH_URI).replace("entries.authors", "entries")
+
 
 def Now() -> str:
     tz = get_localzone()
@@ -34,10 +35,12 @@ def Now() -> str:
     dts = dt.replace(microsecond=0)
     return dts.isoformat()
 
+
 def Seconds() -> int:
     tz = get_localzone()
     dt = datetime.now(tz)
     return int(dt.timestamp())
+
 
 @pytest.fixture
 def attrs():
@@ -145,20 +148,22 @@ async def test_benchling_entry_get(attrs: dict):
         assert str(file_path) in results
         assert filename in results[0]
         assert file_path.exists()
-        
+
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
 async def test_benchling_entry_push(attrs: dict):
     new_name = f"test_benchling_entry_push {Now()}"
     entry = BenchlingEntry(attrs)
-    update = EntryUpdate(name=new_name) # type: ignore
+    update = EntryUpdate(name=new_name)  # type: ignore
     entry.fetch()
     old_fields = entry.entry.fields.to_dict()
     print(old_fields)
-    new_fields = Fields.from_dict({
-        "Quilt Catalog URL": {"value": CATALOG_URL},
-        "Sentinel": {"value": Seconds() } # time in seconds
-    })
+    new_fields = Fields.from_dict(
+        {
+            "Quilt Catalog URL": {"value": CATALOG_URL},
+            "Sentinel": {"value": Seconds()},  # time in seconds
+        }
+    )
     print(new_fields)
     update.fields = new_fields
     result = entry.push(entry.id, update)
@@ -172,12 +177,13 @@ async def test_benchling_entry_push(attrs: dict):
 async def test_benchling_entry_patch(attrs: dict):
     entry = BenchlingEntry(attrs)
     new_name = f"test_benchling_entry_patch {Now()}"
-    opts = { UnUri.K_QRY: {"name": new_name} }
+    opts = {UnUri.K_QRY: {"name": new_name}}
     result = await entry.patch(opts)
     assert result
 
     entry.fetch()
-    assert entry.entry.name == new_name      
+    assert entry.entry.name == new_name
+
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
 async def test_benchling_entry_patch_uri(attrs: dict):
@@ -186,13 +192,13 @@ async def test_benchling_entry_patch_uri(attrs: dict):
         "name": new_name,
         "fields": {
             "Quilt Catalog URL": {
-                "value": f"https://quilt-t4-staging.quiltdata.com/b/quilt-ernest-staging/packages/nf-quilt/sarek",
+                "value": CATALOG_URL,
             }
-        }
+        },
     }
     entry = BenchlingEntry(attrs)
     result = await entry.patch()
     assert result
 
     entry.fetch()
-    assert entry.entry.name == new_name      
+    assert entry.entry.name == new_name

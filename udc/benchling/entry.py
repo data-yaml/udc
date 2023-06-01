@@ -1,13 +1,13 @@
 import logging
 import urllib.parse
-
 from json import dump
 from pathlib import Path
 
 from benchling_api_client.v2.stable.models.entry_day import EntryDay
 from benchling_api_client.v2.stable.models.user_summary import UserSummary
 from benchling_sdk.models import Entry, EntryUpdate
-#, EntrySchemaDetailed, Fields, CustomFields
+
+# , EntrySchemaDetailed, Fields, CustomFields
 from un_yaml import UnUri
 
 from ..types import ResultList
@@ -32,8 +32,12 @@ class BenchlingEntry(BenchlingRoot):
 
     def fetch(self):
         self.entry: Entry = BenchlingRoot.CLIENT.entries.get_entry_by_id(self.id)
-        self.last_day: EntryDay|None = self.entry.days[-1] if self.entry.days else None
-        self.author: UserSummary|None = self.entry.authors[0] if self.entry.authors else None
+        self.last_day: EntryDay | None = (
+            self.entry.days[-1] if self.entry.days else None
+        )
+        self.author: UserSummary | None = (
+            self.entry.authors[0] if self.entry.authors else None
+        )
         self.schema_id = self.entry.schema.id if self.entry.schema else None
         self.children = {
             "authors": [author.id for author in self.entry.authors],
@@ -52,7 +56,7 @@ class BenchlingEntry(BenchlingRoot):
         item = type(f"wrap_{sub_type}", (object,), item_dict)
         return self.item_uri(item, sub_type)
 
-    async def list(self, argv: dict = {})-> ResultList:
+    async def list(self, argv: dict = {}) -> ResultList:
         self.fetch()
         kids = self.children
         return [self.wrap(id, sub_type) for sub_type in kids for id in kids[sub_type]]
@@ -71,21 +75,20 @@ class BenchlingEntry(BenchlingRoot):
         query = self.attrs.get(UnUri.K_QRY) or argv.get(UnUri.K_QRY)
         if not query:
             logging.error(f"patch: no query string found in {self.uri}")
-            
+
         try:
             if not isinstance(query, dict):
                 query = urllib.parse.parse_qs(query)
             if isinstance(query["name"], list):
                 query["name"] = query["name"][0]
-            update = EntryUpdate.from_dict(query) # type: ignore
+            update = EntryUpdate.from_dict(query)  # type: ignore
         except Exception as ex:
             logging.error(f"patch query not valid for EntryUpdate: {query}\n{ex}")
             return []
         try:
             result = self.push(self.id, update)
             print(f"patched {result.web_url}\n{query}")
-        except Exception as ex:
+        except Exception:
             logging.error(f"patch failed to push EntryUpdate: {query}\n{update}")
             return []
         return [self.base_uri()]
-

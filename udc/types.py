@@ -2,6 +2,7 @@ from typing import Protocol, runtime_checkable
 
 ResultList = list[str]
 
+
 @runtime_checkable
 class Listable(Protocol):
     async def list(self, argv: dict = {}) -> ResultList:
