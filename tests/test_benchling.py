@@ -1,7 +1,6 @@
 import re
 
 from udc import Listable
-from un_yaml import UnUri
 from udc.benchling import (
     RESOURCE_MAP,
     BenchlingEntry,
@@ -10,6 +9,7 @@ from udc.benchling import (
     BenchlingSchemaList,
     BenchlingSequenceList,
 )
+from un_yaml import UnUri
 
 from .conftest import pytestmark  # noqa: F401
 from .conftest import BENCH_AUTHOR, BENCH_BASE, BENCH_ENTRY, BENCH_URI, pytest
