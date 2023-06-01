@@ -77,15 +77,13 @@ class BenchlingEntry(BenchlingRoot):
                 query = urllib.parse.parse_qs(query)
             if isinstance(query["name"], list):
                 query["name"] = query["name"][0]
-            update = EntryUpdate(**query) # type: ignore
+            update = EntryUpdate.from_dict(query) # type: ignore
         except Exception as ex:
             logging.error(f"patch query not valid for EntryUpdate: {query}\n{ex}")
             return []
         try:
             result = self.push(self.id, update)
-            print(f"patched {self.id} {result.name}")
-            print(f"\nupdate\n{update}")
-            print(f"\nresult\n{result}")
+            print(f"patched {result.web_url}\n{query}")
         except Exception as ex:
             logging.error(f"patch failed to push EntryUpdate: {query}\n{update}")
             return []
