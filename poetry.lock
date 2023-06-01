@@ -178,17 +178,17 @@ python-jose = ["python-jose[cryptography] (>=3.3.0,<4.0.0)"]
 
 [[package]]
 name = "boto3"
-version = "1.26.143"
+version = "1.26.144"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">= 3.7"
 files = [
-    {file = "boto3-1.26.143-py3-none-any.whl", hash = "sha256:65e91de5c0ee2e4786ab3b144410312344827154aa5bfb4e7b455e5e107cdbf8"},
-    {file = "boto3-1.26.143.tar.gz", hash = "sha256:d973751c5ea2db7743f80ee8552043cace8f18a2472cae1ab93ffbfb6889b825"},
+    {file = "boto3-1.26.144-py3-none-any.whl", hash = "sha256:2eb9e688aa86bf1fadcec0b6995b42ec9788e7cd5f1a9c8ac1b66a2506aa209f"},
+    {file = "boto3-1.26.144.tar.gz", hash = "sha256:5b7e9f2674fe8aa99e2d168744023a3f66da12d9c51e0624489dd0db7aafe30d"},
 ]
 
 [package.dependencies]
-botocore = ">=1.29.143,<1.30.0"
+botocore = ">=1.29.144,<1.30.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.6.0,<0.7.0"
 
@@ -197,13 +197,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.29.143"
+version = "1.29.144"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">= 3.7"
 files = [
-    {file = "botocore-1.29.143-py3-none-any.whl", hash = "sha256:fcb424c750a78a9f86b5ee8319bfa20de8528a80aadcdd171910bcb8d45c3055"},
-    {file = "botocore-1.29.143.tar.gz", hash = "sha256:e5b8dd2fa750f0476667753dc018c2b14a542fec7e20edd3a7613b6d2df2c32a"},
+    {file = "botocore-1.29.144-py3-none-any.whl", hash = "sha256:e2b970e68643cf4752cad4e45ba3319fc35707f1bff7f150f7ffcac1b1427b47"},
+    {file = "botocore-1.29.144.tar.gz", hash = "sha256:c60b9158cbc7447411abdec77b87a71d86d9404064702e92d317dca6a1ec9a5b"},
 ]
 
 [package.dependencies]
@@ -1558,23 +1558,26 @@ tests = ["anndata (!=0.9.0)", "coverage (==6.4)", "git-pylint-commit-hook", "pyt
 
 [[package]]
 name = "quiltplus"
-version = "0.8.1"
+version = "0.9.0"
 description = "Resource-oriented Python API/CLI for Quilt's decentralized social knowledge platform"
 optional = false
-python-versions = ">=3.9,<4.0"
+python-versions = ">=3.10,<4.0"
 files = [
-    {file = "quiltplus-0.8.1-py3-none-any.whl", hash = "sha256:b4f6fe1c5db9db0cb4dda173489a33ad23b4ec8092247da52f9761b3ed08daeb"},
-    {file = "quiltplus-0.8.1.tar.gz", hash = "sha256:44ec98e8fdb3ee2041d8b694b8847b6b1c39ef4d0bf63d7b31b42282cdf6a94f"},
+    {file = "quiltplus-0.9.0-py3-none-any.whl", hash = "sha256:bc4c242db667f6d2cfc40bd11c1481c717d83285777b496a43d20c38679100cf"},
+    {file = "quiltplus-0.9.0.tar.gz", hash = "sha256:e812712fa947d12808a202b7454a19b17e3c51fa7225bcc79e547ca0d3668b12"},
 ]
 
 [package.dependencies]
-anyio = ">=3.6.2,<4.0.0"
+anyio = ">=3.7.0,<4.0.0"
 asyncclick = ">=8.1.3.4,<9.0.0.0"
 isort = ">=5.12.0,<6.0.0"
 pytest-cov = ">=4.0.0,<5.0.0"
 quilt3 = ">=5.1.0,<6.0.0"
 trio = ">=0.22.0,<0.23.0"
 typing-extensions = ">=4.5.0,<5.0.0"
+tzlocal = ">=5.0.1,<6.0.0"
+un-yaml = ">0.0.0"
+urllib3 = "<2"
 
 [[package]]
 name = "requests"
@@ -1808,6 +1811,52 @@ mypy-extensions = ">=0.3.0"
 typing-extensions = ">=3.7.4"
 
 [[package]]
+name = "tzdata"
+version = "2023.3"
+description = "Provider of IANA time zone data"
+optional = false
+python-versions = ">=2"
+files = [
+    {file = "tzdata-2023.3-py2.py3-none-any.whl", hash = "sha256:7e65763eef3120314099b6939b5546db7adce1e7d6f2e179e3df563c70511eda"},
+    {file = "tzdata-2023.3.tar.gz", hash = "sha256:11ef1e08e54acb0d4f95bdb1be05da659673de4acbd21bf9c69e94cc5e907a3a"},
+]
+
+[[package]]
+name = "tzlocal"
+version = "5.0.1"
+description = "tzinfo object for the local timezone"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "tzlocal-5.0.1-py3-none-any.whl", hash = "sha256:f3596e180296aaf2dbd97d124fe76ae3a0e3d32b258447de7b939b3fd4be992f"},
+    {file = "tzlocal-5.0.1.tar.gz", hash = "sha256:46eb99ad4bdb71f3f72b7d24f4267753e240944ecfc16f25d2719ba89827a803"},
+]
+
+[package.dependencies]
+tzdata = {version = "*", markers = "platform_system == \"Windows\""}
+
+[package.extras]
+devenv = ["black", "check-manifest", "flake8", "pyroma", "pytest (>=4.3)", "pytest-cov", "pytest-mock (>=3.3)", "zest.releaser"]
+
+[[package]]
+name = "un-yaml"
+version = "0.1.2"
+description = "Universal YAML: replace repetitive code with your own Domain-Specific un-Language (DSuL)"
+optional = false
+python-versions = ">=3.10,<4.0"
+files = [
+    {file = "un_yaml-0.1.2-py3-none-any.whl", hash = "sha256:775b5d0d5d529b668951560154aad6d19e572732d56f5081a309728b513d2044"},
+    {file = "un_yaml-0.1.2.tar.gz", hash = "sha256:7166cf62d19b157ea5fbbcc968286b3c5a4f643ef52b489b2b2df6b881e3efd3"},
+]
+
+[package.dependencies]
+anyio = ">=3.7.0,<4.0.0"
+asyncclick = ">=8.1.3.4,<9.0.0.0"
+pyyaml = ">=6.0,<7.0"
+trio = ">=0.22.0,<0.23.0"
+typing-extensions = ">=4.5.0,<5.0.0"
+
+[[package]]
 name = "urllib3"
 version = "1.26.16"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -1960,4 +2009,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "030bd9657403a0bea9116b7c6ac2b88ddf450b345a4deeb217fa179be9efe041"
+content-hash = "cefa968850c8c5a6ad8e7bdd2718588511d87b38fa8f8f4ef21e7793d26f1d31"

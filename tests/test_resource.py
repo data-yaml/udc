@@ -1,4 +1,4 @@
-from quiltplus import QuiltPackage, QuiltRegistry, QuiltResource
+from quiltplus import QuiltPackage, QuiltRegistry, QuiltResourceURI
 from udc import Getable, Listable, Putable
 
 from .conftest import pytestmark  # NOQA F401
@@ -6,7 +6,7 @@ from .conftest import BENCH_ENTRY, PKG_URI, REG_URI, pytest
 
 
 async def test_res_types():
-    pkg: QuiltPackage = QuiltPackage.FromURI(PKG_URI)
+    pkg: QuiltPackage = QuiltResourceURI(PKG_URI)
     assert isinstance(pkg, QuiltPackage)
     assert isinstance(pkg, Listable)
     assert isinstance(pkg, Getable)
@@ -15,12 +15,12 @@ async def test_res_types():
 
 
 async def test_res_pkg():
-    qpkg = QuiltResource(PKG_URI)
+    qpkg = QuiltResourceURI(PKG_URI)
     assert isinstance(qpkg, QuiltPackage)
 
 
 async def test_res_reg():
-    qreg = QuiltResource(REG_URI)
+    qreg = QuiltResourceURI(REG_URI)
     assert isinstance(qreg, QuiltRegistry)
     assert isinstance(qreg, Listable)
     assert not isinstance(qreg, Getable)

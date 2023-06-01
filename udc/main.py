@@ -2,17 +2,16 @@ from collections.abc import Sequence
 from sys import stdout
 
 from anyio import run
+from un_yaml import UnCli
 
-from .un.un_cli import UnCli
 
-
-async def app(argv: Sequence[str] = None, out=stdout):
+async def app(argv: Sequence[str] | None, out=stdout):
     cli = UnCli()
     await cli.run(argv, out)
     return out
 
 
-def main(argv: Sequence[str] = None):
+def main(argv: Sequence[str] | None = None):
     run(app, argv)
 
 

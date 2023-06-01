@@ -38,6 +38,11 @@ jobs:
     - name: Test with pytest
       run: |
         make test TEST_OS=${{ matrix.os }}
+      env:
+          BENCHLING_API_KEY: ${{ secrets.BENCHLING_API_KEY }}
+          BENCHLING_AUTHOR_ID: ${{ secrets.BENCHLING_AUTHOR_ID }}
+          BENCHLING_ENTRY_ID: ${{ secrets.BENCHLING_ENTRY_ID }}
+          BENCHLING_TENANT_DNS: ${{ vars.BENCHLING_TENANT_DNS }}
     - name: Get Coverage Report
       uses: orgoro/coverage@v3
       with:

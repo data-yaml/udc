@@ -57,13 +57,13 @@ udc list "quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2"
 e.g.,
 <!--pytest-codeblocks:expected-output-->
 ```bash
-quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=README.md
-quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=autoplate_H1N1.csv
-quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=data_products.ipynb
-quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=neutralisation-altair.json
-quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=neutralisation.json
-quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=quilt_summarize.json
-quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=render.html
+"quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=README.md"
+"quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=autoplate_H1N1.csv"
+"quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=data_products.ipynb"
+"quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=neutralisation-altair.json"
+"quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=neutralisation.json"
+"quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=quilt_summarize.json"
+"quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2&path=render.html"
 ```
 
 ### List all versions of a package
@@ -75,7 +75,7 @@ udc list "quilt+s3://quilt-example#package=examples/wellplates" | head -n 1
 e.g.,
 <!--pytest-codeblocks:expected-output-->
 ```bash
-quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2c600f4c519efd5de868d5ef1e05ac92fcb0fa56044bb8c925c5f02
+"quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2c600f4c519efd5de868d5ef1e05ac92fcb0fa56044bb8c925c5f02"
 ```
 
 ### List all packages in a registry
@@ -87,7 +87,7 @@ udc list quilt+s3://quilt-example | head -n 1
 e.g.,
 <!--pytest-codeblocks:expected-output-->
 ```bash
-quilt+s3://quilt-example#package=akarve/amazon-reviews:latest
+"quilt+s3://quilt-example#package=akarve/amazon-reviews:latest"
 ```
 
 ## Development

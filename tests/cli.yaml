@@ -1,16 +1,23 @@
 _yaml:
   _version: 0.1.0
   app: UnCli
-  app_version: 0.1.0
+  app_version: 0.2.0
   doc: udc
-  doc_version: 0.1.0
+  doc_version: 0.2.0
   handlers:
+    doc:
+      module: udc.wrapper
+      method: Wrapper
     quilt:
       module: udc.quilt.resource
       method: QuiltResource
     benchling:
       module: udc.benchling.resource
       method: BenchlingResource
+    uri:
+      module: self
+      method: get_resource
+      key: _resource
 argsets:
   remote:
     arguments:
@@ -43,18 +50,18 @@ commands:
   patch:
     $ref: "#/argsets/remote"
     help: Patch commited contents from directory into latest remote URI (update)
-  add:
+  _add:
     $ref: "#/argsets/stage"
     help: Add local file to staging
-  rm:
+  _rm:
     $ref: "#/argsets/stage"
     help: Remove local file from staging
-  commit:
+  _commit:
     help: Commit staged changes
     options:
       - $ref: "#/variables/all"
       - $ref: "#/variables/msg"
-  status:
+  _status:
     help: Show status of staging area
   diff:
     help: Show diff of contents versus last commit
@@ -65,49 +72,43 @@ variables:
     name: "--add-all"
     short: "-a"
     help: Automatically add all changes
-    type: string
+    type: str
     format: path
   dir:
     name: dir
     help: Local directory
-    type: string
-    format: path
+    type: Path
   local:
     name: local
     help: Local file
-    type: string
-    format: path
+    type: Path
   msg:
     name: "--msg"
     short: "-m"
     help: Commit message explaining changes
-    type: string
-    format: path
+    type: str
   nocopy:
     name: "--no-copy"
     short: "-n"
     help: Do not copy S3 objects (use references where possible)
-    type: flag
+    action: store_true
   path:
     name: "--path"
     short: "-p"
     help: "Remote relative, logical path to store objects in"
-    type: string
+    type: str
     format: path
   uri:
     name: uri
     help: URI of resource to list
-    type: string
-    format: uri
-    handler: QuiltResource
+    type: UnUri
   verbose:
     name: "--verbose"
     short: "-v"
     help: Display verbose version of output
-    type: flag
+    action: store_true
   version:
     name: "--version"
     short: "-V"
     help: Display version information
-    type: flag
     scope: global
