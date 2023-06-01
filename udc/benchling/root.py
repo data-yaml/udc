@@ -4,6 +4,7 @@ import urllib.parse
 
 from benchling_sdk.auth.api_key_auth import ApiKeyAuth
 from benchling_sdk.benchling import Benchling
+from json import loads
 
 BENCH_ID = "id"
 BENCH_TYPE = "type"
@@ -11,6 +12,21 @@ BENCH_TYPE_DEFAULT = "entries"
 
 
 class BenchlingRoot:
+    @staticmethod
+    def ExtractJson(result):
+        if  not isinstance(result, str) or result[0] != '{':
+            return result
+        if "'" in result:
+            result = result.replace("'", '"')
+        return loads(result)
+    
+    @staticmethod
+    def NormalizeQuery(query: dict) -> dict:
+        for key, value in query.items():
+            if isinstance(value, list): # non-parsed
+                query[key] = BenchlingRoot.ExtractJson(value[0])
+        return query
+
     BENCH_TENANT = os.environ.get("BENCHLING_TENANT_DNS")
     BENCH_ENTRY = os.environ.get("BENCHLING_ENTRY_ID")
     BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID")
@@ -47,6 +63,12 @@ class BenchlingRoot:
         base = f"benchling+https://{BenchlingRoot.BENCH_TENANT}#type={type}"
         base += f"&id={self.id}" if self.id else ""
         return base
+
+    def query_uri(self, query: dict) -> str:
+        quoted = self.quote(str(query))
+        base = self.base_uri().split("#")
+        uri = f"{base[0]}?{quoted}#{base[1]}"
+        return uri
 
     def item_uri(self, item, sub_type=None) -> str:
         base = self.base_uri(sub_type)

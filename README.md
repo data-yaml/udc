@@ -4,8 +4,16 @@
 
 ### What is UDC?
 
-Universal Data is an open source initiative to build a decentralized, cryptographically-secure ecosystem containerizing both structured and unstructured data.
+Universal Data is an open source initiative to build
+a decentralized, cryptographically-secure ecosystem
+containerizing both structured and unstructured data.
+
 UDC is the initial (alpha) client for that system.
+It currently supports both Quilt and Benchling URIs.
+For example:
+
+- `udc list "quilt+s3://quilt-example#package=examples/wellplates"`
+- `udc patch "benchling+https://dtt.benchling.com?name=Update#type=Entry&id=etr_123"`
 
 ## Installation
 

@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "udc"
-version = "0.3.0"
-description = ""
+version = "0.3.1"
+description = "The Universal Data Client command-line tool"
 authors = ["Ernest Prabhakar <ernest@quiltdata.io>"]
 readme = "README.md"
 
@@ -25,6 +25,7 @@ pytest-asyncio = "^0.21.0"
 pytest-trio = "^0.8.0"
 pytest-codeblocks = "^0.16.1"
 ipykernel = "^6.23.1"
+mypy = "^1.3.0"
 
 [tool.poetry.scripts]
 udc = "udc.main:main"
