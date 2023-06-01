@@ -1,13 +1,12 @@
 import logging
 import urllib.parse
-from json import dump, loads
+from json import dump
 from pathlib import Path
 
 from benchling_api_client.v2.stable.models.entry_day import EntryDay
 from benchling_api_client.v2.stable.models.user_summary import UserSummary
 from benchling_sdk.models import Entry, EntryUpdate
 
-# , EntrySchemaDetailed, Fields, CustomFields
 from un_yaml import UnUri
 
 from ..types import ResultList
@@ -48,15 +47,9 @@ class BenchlingEntry(BenchlingRoot):
             "fields": [self.quote(key) for key in self.entry.fields.additional_keys],
         }
 
-    def push(self, id, changes: dict) -> Entry:
-        for key, value in changes.items():
-            if isinstance(value, list): # non-parsed
-                result = value[0]
-                print(f"result: {result}")
-                changes[key] = loads(result) if result[0] == '{' else result
-        print(f"changes: {changes}")
+    def push(self, id, query: dict) -> Entry:
+        changes = BenchlingRoot.NormalizeQuery(query)
         update = EntryUpdate.from_dict(changes)
-        print(f"update: {update}")
         return BenchlingRoot.CLIENT.entries.update_entry(entry_id=id, entry=update)
 
     def wrap(self, id, sub_type):
@@ -88,7 +81,7 @@ class BenchlingEntry(BenchlingRoot):
             if not isinstance(query, dict):
                 query = urllib.parse.parse_qs(query)
             result = self.push(self.id, query)
-            print(f"patched {result.web_url}\n{query}")
+            logging.debug(f"patched {result.web_url}\n{query}")
         except Exception as ex:
             logging.error(f"patch query not valid for EntryUpdate: {query}\n{ex}")
             return []

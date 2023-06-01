@@ -3,7 +3,6 @@ from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from benchling_sdk.models import EntryUpdate, Fields
 from tzlocal import get_localzone
 from udc import Listable
 from udc.benchling import (
@@ -92,13 +91,10 @@ def test_benchling_pages(attrs: dict):
 
 async def check_list(klass, type: str):
     attrs = attrs_type(type)
-    print("attrs", attrs)
     bench: Listable = klass(attrs)
     plist = await bench.list()
     assert len(plist) > 0
     uri = attrs.get(UnUri.K_URI)
-    print(plist[0])
-    print(uri)
     assert plist[0].startswith(str(uri))
 
 
