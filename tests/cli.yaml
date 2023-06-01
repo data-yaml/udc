@@ -21,8 +21,8 @@ _yaml:
 argsets:
   remote:
     arguments:
-      - $ref: "#/variables/dir"
       - $ref: "#/variables/uri"
+      - $ref: "#/variables/path"
     options:
       - $ref: "#/variables/nocopy"
     handler:
@@ -74,10 +74,11 @@ variables:
     help: Automatically add all changes
     type: str
     format: path
-  dir:
-    name: dir
-    help: Local directory
+  path:
+    name: path
+    help: Local directory or file
     type: Path
+    nargs: '?'
   local:
     name: local
     help: Local file
@@ -92,12 +93,12 @@ variables:
     short: "-n"
     help: Do not copy S3 objects (use references where possible)
     action: store_true
-  path:
-    name: "--path"
-    short: "-p"
-    help: "Remote relative, logical path to store objects in"
+  key:
+    name: "--sub_path"
+    short: "-s"
+    help: "Remote relative, logical sub_path to store objects in"
     type: str
-    format: path
+    format: sub_path
   uri:
     name: uri
     help: URI of resource to list

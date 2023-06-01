@@ -48,6 +48,12 @@ class BenchlingRoot:
         base += f"&id={self.id}" if self.id else ""
         return base
 
+    def query_uri(self, query: dict) -> str:
+        quoted = self.quote(str(query))
+        base = self.base_uri().split('#')
+        uri = f"{base[0]}?{quoted}#{base[1]}"
+        return uri
+
     def item_uri(self, item, sub_type=None) -> str:
         base = self.base_uri(sub_type)
         logging.debug(f"item_uri.base: {base}")
