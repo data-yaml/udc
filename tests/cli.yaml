@@ -22,20 +22,21 @@ argsets:
   remote:
     arguments:
       - $ref: "#/variables/uri"
-      - $ref: "#/variables/path"
     options:
       - $ref: "#/variables/nocopy"
-    handler:
-      class: udc.cli.Remote
-      method: run
+      - $ref: "#/variables/dir"
+  push:
+    arguments:
+      - $ref: "#/variables/uri"
+    options:
+      - $ref: "#/variables/nocopy"
+      - $ref: "#/variables/dir"
+      - $ref: "#/variables/file"
   stage:
     arguments:
       - $ref: "#/variables/local"
     options:
       - $ref: "#/variables/path"
-    handler:
-      class: udc.cli.Stage
-      method: run
 commands:
   list:
     arguments:
@@ -45,10 +46,10 @@ commands:
     $ref: "#/argsets/remote"
     help: Get contents of remote URI into directory (and gitignore it)
   put:
-    $ref: "#/argsets/remote"
+    $ref: "#/argsets/push"
     help: Put commited contents from directory to remote URI (replace)
   patch:
-    $ref: "#/argsets/remote"
+    $ref: "#/argsets/push"
     help: Patch commited contents from directory into latest remote URI (update)
   _add:
     $ref: "#/argsets/stage"
@@ -74,11 +75,18 @@ variables:
     help: Automatically add all changes
     type: str
     format: path
-  path:
-    name: path
-    help: Local directory or file
+  dir:
+    name: "--dir"
+    short: "-d"
+    help: Local directory
     type: Path
-    nargs: "?"
+  file:
+    name: "--file"
+    short: "-f"
+    help: Local file
+    type: Path
+    nargs: "*"
+    action: append
   local:
     name: local
     help: Local file
