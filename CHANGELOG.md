@@ -2,7 +2,9 @@
 
 ## 0.3.1 (2023-05-31b)
 
-- Actually support `udc get`
+- Support BenchlingEntry get/patch
+- Make `dir` an option versus a positional argument
+- New `ResultList` output type
 
 ## 0.3.0 (2023-05-31)
 
