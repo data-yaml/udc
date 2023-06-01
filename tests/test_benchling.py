@@ -151,49 +151,13 @@ async def test_benchling_entry_get(attrs: dict):
 
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
-async def test_benchling_entry_push(attrs: dict):
-    new_name = f"test_benchling_entry_push {Now()}"
-    entry = BenchlingEntry(attrs)
-    update = EntryUpdate(name=new_name)  # type: ignore
-    entry.fetch()
-    old_fields = entry.entry.fields.to_dict()
-    print(old_fields)
-    new_fields = Fields.from_dict(
-        {
-            "Quilt Catalog URL": {"value": CATALOG_URL},
-            "Sentinel": {"value": Seconds()},  # time in seconds
-        }
-    )
-    print(new_fields)
-    update.fields = new_fields
-    result = entry.push(entry.id, update)
-    print(result)
-    assert result.name == new_name
-    fields = result.fields.to_dict()
-    assert fields["Quilt Catalog URL"]["value"] == CATALOG_URL
-
-
-@pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
-async def test_benchling_entry_patch(attrs: dict):
-    entry = BenchlingEntry(attrs)
-    new_name = f"test_benchling_entry_patch {Now()}"
-    opts = {UnUri.K_QRY: {"name": new_name}}
-    result = await entry.patch(opts)
-    assert result
-
-    entry.fetch()
-    assert entry.entry.name == new_name
-
-
-@pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
 async def test_benchling_entry_patch_uri(attrs: dict):
     new_name = f"test_benchling_entry_patch_uri {Now()}"
     attrs[UnUri.K_QRY] = {
         "name": new_name,
         "fields": {
-            "Quilt Catalog URL": {
-                "value": CATALOG_URL,
-            }
+            "Quilt Catalog URL": {"value": CATALOG_URL},
+            "Sentinel": {"value": Seconds()},
         },
     }
     entry = BenchlingEntry(attrs)
@@ -202,3 +166,5 @@ async def test_benchling_entry_patch_uri(attrs: dict):
 
     entry.fetch()
     assert entry.entry.name == new_name
+    fields = entry.entry.fields.to_dict()
+    assert fields["Quilt Catalog URL"]["value"] == CATALOG_URL

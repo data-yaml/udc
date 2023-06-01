@@ -48,8 +48,11 @@ class BenchlingEntry(BenchlingRoot):
             "fields": [self.quote(key) for key in self.entry.fields.additional_keys],
         }
 
-    def push(self, id, entry: EntryUpdate) -> Entry:
-        return BenchlingRoot.CLIENT.entries.update_entry(entry_id=id, entry=entry)
+    def push(self, id, changes: dict) -> Entry:
+        if isinstance(changes["name"], list):
+            changes["name"] = changes["name"][0]
+        update = EntryUpdate.from_dict(changes)  # type: ignore
+        return BenchlingRoot.CLIENT.entries.update_entry(entry_id=id, entry=update)
 
     def wrap(self, id, sub_type):
         item_dict = {"id": id, sub_type: id}
@@ -79,16 +82,9 @@ class BenchlingEntry(BenchlingRoot):
         try:
             if not isinstance(query, dict):
                 query = urllib.parse.parse_qs(query)
-            if isinstance(query["name"], list):
-                query["name"] = query["name"][0]
-            update = EntryUpdate.from_dict(query)  # type: ignore
+            result = self.push(self.id, query)
+            print(f"patched {result.web_url}\n{query}")
         except Exception as ex:
             logging.error(f"patch query not valid for EntryUpdate: {query}\n{ex}")
-            return []
-        try:
-            result = self.push(self.id, update)
-            print(f"patched {result.web_url}\n{query}")
-        except Exception:
-            logging.error(f"patch failed to push EntryUpdate: {query}\n{update}")
             return []
         return [self.base_uri()]
