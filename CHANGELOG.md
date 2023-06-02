@@ -1,5 +1,10 @@
 # CHANGELOG.md
 
+## 0.3.2 (2023-06-02)
+
+- New quiltplus version
+- verify get/put/patch
+
 ## 0.3.1 (2023-05-31b)
 
 - Support BenchlingEntry get/patch

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "udc"
-version = "0.3.1"
+version = "0.3.2"
 description = "The Universal Data Client command-line tool"
 authors = ["Ernest Prabhakar <ernest@quiltdata.io>"]
 readme = "README.md"
