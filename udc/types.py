@@ -18,7 +18,13 @@ class Getable(Protocol):
 
 
 @runtime_checkable
+class Patchable(Protocol):
+    async def patch(self, argv: dict = {}) -> ResultList:
+        """Patch (merge/update) contents of path into URI."""
+        return []
+
+@runtime_checkable
 class Putable(Protocol):
     async def put(self, argv: dict = {}) -> ResultList:
-        """Put contents of path into URI."""
+        """Put (replace) contents of path into URI."""
         return []
