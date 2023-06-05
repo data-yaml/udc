@@ -1604,26 +1604,30 @@ tests = ["anndata (!=0.9.0)", "coverage (==6.4)", "git-pylint-commit-hook", "pyt
 
 [[package]]
 name = "quiltplus"
-version = "0.9.1"
+version = "0.9.2"
 description = "Resource-oriented Python API/CLI for Quilt's decentralized social knowledge platform"
 optional = false
-python-versions = ">=3.10,<4.0"
-files = [
-    {file = "quiltplus-0.9.1-py3-none-any.whl", hash = "sha256:69b91725d43a07947a33887bf154c192b43b126601e26c297b9ec4267421c7c1"},
-    {file = "quiltplus-0.9.1.tar.gz", hash = "sha256:c0751361e0a26f62f5b31a33e5493de0effb7cc400592f3f3d6de8e76bd6cc61"},
-]
+python-versions = "^3.10"
+files = []
+develop = false
 
 [package.dependencies]
-anyio = ">=3.7.0,<4.0.0"
-asyncclick = ">=8.1.3.4,<9.0.0.0"
-isort = ">=5.12.0,<6.0.0"
-pytest-cov = ">=4.0.0,<5.0.0"
-quilt3 = ">=5.1.0,<6.0.0"
-trio = ">=0.22.0,<0.23.0"
-typing-extensions = ">=4.6.3,<5.0.0"
-tzlocal = ">=5.0.1,<6.0.0"
+anyio = "^3.7.0"
+asyncclick = "^8.1.3.4"
+isort = "^5.12.0"
+pytest-cov = "^4.0.0"
+quilt3 = "^5.1.0"
+trio = "^0.22.0"
+typing-extensions = "^4.6.3"
+tzlocal = "^5.0.1"
 un-yaml = ">=0.2.0"
 urllib3 = "<2"
+
+[package.source]
+type = "git"
+url = "https://github.com/quiltdata/quiltplus.git"
+reference = "55-diff"
+resolved_reference = "088316f816e8c529aac1c6031306aef974fa723f"
 
 [[package]]
 name = "requests"
@@ -2067,4 +2071,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "eac22fb2dc64f4ce475b4eca6f5ab40b0f4907af55514c97efd5f9d8f86bd184"
+content-hash = "7cb40881e90151736af5218675063e96ebf4491fc5a5e1dd16636b88a8f52598"

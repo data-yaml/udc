@@ -2,7 +2,7 @@ import logging
 import os
 
 import pytest
-from quiltplus import QuiltUri
+from quiltplus.uri import QuiltUri
 
 logging.basicConfig(level=logging.DEBUG)
 pytestmark = pytest.mark.anyio
