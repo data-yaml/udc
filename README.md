@@ -32,7 +32,7 @@ which udc
 
 <!--pytest.mark.skip-->
 ```bash
-python3 -m pip install https://github.com/data-yaml/udc@main
+python3 -m pip install git+https://github.com/data-yaml/udc.git@main
 ```
 
 ## Cloned
