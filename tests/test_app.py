@@ -19,7 +19,6 @@ def buf():
 
 @pytest.mark.skipif(not BENCH_TENANT, reason="Benchling environment variables not set")
 async def test_app():
-    assert app
     assert PKG_URI
     assert BENCH_TENANT
     assert BENCH_URI

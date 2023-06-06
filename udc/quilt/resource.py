@@ -1,13 +1,5 @@
-from quiltplus import QuiltResource as Resource
+from quiltplus import QuiltResource as Resource  # type: ignore
 
 
 def QuiltResource(attrs: dict):
-    resource = None
-    try:
-        resource = Resource(attrs)
-    except Exception:
-        pass
-    if resource:
-        return resource
-    uri = attrs.get("_uri")
-    return Resource(uri)
+    return Resource(attrs)

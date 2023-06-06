@@ -1,4 +1,5 @@
 sinclude .env # create from example.env
+PROJECT=udc
 .PHONY: install test watch all clean
 
 TEST_README=--codeblocks
@@ -9,9 +10,11 @@ endif
 all: install update test
 
 clean:
+	rm -f etr_*.json
+	rm -f data.yaml
 	rm -rf coverage*
 	rm -f .coverage*
-	rm -f etr_*.json
+	rm -rf quiltplus/.pytest_cache
 
 install:
 	poetry install
@@ -21,6 +24,15 @@ update:
 
 test:
 	poetry run pytest $(TEST_README) --cov --cov-report xml:coverage.xml
+
+test-short:
+	make test "SKIP_LONG_TESTS=True"
+
+test-long:
+	make test "SKIP_LONG_TESTS=False"
+
+typecheck:
+	poetry run mypy $(PROJECT) tests --check-untyped-defs
 
 coverage:
 	poetry run pytest --cov --cov-report html:coverage_html
@@ -33,25 +45,29 @@ tag:
 	git tag `poetry version | awk '{print $$2}'`
 	git push --tags
 
-pypi: clean clean-git
+pypi: clean
 	poetry version
 	poetry build
 	poetry publish --dry-run
-	make tag
+	echo "poetry version prepatch" # major minor
 
 clean-git:
 	git branch | grep -v '*' | grep -v 'main' | xargs git branch -D
 
 which:
-	which udc
-	udc --version
+	which $(PROJECT)
+	$(PROJECT) --version
 
 pip-install:
-	python3 -m pip install udc
+	python3 -m pip install $(PROJECT)
 	make which
 
 pip-upgrade:
-	python3 -m pip install --upgrade udc
+	python3 -m pip install --upgrade $(PROJECT)
 	make which
+
+pip-update:
+	poetry self update
+	python3 -m pip install --upgrade pip
 
 
