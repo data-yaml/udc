@@ -1,13 +1,10 @@
-from importlib.metadata import version
 from io import StringIO
 
-from udc import app
+from udc import app, __version__
 from un_yaml import UnCli  # type: ignore
 
 from .conftest import pytestmark  # NOQA F401
 from .conftest import BENCH_TENANT, BENCH_URI, PKG_URI, pytest
-
-__version__ = version("udc")
 
 
 @pytest.fixture
@@ -24,9 +21,9 @@ async def test_app():
     assert BENCH_URI
 
 def test_app_cli():
-    cli = UnCli("udc")
+    cli = UnCli("udc", __version__)
     assert cli
-    assert cli.doc == "udc"
+    assert cli.info("doc") == "udc"
 
 async def test_app_version(buf: StringIO):
     await app(["--version"], buf)
@@ -34,7 +31,7 @@ async def test_app_version(buf: StringIO):
 
 
 async def test_app_vflag(buf: StringIO):
-    await app(["-v"], buf)
+    await app(["-V"], buf)
     assert f"udc {__version__}\n" == buf.getvalue()
 
 

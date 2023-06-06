@@ -1,4 +1,4 @@
-from .main import app  # NOQA F401
+from .main import app, __version__  # NOQA F401
 from .types import Getable, Listable, Patchable, Putable  # NOQA F401
 
 # Legacy vars for quiltplus

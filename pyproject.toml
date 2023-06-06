@@ -16,7 +16,8 @@ typing-extensions = "^4.5.0"
 quiltplus = ">=0.9.2"
 # quiltplus = {git = "https://github.com/quiltdata/quiltplus.git", rev = "55-diff"}
 benchling-sdk = "^1.6.1"
-un-yaml = ">=0.2.0"
+# un-yaml = ">=0.3.0"
+un-yaml = {git = "https://github.com/data-yaml/un-yaml.git", rev = "add-command"}
 
 [tool.poetry.group.dev.dependencies]
 pytest-coverage = "^0.0"
