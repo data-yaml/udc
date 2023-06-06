@@ -2,11 +2,11 @@ from collections.abc import Sequence
 from sys import stdout
 
 from anyio import run
-from un_yaml import UnCli
+from un_yaml import UnCli  # type: ignore
 
 
 async def app(argv: Sequence[str] | None, out=stdout):
-    cli = UnCli()
+    cli = UnCli("udc")
     await cli.run(argv, out)
     return out
 
