@@ -4,7 +4,7 @@ _yaml:
   app_version: 0.2.0
   doc: udc
   doc_version: 0.2.0
-  handlers:
+  handler:
     doc:
       module: udc.wrapper
       method: Wrapper
@@ -18,29 +18,29 @@ _yaml:
       module: self
       method: get_resource
       key: _resource
-argsets:
+argset:
   remote:
-    arguments:
+    argument:
       - $ref: "#/variables/uri"
-    options:
+    option:
       - $ref: "#/variables/nocopy"
       - $ref: "#/variables/dir"
   push:
-    arguments:
+    argument:
       - $ref: "#/variables/uri"
-    options:
+    option:
       - $ref: "#/variables/nocopy"
       - $ref: "#/variables/dir"
       - $ref: "#/variables/file"
       - $ref: "#/variables/fallible"
   stage:
-    arguments:
+    argument:
       - $ref: "#/variables/local"
-    options:
+    option:
       - $ref: "#/variables/path"
-commands:
+command:
   list:
-    arguments:
+    argument:
       - $ref: "#/variables/uri"
     help: List members of a resource
   get:
@@ -54,11 +54,11 @@ commands:
     help: Patch commited contents from directory into latest remote URI (update)
   diff:
     help: Show diff of directory contents versus last install/push
-    arguments:
+    argument:
       - $ref: "#/variables/uri"
-    options:
+    option:
       - $ref: "#/variables/dir"
-variables:
+variable:
   all:
     name: "--all"
     short: "-a"
@@ -79,7 +79,7 @@ variables:
     short: "-f"
     help: Local file
     type: Path
-    nargs: "*"
+    narg:"*"
     action: append
   fallible:
     name: "--fallible"
