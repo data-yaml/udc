@@ -17,6 +17,11 @@ For example:
 
 ## Installation
 
+NOTE: UDC requires Python 3.10 or higher.
+You can check your version with `python3 --version`.
+If you have an older version, you will need to update your environment to a
+[newer version of Python](https://www.pythoncentral.io/how-to-update-python/).
+
 ### Production Package
 
 From PyPi:
