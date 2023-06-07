@@ -58,26 +58,17 @@ commands:
       - $ref: "#/variables/uri"
     options:
       - $ref: "#/variables/dir"
-  _add:
-    $ref: "#/argsets/stage"
-    help: Add local file to staging
-  _rm:
-    $ref: "#/argsets/stage"
-    help: Remove local file from staging
-  _commit:
-    help: Commit staged changes
-    options:
-      - $ref: "#/variables/all"
-      - $ref: "#/variables/msg"
-  _status:
-    help: Show status of staging area
 variables:
   all:
-    name: "--add-all"
+    name: "--all"
     short: "-a"
-    help: Automatically add all changes
-    type: str
-    format: path
+    help: Automatically add/perform all changes
+    action: store_true
+  body:
+    name: "--body-file"
+    short: "-b"
+    help: Filename (usually JSON/YAML) to use as body of request (typically for metadata)
+    type: Path
   dir:
     name: "--dir"
     short: "-d"
