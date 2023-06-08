@@ -2,13 +2,13 @@ import logging
 import os
 
 import pytest
-from quiltplus import QuiltUri
+from quiltplus.uri import QuiltUri
 
 logging.basicConfig(level=logging.DEBUG)
 pytestmark = pytest.mark.anyio
 
-BENCH_TENANT = os.environ.get("BENCHLING_TENANT_DNS")
-BENCH_ENTRY = os.environ.get("BENCHLING_ENTRY_ID")
+BENCH_TENANT = os.environ.get("BENCHLING_TENANT_DNS") or False
+BENCH_ENTRY = os.environ.get("BENCHLING_ENTRY_ID") or False
 BENCH_AUTHOR = os.environ.get("BENCHLING_AUTHOR_ID") or ""
 BENCH_KEY = os.environ.get("BENCHLING_API_KEY")
 BENCH_BASE = f"benchling+https://{BENCH_TENANT}"

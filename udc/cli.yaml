@@ -4,7 +4,7 @@ _yaml:
   app_version: 0.2.0
   doc: udc
   doc_version: 0.2.0
-  handlers:
+  handler:
     doc:
       module: udc.wrapper
       method: Wrapper
@@ -18,68 +18,71 @@ _yaml:
       module: self
       method: get_resource
       key: _resource
-argsets:
+argset:
   remote:
-    arguments:
-      - $ref: "#/variables/uri"
-    options:
-      - $ref: "#/variables/nocopy"
-      - $ref: "#/variables/dir"
+    argument:
+      - $ref: "#/variable/uri"
+    option:
+      - $ref: "#/variable/nocopy"
+      - $ref: "#/variable/dir"
   push:
-    arguments:
-      - $ref: "#/variables/uri"
-    options:
-      - $ref: "#/variables/nocopy"
-      - $ref: "#/variables/dir"
-      - $ref: "#/variables/file"
+    argument:
+      - $ref: "#/variable/uri"
+    option:
+      - $ref: "#/variable/dir"
+      - $ref: "#/variable/file"
+      - $ref: "#/variable/fallible"
+      - $ref: "#/variable/msg"
+      - $ref: "#/variable/nocopy"
   stage:
-    arguments:
-      - $ref: "#/variables/local"
-    options:
-      - $ref: "#/variables/path"
-commands:
+    argument:
+      - $ref: "#/variable/local"
+    option:
+      - $ref: "#/variable/sub_path"
+command:
   list:
-    arguments:
-      - $ref: "#/variables/uri"
+    argument:
+      - $ref: "#/variable/uri"
     help: List members of a resource
   get:
-    $ref: "#/argsets/remote"
+    $ref: "#/argset/remote"
     help: Get contents of remote URI into directory (and gitignore it)
   put:
-    $ref: "#/argsets/push"
+    $ref: "#/argset/push"
     help: Put commited contents from directory to remote URI (replace)
   patch:
-    $ref: "#/argsets/push"
+    $ref: "#/argset/push"
     help: Patch commited contents from directory into latest remote URI (update)
-  _add:
-    $ref: "#/argsets/stage"
-    help: Add local file to staging
-  _rm:
-    $ref: "#/argsets/stage"
-    help: Remove local file from staging
-  _commit:
-    help: Commit staged changes
-    options:
-      - $ref: "#/variables/all"
-      - $ref: "#/variables/msg"
-  _status:
-    help: Show status of staging area
-  diff:
-    help: Show diff of contents versus last commit
-    options:
-      - $ref: "#/variables/verbose"
-variables:
+  _diff:
+    help: Show diff of directory contents versus last install/push
+    argument:
+      - $ref: "#/variable/uri"
+    option:
+      - $ref: "#/variable/dir"
+global:
+  verbose:
+    name: "--verbose"
+    short: "-v"
+    help: Display verbose version of output
+    action: store_true
+    scope: global
+variable:
   all:
-    name: "--add-all"
+    name: "--all"
     short: "-a"
-    help: Automatically add all changes
-    type: str
-    format: path
+    help: Automatically add/perform all changes
+    action: store_true
+  body:
+    name: "--body-file"
+    short: "-b"
+    help: Filename (usually JSON/YAML) to use as body of request (typically for metadata)
+    type: Path
   dir:
     name: "--dir"
     short: "-d"
     help: Local directory
     type: Path
+    default: "."
   file:
     name: "--file"
     short: "-f"
@@ -87,6 +90,11 @@ variables:
     type: Path
     nargs: "*"
     action: append
+  fallible:
+    name: "--fallible"
+    short: "-F"
+    help: Fail if remote repository is out of date
+    action: store_true
   local:
     name: local
     help: Local file
@@ -101,7 +109,7 @@ variables:
     short: "-n"
     help: Do not copy S3 objects (use references where possible)
     action: store_true
-  key:
+  sub_path:
     name: "--sub_path"
     short: "-s"
     help: "Remote relative, logical sub_path to store objects in"
@@ -111,13 +119,4 @@ variables:
     name: uri
     help: URI of resource to list
     type: UnUri
-  verbose:
-    name: "--verbose"
-    short: "-v"
-    help: Display verbose version of output
-    action: store_true
-  version:
-    name: "--version"
-    short: "-V"
-    help: Display version information
-    scope: global
+

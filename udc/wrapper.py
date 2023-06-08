@@ -1,4 +1,4 @@
-from un_yaml import UnUri
+from un_yaml import UnUri  # type: ignore
 
 
 class Wrapper:

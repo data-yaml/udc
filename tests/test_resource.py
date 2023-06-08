@@ -1,8 +1,10 @@
 from quiltplus import QuiltPackage, QuiltRegistry, QuiltResourceURI
-from udc import Getable, Listable, Putable
+
+from udc import Getable, Listable, Patchable, Putable
+from udc.benchling import BenchlingEntry, BenchlingResourceURI, BenchlingRoot
 
 from .conftest import pytestmark  # NOQA F401
-from .conftest import BENCH_ENTRY, PKG_URI, REG_URI, pytest
+from .conftest import BENCH_ENTRY, BENCH_URI, PKG_URI, REG_URI, pytest
 
 
 async def test_res_types():
@@ -28,4 +30,10 @@ async def test_res_reg():
 
 @pytest.mark.skipif(not BENCH_ENTRY, reason="Benchling environment variables not set")
 async def test_res_bench():
-    pass
+    bench = BenchlingResourceURI(BENCH_URI or "")
+    assert isinstance(bench, BenchlingRoot)
+    assert isinstance(bench, BenchlingEntry)
+    assert isinstance(bench, Listable)
+    assert isinstance(bench, Getable)
+    assert isinstance(bench, Patchable)
+    assert not isinstance(bench, Putable)

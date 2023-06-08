@@ -17,6 +17,11 @@ For example:
 
 ## Installation
 
+NOTE: UDC requires Python 3.10 or higher.
+You can check your version with `python3 --version`.
+If you have an older version, you will need to update your environment to a
+[newer version of Python](https://www.pythoncentral.io/how-to-update-python/).
+
 ### Production Package
 
 From PyPi:
@@ -32,7 +37,7 @@ which udc
 
 <!--pytest.mark.skip-->
 ```bash
-python3 -m pip install https://github.com/data-yaml/udc@main
+python3 -m pip install git+https://github.com/data-yaml/udc.git@main
 ```
 
 ## Cloned
@@ -96,6 +101,32 @@ e.g.,
 <!--pytest-codeblocks:expected-output-->
 ```bash
 "quilt+s3://quilt-example#package=akarve/amazon-reviews:latest"
+```
+
+### Get a package into a specific directory
+
+You can also use `put` (replace) and `patch` (merge) if you have write access.
+
+```bash
+udc get "quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2" --dir /tmp/wellplates
+```
+
+Checking the download directory:
+
+```bash
+ls /tmp/wellplates
+```
+
+Should reveal the following output:
+<!--pytest-codeblocks:expected-output-->
+```bash
+README.md
+autoplate_H1N1.csv
+data_products.ipynb
+neutralisation-altair.json
+neutralisation.json
+quilt_summarize.json
+render.html
 ```
 
 ## Development
