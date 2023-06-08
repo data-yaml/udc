@@ -23,6 +23,7 @@ class Patchable(Protocol):
         """Patch (merge/update) contents of path into URI."""
         return []
 
+
 @runtime_checkable
 class Putable(Protocol):
     async def put(self, argv: dict = {}) -> ResultList:

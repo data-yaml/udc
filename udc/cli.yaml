@@ -119,4 +119,3 @@ variable:
     name: uri
     help: URI of resource to list
     type: UnUri
-

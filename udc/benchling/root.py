@@ -1,10 +1,10 @@
 import logging
 import os
 import urllib.parse
+from json import loads
 
 from benchling_sdk.auth.api_key_auth import ApiKeyAuth
 from benchling_sdk.benchling import Benchling
-from json import loads
 
 BENCH_ID = "id"
 BENCH_TYPE = "type"
@@ -14,16 +14,16 @@ BENCH_TYPE_DEFAULT = "entries"
 class BenchlingRoot:
     @staticmethod
     def ExtractJson(result):
-        if  not isinstance(result, str) or result[0] != '{':
+        if not isinstance(result, str) or result[0] != "{":
             return result
         if "'" in result:
             result = result.replace("'", '"')
         return loads(result)
-    
+
     @staticmethod
     def NormalizeQuery(query: dict) -> dict:
         for key, value in query.items():
-            if isinstance(value, list): # non-parsed
+            if isinstance(value, list):  # non-parsed
                 query[key] = BenchlingRoot.ExtractJson(value[0])
         return query
 
