@@ -103,6 +103,32 @@ e.g.,
 "quilt+s3://quilt-example#package=akarve/amazon-reviews:latest"
 ```
 
+### Get a package into a specific directory
+
+You can also use `put` (replace) and `patch` (merge) if you have write access.
+
+```bash
+udc get "quilt+s3://quilt-example#package=examples/wellplates@6782cf98a2" --dir /tmp/wellplates
+```
+
+Checking the download directory:
+
+```bash
+ls /tmp/wellplates
+```
+
+Should reveal the following output:
+<!--pytest-codeblocks:expected-output-->
+```bash
+README.md
+autoplate_H1N1.csv
+data_products.ipynb
+neutralisation-altair.json
+neutralisation.json
+quilt_summarize.json
+render.html
+```
+
 ## Development
 
 ### Testing

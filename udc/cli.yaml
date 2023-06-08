@@ -29,10 +29,11 @@ argset:
     argument:
       - $ref: "#/variable/uri"
     option:
-      - $ref: "#/variable/nocopy"
       - $ref: "#/variable/dir"
       - $ref: "#/variable/file"
       - $ref: "#/variable/fallible"
+      - $ref: "#/variable/msg"
+      - $ref: "#/variable/nocopy"
   stage:
     argument:
       - $ref: "#/variable/local"
@@ -52,7 +53,7 @@ command:
   patch:
     $ref: "#/argset/push"
     help: Patch commited contents from directory into latest remote URI (update)
-  diff:
+  _diff:
     help: Show diff of directory contents versus last install/push
     argument:
       - $ref: "#/variable/uri"
