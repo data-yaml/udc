@@ -1,5 +1,9 @@
 # CHANGELOG.md
 
+## 0.3.3 (2023-06-08)
+
+- Bump version to fix packaging issues
+
 ## 0.3.2 (2023-06-02)
 
 - New quiltplus version
