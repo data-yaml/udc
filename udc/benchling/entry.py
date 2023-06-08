@@ -6,7 +6,6 @@ from pathlib import Path
 from benchling_api_client.v2.stable.models.entry_day import EntryDay
 from benchling_api_client.v2.stable.models.user_summary import UserSummary
 from benchling_sdk.models import Entry, EntryUpdate
-
 from un_yaml import UnUri
 
 from ..types import ResultList

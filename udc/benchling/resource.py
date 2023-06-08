@@ -1,8 +1,9 @@
+from un_yaml import UnUri
+
 from .entry import BenchlingEntry, BenchlingEntryList
 from .root import BenchlingRoot
 from .schema import BenchlingSchema, BenchlingSchemaList
 from .sequence import BenchlingSequence, BenchlingSequenceList
-from un_yaml import UnUri
 
 RESOURCE_MAP = {
     "entries": [BenchlingEntryList, BenchlingEntry],
@@ -19,6 +20,7 @@ def BenchlingResource(attrs: dict) -> BenchlingRoot:
         raise ValueError(f"Unknown resource type[{type}]: {attrs}")
     klass = klasses[0] if not root.id else klasses[1]
     return klass(attrs)
+
 
 def BenchlingResourceURI(uri: str) -> BenchlingRoot:
     attrs = UnUri(uri).attrs
