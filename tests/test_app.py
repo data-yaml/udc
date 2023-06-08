@@ -20,10 +20,12 @@ async def test_app():
     assert BENCH_TENANT
     assert BENCH_URI
 
+
 def test_app_cli():
     cli = UnCli("udc", __version__)
     assert cli
     assert cli.info("doc") == "udc"
+
 
 async def test_app_version(buf: StringIO):
     await app(["--version"], buf)
@@ -37,6 +39,13 @@ async def test_app_vflag(buf: StringIO):
 
 async def test_app_quilt_list(buf: StringIO):
     await app(["list", PKG_URI], buf)
+    result = buf.getvalue()
+    assert result
+    assert PKG_URI in result
+
+
+async def test_app_verbose_list(buf: StringIO):
+    await app(["list", PKG_URI, "--verbose"], buf)
     result = buf.getvalue()
     assert result
     assert PKG_URI in result

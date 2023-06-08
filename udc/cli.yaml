@@ -58,6 +58,13 @@ command:
       - $ref: "#/variable/uri"
     option:
       - $ref: "#/variable/dir"
+global:
+  verbose:
+    name: "--verbose"
+    short: "-v"
+    help: Display verbose version of output
+    action: store_true
+    scope: global
 variable:
   all:
     name: "--all"
@@ -111,13 +118,4 @@ variable:
     name: uri
     help: URI of resource to list
     type: UnUri
-  verbose:
-    name: "--verbose"
-    short: "-v"
-    help: Display verbose version of output
-    action: store_true
-  version:
-    name: "--version"
-    short: "-V"
-    help: Display version information
-    scope: global
+

@@ -1627,7 +1627,7 @@ urllib3 = "<2"
 type = "git"
 url = "https://github.com/quiltdata/quiltplus.git"
 reference = "093-fallible"
-resolved_reference = "6b9ef187adedd6834299b7d10a5a83e9d49bb4f0"
+resolved_reference = "e6b701b27e5f78ee39b7c27eeac071d0e77db133"
 
 [[package]]
 name = "requests"
@@ -1945,7 +1945,7 @@ typing-extensions = "^4.5.0"
 type = "git"
 url = "https://github.com/data-yaml/un-yaml.git"
 reference = "add-command"
-resolved_reference = "9c0d0b2588a26d52336806c4b25ffee2f324478b"
+resolved_reference = "9e0de004bcc777a1b163611615bb8a6c13899863"
 
 [[package]]
 name = "urllib3"
