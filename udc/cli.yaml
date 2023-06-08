@@ -21,43 +21,43 @@ _yaml:
 argset:
   remote:
     argument:
-      - $ref: "#/variables/uri"
+      - $ref: "#/variable/uri"
     option:
-      - $ref: "#/variables/nocopy"
-      - $ref: "#/variables/dir"
+      - $ref: "#/variable/nocopy"
+      - $ref: "#/variable/dir"
   push:
     argument:
-      - $ref: "#/variables/uri"
+      - $ref: "#/variable/uri"
     option:
-      - $ref: "#/variables/nocopy"
-      - $ref: "#/variables/dir"
-      - $ref: "#/variables/file"
-      - $ref: "#/variables/fallible"
+      - $ref: "#/variable/nocopy"
+      - $ref: "#/variable/dir"
+      - $ref: "#/variable/file"
+      - $ref: "#/variable/fallible"
   stage:
     argument:
-      - $ref: "#/variables/local"
+      - $ref: "#/variable/local"
     option:
-      - $ref: "#/variables/path"
+      - $ref: "#/variable/sub_path"
 command:
   list:
     argument:
-      - $ref: "#/variables/uri"
+      - $ref: "#/variable/uri"
     help: List members of a resource
   get:
-    $ref: "#/argsets/remote"
+    $ref: "#/argset/remote"
     help: Get contents of remote URI into directory (and gitignore it)
   put:
-    $ref: "#/argsets/push"
+    $ref: "#/argset/push"
     help: Put commited contents from directory to remote URI (replace)
   patch:
-    $ref: "#/argsets/push"
+    $ref: "#/argset/push"
     help: Patch commited contents from directory into latest remote URI (update)
   diff:
     help: Show diff of directory contents versus last install/push
     argument:
-      - $ref: "#/variables/uri"
+      - $ref: "#/variable/uri"
     option:
-      - $ref: "#/variables/dir"
+      - $ref: "#/variable/dir"
 variable:
   all:
     name: "--all"
@@ -74,12 +74,13 @@ variable:
     short: "-d"
     help: Local directory
     type: Path
+    default: "."
   file:
     name: "--file"
     short: "-f"
     help: Local file
     type: Path
-    narg:"*"
+    nargs: "*"
     action: append
   fallible:
     name: "--fallible"
